@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TezorwasV2.MainPage"
+             BackgroundColor="{StaticResource BACKGROUND}">
+
+
+    <Grid>
+        <Label  x:Name="appNameLabel"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            Text="Welcome to APP_NAME"
+            TextColor="{StaticResource TEXT-COLOR}"
+            FontSize="24"
+            FontAttributes="Bold"
+            Margin="0,100,0,0"
+            FontFamily="Inter-VariableFont"/>
+
+        <Image  x:Name="mainImage"
+            Source="Resources/Images/start_main_image.png"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            WidthRequest="300"
+            HeightRequest="300"
+            Margin="0,150,0,20"/>
+
+        <Border x:Name="actionsArea"
+            Padding="0,32,0,32"
+            BackgroundColor="{StaticResource PRIMARY-COLOR-LIGHT}"
+            Stroke="{StaticResource PRIMARY-COLOR-LIGHT}"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End" >
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,20,0,0" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout    x:Name="ButtonsContainer"
+                                    Spacing="16">
+                <Label
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   Text="Sloganussy"
+                   FontSize="16"
+                   FontFamily="Inter-VariableFont"/>
+
+                <Button Text="Login"
+                    Clicked="OnClickGoToPage"
+                    x:Name="LoginButton"
+                    BackgroundColor="{StaticResource PRIMARY-COLOR}"
+                    HeightRequest="50"
+                    WidthRequest="320"
+                    CornerRadius="40"
+                    FontFamily="Inter-VariableFont"
+                    FontSize="18" ></Button>
+
+                <Button Text="Register"
+                    Clicked="OnClickGoToPage"
+                    x:Name="RegisterButton"
+                    BackgroundColor="{StaticResource PRIMARY-COLOR}"
+                    CornerRadius="40"
+                    HeightRequest="50"
+                    WidthRequest="320"
+                    FontFamily="Inter-VariableFont"
+                    FontSize="18"></Button>
+
+            </VerticalStackLayout>
+
+        </Border>
+    </Grid>
+
+</ContentPage>

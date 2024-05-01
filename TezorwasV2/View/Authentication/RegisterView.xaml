@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TezorwasV2.View.Authentication.RegisterView"
+             xmlns:core="http://schemas.syncfusion.com/maui"
+             Title="RegisterView"
+             Background="red">
+    <ScrollView x:Name="ScrollViewX">
+        <!--<ImageButton Source="Resources/Images/back_button.png"
+                  HorizontalOptions="StartAndExpand"
+                  VerticalOptions="StartAndExpand"
+                  Clicked="BackButton_Clicked"
+                  HeightRequest="40"
+                  Padding="5"
+                  Margin="0,30,0,0"/>-->
+        <VerticalStackLayout>
+            <Label  x:Name="MessageLabel"
+                         Text="Create an accout"
+                         FontSize="28"
+                         FontFamily="Inter-VariableFont"
+                         FontAttributes="Bold"
+                         Margin="20,20,0,0"></Label>
+            <Label  x:Name="InstructionsLabel"
+                         Text="Enter the following details:"
+                         FontSize="14"
+                         FontFamily="Inter-VariableFont"
+                         Margin="20,10,0,40"></Label>
+
+            <core:SfTextInputLayout Hint="First Name"
+                                     ContainerType="Outlined"
+                                     OutlineCornerRadius="30"
+                                     HeightRequest="80"
+                                     WidthRequest="320"
+                                     ContainerBackground="{StaticResource BACKGROUND}"
+                                     Stroke="{StaticResource TEXT-COLOR-LIGHT}">
+                <Entry  x:Name="FirstNameEntry"
+                         Keyboard="Default"
+                         Text="{Binding FirstName}">
+                </Entry>
+                <core:SfTextInputLayout.HintLabelStyle>
+                    <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
+                </core:SfTextInputLayout.HintLabelStyle>
+            </core:SfTextInputLayout>
+
+            <core:SfTextInputLayout Hint="Last Name"
+                                     ContainerType="Outlined"
+                                     OutlineCornerRadius="30"
+                                     WidthRequest="320"
+                                     HeightRequest="80"
+                                     ContainerBackground="{StaticResource BACKGROUND}"
+                                     Stroke="{StaticResource TEXT-COLOR-LIGHT}"
+                                     >
+                <Entry  x:Name="LastNameEntry"
+                         Keyboard="Default"
+                         Text="{Binding LastName}"
+                         FontSize="16">
+                </Entry>
+                <core:SfTextInputLayout.HintLabelStyle>
+                    <core:LabelStyle  TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
+                </core:SfTextInputLayout.HintLabelStyle>
+
+            </core:SfTextInputLayout>
+
+            <core:SfTextInputLayout Hint="Email"
+                                     ContainerType="Outlined"
+                                     OutlineCornerRadius="30"
+                                     HeightRequest="80"
+                                     WidthRequest="320"
+                                     ContainerBackground="{StaticResource BACKGROUND}"
+                                     Stroke="{StaticResource TEXT-COLOR-LIGHT}">
+                <Entry  x:Name="EmailEntry"
+                         Keyboard="Email"
+                         Text="{Binding Email}">
+                </Entry>
+                <core:SfTextInputLayout.HintLabelStyle>
+                    <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
+                </core:SfTextInputLayout.HintLabelStyle>
+
+            </core:SfTextInputLayout>
+
+            <core:SfTextInputLayout Hint="Password"
+                                     ContainerType="Outlined"
+                                     OutlineCornerRadius="30"
+                                     HeightRequest="80"
+                                     WidthRequest="320"
+                                     ContainerBackground="{StaticResource BACKGROUND}"
+                                     Stroke="{StaticResource TEXT-COLOR-LIGHT}">
+                <Entry  x:Name="PasswordEntry"
+                         IsPassword="true"
+                         Text="{Binding Password}"></Entry>
+                <core:SfTextInputLayout.HintLabelStyle>
+                    <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
+                </core:SfTextInputLayout.HintLabelStyle>
+
+            </core:SfTextInputLayout>
+            <core:SfTextInputLayout Hint="Confirm password"
+                                     ContainerType="Outlined"
+                                     OutlineCornerRadius="30"
+                                     HeightRequest="80"
+                                     WidthRequest="320"
+                                     ContainerBackground="{StaticResource BACKGROUND}"
+                                     Stroke="{StaticResource TEXT-COLOR-LIGHT}">
+                <Entry  x:Name="ConfirmPasswordEntry"
+                         IsPassword="true"
+                         Text="{Binding ConfirmPassword}"></Entry>
+                <core:SfTextInputLayout.HintLabelStyle>
+                    <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
+                </core:SfTextInputLayout.HintLabelStyle>
+
+            </core:SfTextInputLayout>
+            <Button Text="Register"
+                            x:Name="RegisterButton"
+                            Background="{StaticResource PRIMARY-COLOR}"
+                            HeightRequest="50"
+                            WidthRequest="320"
+                            CornerRadius="40"
+                            FontFamily="Inter-VariableFont"
+                            FontSize="16"
+                            Margin="0,90,0,0"
+                            Command="{Binding RegisterCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

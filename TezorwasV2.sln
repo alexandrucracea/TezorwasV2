@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TezorwasV2", "TezorwasV2\TezorwasV2.csproj", "{A5479A64-5FCC-43A8-908E-BC395EC78929}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5479A64-5FCC-43A8-908E-BC395EC78929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5479A64-5FCC-43A8-908E-BC395EC78929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5479A64-5FCC-43A8-908E-BC395EC78929}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A5479A64-5FCC-43A8-908E-BC395EC78929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5479A64-5FCC-43A8-908E-BC395EC78929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5479A64-5FCC-43A8-908E-BC395EC78929}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A86C9DE-ABD6-461B-8462-B9472A435D24}
+	EndGlobalSection
+EndGlobal

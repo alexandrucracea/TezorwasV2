@@ -1,0 +1,82 @@
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
+using Syncfusion.Maui.Core.Hosting;
+using System.Diagnostics;
+using System.Reflection;
+using TezorwasV2.Helpers;
+using TezorwasV2.Services;
+using TezorwasV2.View.AppPages;
+using TezorwasV2.View.Authentication;
+using TezorwasV2.ViewModel;
+using TezorwasV2.ViewModel.MainPages;
+
+namespace TezorwasV2
+{
+    public static class MauiProgram
+    {
+        public static IServiceProvider Services { get; private set; }
+        public static MauiApp CreateMauiApp()
+        {
+            var a = Assembly.GetExecutingAssembly();
+            using var stream = a.GetManifestResourceStream("TezorwasV2.appsettings.json");
+
+            var config = new ConfigurationBuilder().AddJsonStream(stream).Build();
+
+
+            var builder = MauiApp.CreateBuilder();
+            builder.UseMauiApp<App>()
+                .ConfigureSyncfusionCore()
+                .ConfigureFonts(fonts =>
+                {
+                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Inter-VariableFont.ttf", "Inter-VariableFont");
+                })
+            .UseMauiCommunityToolkit();
+//            .ConfigureLifecycleEvents(events =>
+//            {
+//#if ANDROID
+//                            events.AddAndroid(android => android
+//                                .OnCreate((activity, bundle) => MakeStatusBarTranslucent(activity)));
+//                            static void MakeStatusBarTranslucent(Android.App.Activity activity)
+//                            {
+//                                    activity.Window.AddFlags(Android.Views.WindowManagerFlags.LayoutNoLimits);
+//                                    activity.Window.ClearFlags(Android.Views.WindowManagerFlags.TranslucentStatus);
+//                                    activity.Window.SetStatusBarColor(Android.Graphics.Color.Transparent);
+
+//                                    activity.Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
+//                            }
+
+//#endif
+//            });
+
+
+
+#if DEBUG
+            builder.Logging.AddDebug();
+#endif
+            builder.Configuration.AddConfiguration(config);
+
+            builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
+            builder.Services.AddTransient<IRegisterService, RegisterService>();
+            builder.Services.AddTransient<IPersonService, PersonService>();
+            builder.Services.AddTransient<IProfileService, ProfileService>();
+
+            builder.Services.AddSingleton<IGlobalContext, GlobalContext>();
+            builder.Services.AddSingleton<LoginViewModel>();
+            builder.Services.AddSingleton<LoginView>();
+            builder.Services.AddSingleton<RegisterViewModel>();
+            builder.Services.AddSingleton<RegisterView>();
+            builder.Services.AddSingleton<QuestionsViewModel>();
+            builder.Services.AddSingleton<QuestionsView>();
+            //todo de vazut daca le lasam cu singleton sau daca le punem cu transient
+
+            var app = builder.Build();
+            Services = app.Services;
+            return app;
+        }
+    }
+}
