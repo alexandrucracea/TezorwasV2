@@ -1,9 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.LifecycleEvents;
 using Syncfusion.Maui.Core.Hosting;
-using System.Diagnostics;
 using System.Reflection;
 using TezorwasV2.Helpers;
 using TezorwasV2.Services;
@@ -34,23 +32,31 @@ namespace TezorwasV2
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("Inter-VariableFont.ttf", "Inter-VariableFont");
                 })
-            .UseMauiCommunityToolkit();
-//            .ConfigureLifecycleEvents(events =>
-//            {
-//#if ANDROID
-//                            events.AddAndroid(android => android
-//                                .OnCreate((activity, bundle) => MakeStatusBarTranslucent(activity)));
-//                            static void MakeStatusBarTranslucent(Android.App.Activity activity)
-//                            {
-//                                    activity.Window.AddFlags(Android.Views.WindowManagerFlags.LayoutNoLimits);
-//                                    activity.Window.ClearFlags(Android.Views.WindowManagerFlags.TranslucentStatus);
-//                                    activity.Window.SetStatusBarColor(Android.Graphics.Color.Transparent);
+            .UseMauiCommunityToolkit()
+            .ConfigureMauiHandlers(handlers =>
 
-//                                    activity.Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
-//                            }
+            {
+#if ANDROID
+                     handlers.AddHandler(typeof(Shell), typeof(TezorwasV2.Platforms.Android.CustomShellHandler));
+#endif
+            });
 
-//#endif
-//            });
+            //            .ConfigureLifecycleEvents(events =>
+            //            {
+            //#if ANDROID
+            //                            events.AddAndroid(android => android
+            //                                .OnCreate((activity, bundle) => MakeStatusBarTranslucent(activity)));
+            //                            static void MakeStatusBarTranslucent(Android.App.Activity activity)
+            //                            {
+            //                                    activity.Window.AddFlags(Android.Views.WindowManagerFlags.LayoutNoLimits);
+            //                                    activity.Window.ClearFlags(Android.Views.WindowManagerFlags.TranslucentStatus);
+            //                                    activity.Window.SetStatusBarColor(Android.Graphics.Color.Transparent);
+
+            //                                    activity.Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
+            //                            }
+
+            //#endif
+            //            });
 
 
 

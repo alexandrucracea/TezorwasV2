@@ -40,6 +40,7 @@
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\task.svg" BaseSize="100,100" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -50,6 +51,13 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="Resources\Images\add_receipt.svg" />
+	  <None Remove="Resources\Images\article.svg" />
+	  <None Remove="Resources\Images\back_button.svg" />
+	  <None Remove="Resources\Images\profile.svg" />
+	  <None Remove="Resources\Images\receipt.svg" />
+	  <None Remove="Resources\Images\start_main_image.svg" />
+	  <None Remove="Resources\Images\task.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -69,7 +77,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="View\AppPages\CarbonFootPrintView.xaml">
+	  <MauiXaml Update="View\AppPages\ArticlesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AppPages\ProfileView.xaml">
@@ -78,7 +86,10 @@
 	  <MauiXaml Update="View\AppPages\QuestionsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\AppPages\RecyclingPointsView.xaml">
+	  <MauiXaml Update="View\AppPages\ReceiptsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AppPages\ScanReceiptView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AppPages\TasksView.xaml">

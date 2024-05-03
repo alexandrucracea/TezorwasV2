@@ -40,22 +40,22 @@ namespace TezorwasV2
                 }
             }
         }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
+        //protected override void OnAppearing()
+        //{
+        //    base.OnAppearing();
 
-            if (this.AnimationIsRunning("TransitionAnimation"))
-                return;
+        //    if (this.AnimationIsRunning("TransitionAnimation"))
+        //        return;
 
-            var parentAnimation = new Animation();
+        //    var parentAnimation = new Animation();
 
 
-            //Intro Box Animation
-            parentAnimation.Add(0.2, 0.7, new Animation(v => ButtonsContainer.Opacity = v, 0, 1, Easing.CubicIn));
+        //    //Intro Box Animation
+        //    parentAnimation.Add(0.2, 0.7, new Animation(v => ButtonsContainer.Opacity = v, 0, 1, Easing.CubicIn));
 
-            //Commit the animation
-            parentAnimation.Commit(this, "TransitionAnimation", 16, 3000, null, null);
-        }
+        //    //Commit the animation
+        //    parentAnimation.Commit(this, "TransitionAnimation", 16, 3000, null, null);
+        //}
 
     }
 

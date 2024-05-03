@@ -1,4 +1,6 @@
 using CommunityToolkit.Maui.Behaviors;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;
 using TezorwasV2.Helpers;
 using TezorwasV2.View.AppPages;
@@ -6,7 +8,7 @@ using TezorwasV2.ViewModel;
 
 namespace TezorwasV2.View.Authentication;
 
-public partial class LoginView
+public partial class LoginView : ContentPage
 {
 
     private readonly LoginViewModel _loginViewModel;
@@ -60,6 +62,12 @@ public partial class LoginView
     }
     private async void BackButton_Clicked(object sender, EventArgs e)
     {
+
         await Shell.Current.GoToAsync("..", true);
+    }
+
+    private void EmailEntry_Completed(object sender, EventArgs e)
+    {
+        PasswordEntry.Focus();
     }
 }

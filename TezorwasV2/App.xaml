@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:TezorwasV2"
              xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
-             android:Application.WindowSoftInputModeAdjust="Pan"
+             android:Application.WindowSoftInputModeAdjust="Resize"
              x:Class="TezorwasV2.App">
     <Application.Resources>
         <ResourceDictionary>
