@@ -1,11 +1,7 @@
 ﻿using Android.Graphics.Drawables;
-using Android.Text.Style;
-using Android.Text;
 using Android.Views;
 using Google.Android.Material.BottomNavigation;
 using Microsoft.Maui.Controls.Platform.Compatibility;
-using Android.Content;
-using static Android.App.ActionBar;
 using Microsoft.Maui.Controls.Platform;
 using Microsoft.Maui.Platform;
 
@@ -48,7 +44,7 @@ namespace TezorwasV2.Platforms.Android
         protected override void SetBackgroundColor(BottomNavigationView bottomView, Color color)
         {
             base.SetBackgroundColor(bottomView, color);
-            Color tabBarBackgroundColor = Color.FromRgb(242, 244, 245);
+            Color tabBarBackgroundColor = Color.FromRgb(239, 241, 243);
             //bottomView.RootView?.SetBackgroundColor(shellContext.Shell.CurrentPage.BackgroundColor.ToPlatform());
             bottomView.RootView?.SetBackgroundColor(tabBarBackgroundColor.ToPlatform());
         }

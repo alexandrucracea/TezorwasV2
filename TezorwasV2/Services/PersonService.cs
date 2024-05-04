@@ -114,5 +114,34 @@ namespace TezorwasV2.Services
                 return responseData;
             }
         }
+
+        public async Task<dynamic> GetPersonInfo(string personId, string bearerToken)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+
+                HttpCallResponseData responseData = new HttpCallResponseData();
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(TezorwasApiHelper!.ApiUrl + "/" + personId);
+
+                    responseData.StatusCode = (int)response.StatusCode;
+                    responseData.Response = await response.Content.ReadAsStringAsync();
+                    if (responseData.StatusCode == (int)Enums.StatusCodes.Success)
+                    {
+                        var personParsed = FirestoreObjectParser.ParseFirestoreProfileData(responseData.Response);
+                        return personParsed;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                return responseData;
+            }
+        }
     }
 }

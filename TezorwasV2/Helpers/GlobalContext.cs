@@ -8,6 +8,7 @@ namespace TezorwasV2.Helpers
         public string UserLastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string PersonId { get; set; } = string.Empty;
+        public string ProfileId {get; set;} = string.Empty;
         //todo de adaugat profileId aici in contextul global
     }
 }

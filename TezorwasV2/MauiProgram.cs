@@ -78,6 +78,8 @@ namespace TezorwasV2
             builder.Services.AddSingleton<RegisterView>();
             builder.Services.AddSingleton<QuestionsViewModel>();
             builder.Services.AddSingleton<QuestionsView>();
+            builder.Services.AddSingleton<TasksViewModel>();
+            builder.Services.AddSingleton<TasksView>();
             //todo de vazut daca le lasam cu singleton sau daca le punem cu transient
 
             var app = builder.Build();

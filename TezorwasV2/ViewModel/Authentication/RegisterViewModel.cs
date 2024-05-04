@@ -130,7 +130,7 @@ namespace TezorwasV2.ViewModel
 
 
         [RelayCommand]
-        public async void Register()
+        public async Task Register()
         {
             if (!ValidateRegisterData())
             {

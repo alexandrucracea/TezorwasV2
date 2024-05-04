@@ -23,8 +23,7 @@
     <TabBar>
         <ShellContent   ContentTemplate="{DataTemplate appPages:TasksView}"
                         Route="TasksView"
-                        Icon="task.png">
-        </ShellContent>
+                        Icon="task.png"/>
         <ShellContent  ContentTemplate="{DataTemplate appPages:ReceiptsView}"
                         Route="ReceiptsView"
                        Icon="receipt.png"/>

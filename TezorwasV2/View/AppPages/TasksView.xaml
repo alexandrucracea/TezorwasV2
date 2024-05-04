@@ -2,26 +2,124 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TezorwasV2.View.AppPages.TasksView"
-             Title="TasksView"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:sf="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
+             Shell.TabBarUnselectedColor="{StaticResource TEXT-COLOR}"
              Background="{StaticResource BACKGROUND}">
+    <ContentPage.Resources>
+        <mct:InvertedBoolConverter x:Key="BooleanConverter" />
+    </ContentPage.Resources>
     <VerticalStackLayout>
-        <Label Text="salut"></Label>
-        <CollectionView ItemsSource="{Binding Test}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0"
-                       Text="{Binding Name}"
-                       FontAttributes="Bold" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <Label Text="Your tasks"
+               FontFamily="Inter-VariableFont"
+               FontSize="28"
+               FontAttributes="Bold"
+               Margin="20,10,0,10">
+            
+        </Label>
+        <Frame  MaximumHeightRequest="220"
+                Margin="10,20,10,0"
+                CornerRadius="50"
+                Background="{StaticResource BACKGROUND-LIGHT}"
+                BorderColor="{StaticResource BACKGROUND-DARK}">
+            <VerticalStackLayout >
+                <Label Text="Available tasks"
+                        FontFamily="Inter-VariableFont"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        TextColor="{StaticResource TEXT-COLOR}"/>
+                <BoxView Color="{StaticResource PRIMARY-COLOR}"
+                         HeightRequest="1"
+                         Margin="0,5,0,5"></BoxView>
+                <Label  Text="{Binding NoAvailableTasksMessage}"
+                        FontFamily="Inter-VariableFont"
+                        FontSize="16"
+                        TextColor="{StaticResource TEXT-COLOR}"
+                        IsVisible="{Binding AllTasksIncompleted, Converter={StaticResource BooleanConverter}}"/>
+                <CollectionView ItemsSource="{Binding Mere}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="0.5*" />
+                                </Grid.ColumnDefinitions>
+                                <Label  Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="{Binding Name}"
+                                        VerticalOptions="Center"
+                                        FontFamily="Inter-VariableFont"
+                                        FontSize="14"/>
+                                <sf:SfCheckBox  Grid.Row="0"
+                                                Grid.Column="1"
+                                                IsChecked="{Binding IsDone}"
+                                                CornerRadius="10"
+                                                UncheckedColor="{StaticResource TEXT-COLOR}"
+                                                CheckedColor="{StaticResource PRIMARY-COLOR}"
+                                                StateChanged="SfCheckBox_StateChanged"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Frame>
+        <Frame  MaximumHeightRequest="220"
+                Margin="10,40,10,0"
+                CornerRadius="50"
+                Background="{StaticResource BACKGROUND-LIGHT}"
+                BorderColor="{StaticResource BACKGROUND-DARK}">
+            <VerticalStackLayout >
+                <Label Text="Today's completed tasks"
+                        FontFamily="Inter-VariableFont"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        TextColor="{StaticResource TEXT-COLOR}"></Label>
+                <BoxView Color="{StaticResource PRIMARY-COLOR}"
+                         HeightRequest="1"
+                         Margin="0,5,0,5"></BoxView>
+                <Label  Text="{Binding NoCompletedTasksMessage}"
+                        FontFamily="Inter-VariableFont"
+                        FontSize="16"
+                        TextColor="{StaticResource TEXT-COLOR}"
+                        IsVisible="{Binding TasksAreCompleted, Converter={StaticResource BooleanConverter}}"/>
+                <CollectionView ItemsSource="{Binding Pere}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label  Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="{Binding Name}"
+                                        VerticalOptions="Center"
+                                        FontFamily="Inter-VariableFont"
+                                        TextColor="{StaticResource TEXT-COLOR}"
+                                        
+                                        FontSize="14"/>
+                                <Label  Grid.Row="0"
+                                        Grid.Column="1"
+                                        Text="{Binding Xp,StringFormat='xp earned: {0}'}"
+                                        HorizontalOptions="EndAndExpand"
+                                        VerticalOptions="End"
+                                        FontFamily="Inter-VariableFont"
+                                        FontAttributes="Italic"
+                                        FontSize="14"
+                                        Opacity="0.8"
+                                        TextColor="{StaticResource TEXT-COLOR-LIGHT}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Frame>
     </VerticalStackLayout>
 </ContentPage>

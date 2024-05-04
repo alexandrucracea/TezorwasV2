@@ -11,6 +11,5 @@ namespace TezorwasV2.DTO
         public int? Age { get; set; }
         public AddressModel? Address { get; set; }
         public string Email { get; set; } = string.Empty;
-        public List<HabbitModel>? Habbits { get; set; }
     }
 }

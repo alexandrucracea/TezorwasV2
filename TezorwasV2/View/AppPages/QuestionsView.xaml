@@ -2,11 +2,122 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TezorwasV2.View.AppPages.QuestionsView"
+             xmlns:inputs="http://schemas.syncfusion.com/maui"
+             xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
+             x:DataType="pagesViewModels:QuestionsViewModel"
              Title="QuestionsView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+
+    <VerticalStackLayout HorizontalOptions="Center"
+                         VerticalOptions="Start"
+                         Margin="0,200,0,0">
+        <StackLayout>
+            <StackLayout 
+                    Orientation="Horizontal">
+                <Label Text="Hello "/>
+                <Label Text="{Binding PersonName}"></Label>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Entry  x:Name="StreetEntry"
+                        Placeholder="Street"
+                        Keyboard="Default"
+                        Text="{Binding Street}">
+                </Entry>
+            </StackLayout>
+
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Entry  x:Name="CityEntry"
+                    Placeholder="City"
+                    Keyboard="Default"
+                    Text="{Binding City}">
+            </Entry>
+            <Entry  x:Name="CountyEntry"
+                    Placeholder="County"
+                    Keyboard="Default"
+                    Text="{Binding County}">
+            </Entry>
+        </StackLayout>
+        <Entry  x:Name="AgeEntry"
+                Placeholder="Age"
+                Keyboard="Numeric"
+                Text="{Binding Age}">
+        </Entry>
+        <Button Text="Continue"
+                x:Name="ContinueQuestionsSectionOne"
+                WidthRequest="250"
+                CornerRadius="50"
+                BackgroundColor="{StaticResource BACKGROUND}"
+                TextColor="{StaticResource TEXT-COLOR}"
+                FontAttributes="Bold"
+                FontFamily="Inter-VariableFont"
+                Clicked="ContinueQuestionsSectionOne_OnClicked"/>
+        <!--<StackLayout x:Name="HabbitCardLayout"
+                     BackgroundColor="red">
+            <controls:HabbitCard x:Name="HabbitCard"
+                                 HabbitTitle="Tell us some wasteful habbits of yours"></controls:HabbitCard>
+        </StackLayout>-->
+
+        <Frame
+               BorderColor="Transparent">
+            <Grid Margin="10, 10, 10 ,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label x:Name="LblHabbitTitle" 
+                       Grid.Row="0"
+                       Text="Tell us some wasteful habbits of yours"
+                />
+                <Editor Grid.Row="1"
+                        x:Name="EdtHabbitOneDescription"
+                        PlaceholderColor="Red"
+                        Placeholder="Habbit one"
+                        Text="{Binding HabbitOneDescription}"/>
+                <Editor Grid.Row="2"
+                        x:Name="EdtHabbitTwoDescription"
+                        PlaceholderColor="Red"
+                        Placeholder="Habbit two"
+                        Text="{Binding HabbitTwoDescription}"/>
+                <Editor Grid.Row="3"
+                        x:Name="EdtHabbitThreeDescription"
+                        PlaceholderColor="Red"
+                        Placeholder="Habbit three"
+                        Text="{Binding HabbitThreeDescription}"
+                />
+                <inputs:SfRating Grid.Row="4" 
+                                 x:Name="wasteRating" 
+                                 ItemCount="5"
+                                 Value="{Binding HabbitLevelOfWaste}"
+                                 Precision="Half"
+                                 RatingShape="Circle"
+                                 HeightRequest="20"
+                                 ItemSize="25"
+                                 ItemSpacing="25">
+                    <inputs:SfRating.RatingSettings>
+                        <inputs:RatingSettings RatedFill="{StaticResource PRIMARY-COLOR}"
+                                               RatedStroke="{StaticResource PRIMARY-COLOR}">
+                        </inputs:RatingSettings>
+                    </inputs:SfRating.RatingSettings>
+                </inputs:SfRating>
+
+
+            </Grid>
+        </Frame>
+
+        <Button Text="Continue"
+                x:Name="ContinueQuestionsSectionTwo"
+                WidthRequest="250"
+                CornerRadius="50"
+                BackgroundColor="{StaticResource BACKGROUND}"
+                TextColor="{StaticResource TEXT-COLOR}"
+                FontAttributes="Bold"
+                FontFamily="Inter-VariableFont"
+                Clicked="ContinueQuestionsSectionTwo_OnClicked"
+                Command="{Binding UpdatePersonDataCommand}"/>
+
+
     </VerticalStackLayout>
 </ContentPage>
