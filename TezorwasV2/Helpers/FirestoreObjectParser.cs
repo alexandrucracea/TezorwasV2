@@ -1,4 +1,6 @@
 ﻿
+using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using TezorwasV2.DTO;
 using TezorwasV2.Model;
 
@@ -80,79 +82,104 @@ namespace TezorwasV2.Helpers
             }
             return profileToParse;
         }
-        //public static PersonDto ParseFirestorePersonData(dynamic personObject)
-        //{
-        //    PersonDto personToParse = new PersonDto();
-
-        //    JsonDocument jsonDocument = JsonDocument.Parse(personObject);
-        //    JsonElement root = jsonDocument.RootElement;
+        public static List<PersonDto> ParseFirestorePersonsData(dynamic personObject)
+        {
+            List<PersonDto> persons = new List<PersonDto>();
 
 
-        //    JsonElement id = root.GetProperty("_fieldsProto").GetProperty("id").GetProperty("stringValue");
-        //    profileToParse.Id = id.ToString();
+            JsonDocument jsonDocument = JsonDocument.Parse(personObject);
+            JsonArray roots = jsonDocument.Deserialize<JsonArray>();
 
-        //    JsonElement payload = root.GetProperty("_fieldsProto").GetProperty("payload").GetProperty("mapValue").GetProperty("fields");
+            foreach (JsonObject obj in roots.Cast<JsonObject>())
+            {
+                PersonDto personToParse = new PersonDto();
+                var root = obj["_fieldsProto"];
+                personToParse.Id = root["id"]["stringValue"].ToString();
 
-        //    JsonElement joinDate = payload.GetProperty("joinDate").GetProperty("stringValue");
-        //    profileToParse.JoinDate = joinDate.GetDateTime();
+                var payload = root["payload"]["mapValue"]["fields"];
 
-        //    JsonElement level = payload.GetProperty("level").GetProperty("integerValue");
-        //    profileToParse.Level = int.Parse(level.GetString()!);
+                personToParse.FirstName = payload["firstName"]["stringValue"].ToString();
+                personToParse.LastName = payload["lastName"]["stringValue"].ToString();
+                personToParse.Age = int.Parse(payload["age"]["integerValue"].ToString());
+                personToParse.Email = payload["email"]["stringValue"].ToString();
 
-        //    JsonElement xp = payload.GetProperty("xp").GetProperty("integerValue");
-        //    profileToParse.Xp = int.Parse(xp.GetString()!);
+                personToParse.Address = new AddressModel();
+                var address = payload["address"]["mapValue"]["fields"];
+                var streetName = address["StreetName"]["stringValue"].ToString();
+                var city = address["City"]["stringValue"].ToString();
+                var county = address["County"]["stringValue"].ToString();
 
-        //    JsonElement personId = payload.GetProperty("personId").GetProperty("stringValue");
-        //    if (personId.GetString() is not null)
-        //    {
-        //        profileToParse.PersonId = personId.GetString()!;
-        //    }
+                personToParse.Address.StreetName = streetName;
+                personToParse.Address.City = city;
+                personToParse.Address.County = county;
 
+                persons.Add(personToParse);
 
-        //    profileToParse.Habbits = new List<HabbitModel>();
-        //    JsonElement habbits = payload.GetProperty("habbits").GetProperty("arrayValue").GetProperty("values");
+            }
+            return persons;
+        }
+        public static List<ProfileDto> ParseFirestoreProfilesData(dynamic profilesObject)
+        {
+            List<ProfileDto> profiles = new List<ProfileDto>();
 
-        //    foreach (var item in habbits.EnumerateArray())
-        //    {
-        //        JsonElement mapValue = item.GetProperty("mapValue").GetProperty("fields");
-        //        JsonElement inputDate = mapValue.GetProperty("InputDate").GetProperty("stringValue");
-        //        JsonElement description = mapValue.GetProperty("Description").GetProperty("stringValue");
-        //        JsonElement levelOfWaste = mapValue.GetProperty("LevelOfWaste").GetProperty("doubleValue");
+            JsonDocument jsonDocument = JsonDocument.Parse(profilesObject);
+            JsonArray roots = jsonDocument.Deserialize<JsonArray>();
 
+            foreach (JsonObject obj in roots.Cast<JsonObject>())
+            {
+                ProfileDto profileToParse = new ProfileDto();
+                var root = obj["_fieldsProto"];
+                profileToParse.Id = root["id"]["stringValue"].ToString();
 
-        //        profileToParse.Habbits.Add(new HabbitModel
-        //        {
-        //            InputDate = DateTime.Parse(inputDate.GetString()!),
-        //            Description = description.ToString(),
-        //            LevelOfWaste = levelOfWaste.GetDouble(),
-        //        });
-        //    }
+                var payload = root["payload"]["mapValue"]["fields"];
 
+                profileToParse.JoinDate = DateTime.Parse(payload["joinDate"]["stringValue"].ToString());
+                profileToParse.Level = int.Parse(payload["level"]["integerValue"].ToString());
+                profileToParse.Xp = int.Parse(payload["xp"]["integerValue"].ToString());
+                if (payload["personId"]["stringValue"].ToString() is not null)
+                {
+                    profileToParse.PersonId = payload["personId"]["stringValue"].ToString();
+                }
 
-        //    profileToParse.Tasks = new List<TaskModel>();
-        //    JsonElement tasks = payload.GetProperty("tasks").GetProperty("arrayValue").GetProperty("values");
-        //    foreach (var item in tasks.EnumerateArray())
-        //    {
-        //        JsonElement mapValue = item.GetProperty("mapValue").GetProperty("fields");
-        //        JsonElement name = mapValue.GetProperty("name").GetProperty("stringValue");
-        //        JsonElement description = mapValue.GetProperty("description").GetProperty("stringValue");
-        //        JsonElement completionDate = mapValue.GetProperty("completionDate").GetProperty("stringValue");
-        //        JsonElement creationDate = mapValue.GetProperty("creationDate").GetProperty("stringValue");
-        //        JsonElement xpEarned = mapValue.GetProperty("xpEarned").GetProperty("integerValue");
-        //        JsonElement isCompleted = mapValue.GetProperty("isCompleted").GetProperty("booleanValue");
+                profileToParse.Habbits = new List<HabbitModel>();
+                if (payload["habbits"]["arrayValue"]["values"].ToString() is not null)
+                {
+                    JsonArray habbitsArray = (JsonArray)payload["habbits"]["arrayValue"]["values"];
+                    foreach (JsonObject habbitObj in habbitsArray.Cast<JsonObject>().ToArray())
+                    {
+                        HabbitModel habbitToAdd = new HabbitModel();
+                        habbitToAdd.InputDate = DateTime.Parse(habbitObj["mapValue"]["fields"]["InputDate"]["stringValue"].ToString());
+                        habbitToAdd.Description = habbitObj["mapValue"]["fields"]["Description"]["stringValue"].ToString();
+                        habbitToAdd.LevelOfWaste = double.Parse(habbitObj["mapValue"]["fields"]["LevelOfWaste"]["doubleValue"].ToString());
 
+                        profileToParse.Habbits.Add(habbitToAdd);
+                    }
 
-        //        profileToParse.Tasks.Add(new TaskModel
-        //        {
-        //            Name = name.ToString(),
-        //            Description = description.ToString(),
-        //            completionDate = DateTime.Parse(completionDate.GetString()!),
-        //            creationDate = DateTime.Parse(creationDate.GetString()!),
-        //            XpEarned = int.Parse(xpEarned.GetString()!),
-        //            IsCompleted = isCompleted.GetBoolean(),
-        //        });
-        //    }
-        //    return profileToParse;
-        //}
+                }
+
+                profileToParse.Tasks = new List<TaskModel>();
+                if (payload["tasks"]["arrayValue"]["values"].ToString() is not null)
+                {
+                    JsonArray tasksArray = (JsonArray)payload["tasks"]["arrayValue"]["values"];
+                    foreach (JsonObject taskObj in tasksArray.Cast<JsonObject>().ToArray())
+                    {
+                        TaskModel taskToAdd = new TaskModel();
+                        taskToAdd.Name = taskObj["mapValue"]["fields"]["name"]["stringValue"].ToString();
+                        taskToAdd.Description = taskObj["mapValue"]["fields"]["description"]["stringValue"].ToString();
+                        taskToAdd.completionDate = DateTime.Parse(taskObj["mapValue"]["fields"]["completionDate"]["stringValue"].ToString());
+                        taskToAdd.creationDate = DateTime.Parse(taskObj["mapValue"]["fields"]["creationDate"]["stringValue"].ToString());
+                        taskToAdd.XpEarned = int.Parse(taskObj["mapValue"]["fields"]["xpEarned"]["integerValue"].ToString());
+                        taskToAdd.IsCompleted = bool.Parse(taskObj["mapValue"]["fields"]["isCompleted"]["booleanValue"].ToString());
+                        
+
+                        profileToParse.Tasks.Add(taskToAdd);
+                    }
+
+                }
+
+                profiles.Add(profileToParse);
+            }
+            return profiles;
+        }
     }
 }

@@ -30,10 +30,11 @@ namespace TezorwasV2.Services
             using (HttpClient client = new HttpClient())
             {
                 // Define your parameters
-                var requestParameters = new Dictionary<string, string>
+                var requestParameters = new Dictionary<string, dynamic>
                 {
                     { nameof(UserModel.Email).ToLower(), userToAuthenticate.Username },
-                    { nameof(UserModel.Password).ToLower(), userToAuthenticate.Password }
+                    { nameof(UserModel.Password).ToLower(), userToAuthenticate.Password },
+                     {"returnSecureToken",true}
                 };
 
                 string jsonBody = JsonConvert.SerializeObject(requestParameters);

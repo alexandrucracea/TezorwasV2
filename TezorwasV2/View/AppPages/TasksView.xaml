@@ -37,7 +37,7 @@
                         FontSize="16"
                         TextColor="{StaticResource TEXT-COLOR}"
                         IsVisible="{Binding AllTasksIncompleted, Converter={StaticResource BooleanConverter}}"/>
-                <CollectionView ItemsSource="{Binding Mere}">
+                <CollectionView ItemsSource="{Binding AvailableTasks}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -86,7 +86,7 @@
                         FontSize="16"
                         TextColor="{StaticResource TEXT-COLOR}"
                         IsVisible="{Binding TasksAreCompleted, Converter={StaticResource BooleanConverter}}"/>
-                <CollectionView ItemsSource="{Binding Pere}">
+                <CollectionView ItemsSource="{Binding CompletedTasks}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid>

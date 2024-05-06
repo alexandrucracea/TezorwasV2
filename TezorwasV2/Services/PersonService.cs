@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using TezorwasV2.DTO;
 using TezorwasV2.Helpers;
+using TezorwasV2.Model;
 
 namespace TezorwasV2.Services
 {
@@ -68,7 +69,6 @@ namespace TezorwasV2.Services
                 return responseData;
             }
         }
-
         public async Task<HttpCallResponseData> UpdateAPerson(PersonDto personToUpdate, string bearerToken)
         {
             using (HttpClient client = new HttpClient())
@@ -114,7 +114,6 @@ namespace TezorwasV2.Services
                 return responseData;
             }
         }
-
         public async Task<dynamic> GetPersonInfo(string personId, string bearerToken)
         {
             using (HttpClient client = new HttpClient())
@@ -141,6 +140,34 @@ namespace TezorwasV2.Services
                     Console.WriteLine(ex.ToString());
                 }
                 return responseData;
+            }
+        }
+        public async Task<List<PersonDto>> GetAllPersons(string bearerToken)
+        {
+            List<PersonDto> persons = new List<PersonDto>();
+            using (HttpClient client = new HttpClient())
+            {
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+
+                HttpCallResponseData responseData = new HttpCallResponseData();
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(TezorwasApiHelper!.ApiUrl);
+
+                    responseData.StatusCode = (int)response.StatusCode;
+                    responseData.Response = await response.Content.ReadAsStringAsync();
+                    if (responseData.StatusCode == (int)Enums.StatusCodes.Success)
+                    {
+                      persons  = FirestoreObjectParser.ParseFirestorePersonsData(responseData.Response);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                return persons;
             }
         }
     }

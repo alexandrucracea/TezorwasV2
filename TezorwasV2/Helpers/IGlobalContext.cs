@@ -8,6 +8,7 @@ namespace TezorwasV2.Helpers
         string Email { get; set; }
         string UserLastName { get; set; }
         string PersonId { get; set; }
+        string ProfileId { get; set; }
 
     }
 }

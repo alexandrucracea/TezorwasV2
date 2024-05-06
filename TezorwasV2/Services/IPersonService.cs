@@ -9,5 +9,6 @@ namespace TezorwasV2.Services
         TezorwasApiHelper TezorwasApiHelper { get; set; }
         Task<HttpCallResponseData> CreatePerson(PersonDto personToCreate, string bearerToken);
         Task<HttpCallResponseData> UpdateAPerson(PersonDto personToUpdate, string bearerToken);
+        Task<List<PersonDto>> GetAllPersons(string bearerToken);
     }
 }

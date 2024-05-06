@@ -122,7 +122,7 @@ namespace TezorwasV2.ViewModel.MainPages
             }
 
             personToUpdate.Address = userAddress;
-            var x = _profileService.GetProfileInfo("YzMhKByE6ZhRCAHUw3Cx", _globalContext.UserToken);
+            //var x = await _profileService.GetProfileInfo("YzMhKByE6ZhRCAHUw3Cx", _globalContext.UserToken);
 
             HttpCallResponseData updatePersonResponse =
                 await _personService.UpdateAPerson(personToUpdate, _globalContext.UserToken);

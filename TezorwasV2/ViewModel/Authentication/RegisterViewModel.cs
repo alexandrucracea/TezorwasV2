@@ -100,6 +100,7 @@ namespace TezorwasV2.ViewModel
             //todo de facut tranzactie pe astea doua
             HttpCallResponseData callResponse = await _registerService.RegisterUser(userToRegister);
             string bearerToken = callResponse.GetKeyValue("idToken");
+
             HttpCallResponseData createPersonResponse = await _personService.CreatePerson(personDto, bearerToken);
 
 
