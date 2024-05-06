@@ -4,7 +4,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using TezorwasV2.DTO;
 using TezorwasV2.Helpers;
-using TezorwasV2.Model;
 
 namespace TezorwasV2.Services
 {
@@ -44,7 +43,21 @@ namespace TezorwasV2.Services
 
                 if (personToCreate.Address is not null)
                 {
-                    requestParameters.Add(nameof(PersonDto.Address), personToCreate.Address);
+                    var addressDictionary = new Dictionary<string, dynamic>();
+                    if (personToCreate.Address.StreetName is not null)
+                    {
+                        addressDictionary.Add("streetName", personToCreate.Address.StreetName);
+                    }
+                    if (personToCreate.Address.County is not null)
+                    {
+                        addressDictionary.Add("county", personToCreate.Address.County);
+                    }
+                    if (personToCreate.Address.City is not null)
+                    {
+                        addressDictionary.Add("city", personToCreate.Address.City);
+                    }
+
+                    requestParameters.Add("address", addressDictionary);
                 }
 
                 string jsonBody = JsonConvert.SerializeObject(requestParameters);
@@ -57,51 +70,6 @@ namespace TezorwasV2.Services
                 try
                 {
                     HttpResponseMessage response = await client.PostAsync(TezorwasApiHelper!.ApiUrl, content);
-
-                    responseData.StatusCode = (int)response.StatusCode;
-                    responseData.Response = await response.Content.ReadAsStringAsync();
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
-                return responseData;
-            }
-        }
-        public async Task<HttpCallResponseData> UpdateAPerson(PersonDto personToUpdate, string bearerToken)
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                Dictionary<string, dynamic> requestParameters;
-
-                requestParameters = new Dictionary<string, dynamic>
-                {
-                    { "lastName", personToUpdate.LastName },
-                    { "firstName", personToUpdate.FirstName },
-                    { "email", personToUpdate.Email }
-                };
-                if (personToUpdate.Age is not null)
-                {
-                    requestParameters.Add("age", personToUpdate.Age.Value);
-                }
-
-                if (personToUpdate.Address is not null)
-                {
-                    requestParameters.Add("address", personToUpdate.Address);
-                }
-
-
-                string jsonBody = JsonConvert.SerializeObject(requestParameters);
-
-                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-
-                HttpCallResponseData responseData = new HttpCallResponseData();
-                try
-                {
-                    HttpResponseMessage response = await client.PatchAsync(TezorwasApiHelper!.ApiUrl + "/" + personToUpdate.Id, content);
 
                     responseData.StatusCode = (int)response.StatusCode;
                     responseData.Response = await response.Content.ReadAsStringAsync();
@@ -159,7 +127,7 @@ namespace TezorwasV2.Services
                     responseData.Response = await response.Content.ReadAsStringAsync();
                     if (responseData.StatusCode == (int)Enums.StatusCodes.Success)
                     {
-                      persons  = FirestoreObjectParser.ParseFirestorePersonsData(responseData.Response);
+                        persons = FirestoreObjectParser.ParseFirestorePersonsData(responseData.Response);
                     }
 
                 }
@@ -168,6 +136,65 @@ namespace TezorwasV2.Services
                     Console.WriteLine(ex.ToString());
                 }
                 return persons;
+            }
+        }
+        public async Task<HttpCallResponseData> UpdateAPerson(PersonDto personToUpdate, string bearerToken)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                Dictionary<string, dynamic> requestParameters;
+
+                requestParameters = new Dictionary<string, dynamic>
+                {
+                    { "lastName", personToUpdate.LastName },
+                    { "firstName", personToUpdate.FirstName },
+                    { "email", personToUpdate.Email }
+                };
+                if (personToUpdate.Age is not null)
+                {
+                    requestParameters.Add("age", personToUpdate.Age.Value);
+                }
+
+                if (personToUpdate.Address is not null)
+                {
+                    var addressDictionary = new Dictionary<string, dynamic>();
+                    if (personToUpdate.Address.StreetName is not null)
+                    {
+                        addressDictionary.Add("streetName", personToUpdate.Address.StreetName);
+                    }
+                    if (personToUpdate.Address.County is not null)
+                    {
+                        addressDictionary.Add("county", personToUpdate.Address.County);
+                    }
+                    if (personToUpdate.Address.City is not null)
+                    {
+                        addressDictionary.Add("city", personToUpdate.Address.City);
+                    }
+
+                    requestParameters.Add("address", addressDictionary);
+                }
+
+
+                string jsonBody = JsonConvert.SerializeObject(requestParameters);
+
+                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+
+                HttpCallResponseData responseData = new HttpCallResponseData();
+                try
+                {
+                    HttpResponseMessage response = await client.PatchAsync(TezorwasApiHelper!.ApiUrl + "/" + personToUpdate.Id, content);
+
+                    responseData.StatusCode = (int)response.StatusCode;
+                    responseData.Response = await response.Content.ReadAsStringAsync();
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                return responseData;
             }
         }
     }

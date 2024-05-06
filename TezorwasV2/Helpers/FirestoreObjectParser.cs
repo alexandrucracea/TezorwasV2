@@ -43,9 +43,9 @@ namespace TezorwasV2.Helpers
             foreach (var item in habbits.EnumerateArray())
             {
                 JsonElement mapValue = item.GetProperty("mapValue").GetProperty("fields");
-                JsonElement inputDate = mapValue.GetProperty("InputDate").GetProperty("stringValue");
-                JsonElement description = mapValue.GetProperty("Description").GetProperty("stringValue");
-                JsonElement levelOfWaste = mapValue.GetProperty("LevelOfWaste").GetProperty("doubleValue");
+                JsonElement inputDate = mapValue.GetProperty("inputDate").GetProperty("stringValue");
+                JsonElement description = mapValue.GetProperty("description").GetProperty("stringValue");
+                JsonElement levelOfWaste = mapValue.GetProperty("levelOfWaste").GetProperty("doubleValue");
 
 
                 profileToParse.Habbits.Add(new HabbitModel
@@ -105,9 +105,9 @@ namespace TezorwasV2.Helpers
 
                 personToParse.Address = new AddressModel();
                 var address = payload["address"]["mapValue"]["fields"];
-                var streetName = address["StreetName"]["stringValue"].ToString();
-                var city = address["City"]["stringValue"].ToString();
-                var county = address["County"]["stringValue"].ToString();
+                var streetName = address["streetName"]["stringValue"].ToString();
+                var city = address["city"]["stringValue"].ToString();
+                var county = address["county"]["stringValue"].ToString();
 
                 personToParse.Address.StreetName = streetName;
                 personToParse.Address.City = city;
@@ -148,9 +148,9 @@ namespace TezorwasV2.Helpers
                     foreach (JsonObject habbitObj in habbitsArray.Cast<JsonObject>().ToArray())
                     {
                         HabbitModel habbitToAdd = new HabbitModel();
-                        habbitToAdd.InputDate = DateTime.Parse(habbitObj["mapValue"]["fields"]["InputDate"]["stringValue"].ToString());
-                        habbitToAdd.Description = habbitObj["mapValue"]["fields"]["Description"]["stringValue"].ToString();
-                        habbitToAdd.LevelOfWaste = double.Parse(habbitObj["mapValue"]["fields"]["LevelOfWaste"]["doubleValue"].ToString());
+                        habbitToAdd.InputDate = DateTime.Parse(habbitObj["mapValue"]["fields"]["inputDate"]["stringValue"].ToString());
+                        habbitToAdd.Description = habbitObj["mapValue"]["fields"]["description"]["stringValue"].ToString();
+                        habbitToAdd.LevelOfWaste = double.Parse(habbitObj["mapValue"]["fields"]["levelOfWaste"]["doubleValue"].ToString());
 
                         profileToParse.Habbits.Add(habbitToAdd);
                     }
@@ -170,7 +170,7 @@ namespace TezorwasV2.Helpers
                         taskToAdd.creationDate = DateTime.Parse(taskObj["mapValue"]["fields"]["creationDate"]["stringValue"].ToString());
                         taskToAdd.XpEarned = int.Parse(taskObj["mapValue"]["fields"]["xpEarned"]["integerValue"].ToString());
                         taskToAdd.IsCompleted = bool.Parse(taskObj["mapValue"]["fields"]["isCompleted"]["booleanValue"].ToString());
-                        
+
 
                         profileToParse.Tasks.Add(taskToAdd);
                     }

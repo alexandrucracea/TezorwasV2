@@ -6,41 +6,32 @@ using TezorwasV2.DTO;
 using TezorwasV2.Helpers;
 using TezorwasV2.Model;
 using TezorwasV2.Services;
-using TezorwasV2.View.AppPages;
 
 namespace TezorwasV2.ViewModel.MainPages
 {
     public partial class TasksViewModel : ObservableObject
     {
-        public ObservableCollection<TasksView.Ceva> Mere { get; } = new ObservableCollection<TasksView.Ceva>();
-        public ObservableCollection<TasksView.Ceva> Pere { get; } = new ObservableCollection<TasksView.Ceva>();
-
         public ObservableCollection<TaskModel> AvailableTasks { get;} = new ObservableCollection<TaskModel>();
         public ObservableCollection<TaskModel> CompletedTasks { get;} = new ObservableCollection<TaskModel>();
 
         [ObservableProperty] public bool tasksAreCompleted = false;
         [ObservableProperty] public bool allTasksIncompleted = true;
         [ObservableProperty] public string noAvailableTasksMessage;
-        [ObservableProperty] public  string noCompletedTasksMessage;
-        //TODO de facut usecaseul nostru
+        [ObservableProperty] public string noCompletedTasksMessage;
+        [ObservableProperty] public int availableTasksToday;
 
         private readonly IProfileService _profileService;
         private readonly IGlobalContext _globalContext;
 
-        //public List<TaskModel> Tasks { get; set; }
         public TasksViewModel(IGlobalContext globalContext, IProfileService profileService)
         {
             _globalContext = globalContext;
             _profileService = profileService;
 
             PopulateTasks();
-            //Mere.Add(new TasksView.Ceva { Name = "Nume1", IsDone = false });
-            //Mere.Add(new TasksView.Ceva { Name = "Nume2", IsDone = false });
-            //Mere.Add(new TasksView.Ceva { Name = "Nume3", IsDone = false });
 
             NoAvailableTasksMessage = "You completed all the available tasks for today.";
             NoCompletedTasksMessage = "You didn't complete any tasks today";
-            //todo de facut in asa fel incat la update/register sa trimitem un dictionar corect ca sa nu mai preluam noi denumirile gresit ale obiectelor (avem probleme dupa la parsari)
 
         }
         [RelayCommand]
@@ -49,7 +40,11 @@ namespace TezorwasV2.ViewModel.MainPages
             int completedTasksCounter = 0;
             foreach(var task in AvailableTasks)
             {
-                if(!task.IsCompleted)
+                if (completedTasksCounter == AvailableTasksToday)
+                {
+                    AllTasksIncompleted = false;
+                }
+                if (!task.IsCompleted)
                 {
                     task.IsCompleted = true;
                     completedTasksCounter++;
@@ -65,10 +60,7 @@ namespace TezorwasV2.ViewModel.MainPages
                     return;
                 }
             }
-            if(completedTasksCounter == Mere.Count)
-            {
-                AllTasksIncompleted = false;
-            }
+            
             return;
             
         }
@@ -87,6 +79,10 @@ namespace TezorwasV2.ViewModel.MainPages
                     }
                 }
             }
+            AvailableTasksToday = AvailableTasks.Count;
         }
+
+        //TODO to add the xp as you complete a task
+        //TOOD fix the message (why is not showing)
     }
 }

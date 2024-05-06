@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using TezorwasV2.DTO;
 using TezorwasV2.Helpers;
+using TezorwasV2.Model;
 
 namespace TezorwasV2.Services
 {
@@ -39,13 +40,27 @@ namespace TezorwasV2.Services
                 if (profileToCreate.Achievments is not null)
                 {
                     requestParameters.Add("achievments", profileToCreate.Achievments);
+                    //todo de facut la fel ca la habbits atunci cand adaugam achievments
                 }
 
                 if (profileToCreate.Habbits is not null)
                 {
-                    requestParameters.Add("habbits", profileToCreate.Habbits);
+                    var habbitsList = new List<Dictionary<string, dynamic>>();
+                    foreach (HabbitModel habbit in profileToCreate.Habbits)
+                    {
+                        var habbitsDictionary = new Dictionary<string, dynamic>();
+                        if (habbit.Description is not null)
+                        {
+                            habbitsDictionary.Add("description", habbit.Description);
+                        }
+
+                        habbitsDictionary.Add("levelOfWaste", habbit.LevelOfWaste);
+                        habbitsDictionary.Add("inputDate", habbit.InputDate);
+                        habbitsList.Add(habbitsDictionary);
+                    }
+                    requestParameters.Add("habbits", habbitsList);
                 }
-                //todo de facut si pentru friendlist si tasks cand se vor adauga
+
 
                 string jsonBody = JsonConvert.SerializeObject(requestParameters);
 
@@ -114,7 +129,7 @@ namespace TezorwasV2.Services
                     responseData.Response = await response.Content.ReadAsStringAsync();
                     if (responseData.StatusCode == (int)Enums.StatusCodes.Success)
                     {
-                        profiles = FirestoreObjectParser.ParseFirestoreProfilesData(responseData.Response);;
+                        profiles = FirestoreObjectParser.ParseFirestoreProfilesData(responseData.Response); ;
                     }
 
                 }
@@ -145,11 +160,43 @@ namespace TezorwasV2.Services
 
                 if (profileToUpdate.Habbits is not null)
                 {
-                    requestParameters.Add("habbits", profileToUpdate.Habbits);
+                    var habbitsList = new List<Dictionary<string, dynamic>>();
+                    foreach (HabbitModel habbit in profileToUpdate.Habbits)
+                    {
+                        var habbitsDictionary = new Dictionary<string, dynamic>();
+                        if (habbit.Description is not null)
+                        {
+                            habbitsDictionary.Add("description", habbit.Description);
+                        }
+
+                        habbitsDictionary.Add("levelOfWaste", habbit.LevelOfWaste);
+                        habbitsDictionary.Add("inputDate", habbit.InputDate);
+                        habbitsList.Add(habbitsDictionary);
+                    }
+                    requestParameters.Add("habbits", habbitsList);
                 }
                 if (profileToUpdate.Tasks is not null)
                 {
-                    requestParameters.Add("tasks", profileToUpdate.Tasks);
+                    var tasksList = new List<Dictionary<string, dynamic>>();
+                    foreach (TaskModel task in profileToUpdate.Tasks)
+                    {
+                        var tasksDictionary = new Dictionary<string, dynamic>();
+                        if (task.Description is not null)
+                        {
+                            tasksDictionary.Add("description", task.Description);
+                        }
+                        tasksDictionary.Add("isCompleted",task.IsCompleted);
+                        if (task.Name is not null)
+                        {
+                            tasksDictionary.Add("name", task.Name);
+                        }
+                        tasksDictionary.Add("xpEarned",task.XpEarned);
+                        tasksDictionary.Add("creationDate",task.creationDate);
+                        tasksDictionary.Add("completionDate",task.completionDate);
+
+                        tasksList.Add(tasksDictionary);
+                    }
+                    requestParameters.Add("tasks", tasksList);
                 }
                 //todo de adaugat friendlist
 
