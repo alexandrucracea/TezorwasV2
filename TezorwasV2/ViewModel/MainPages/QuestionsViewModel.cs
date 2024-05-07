@@ -151,7 +151,7 @@ namespace TezorwasV2.ViewModel.MainPages
             ProfileDto profileToCreate = new ProfileDto
             {
                 JoinDate = DateTime.Now,
-                Level = (int)Enums.Level.One,
+                Level = (int)Enums.Level.Lvl1 - ((int)Enums.Level.Lvl1 - 1),
                 Xp = 0,
                 PersonId = _globalContext.PersonId,
             };
