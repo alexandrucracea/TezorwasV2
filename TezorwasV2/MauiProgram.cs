@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Core.Hosting;
 using System.Reflection;
+using TesseractOcrMaui;
 using TezorwasV2.Helpers;
 using TezorwasV2.Services;
 using TezorwasV2.View.AppPages;
@@ -80,7 +81,15 @@ namespace TezorwasV2
             builder.Services.AddSingleton<QuestionsView>();
             builder.Services.AddSingleton<TasksViewModel>();
             builder.Services.AddSingleton<TasksView>();
+            builder.Services.AddSingleton<ScanReceiptView>();
             //todo de vazut daca le lasam cu singleton sau daca le punem cu transient
+
+            builder.Services.AddTesseractOcr(
+                files =>
+                {
+                    // must have matching files in Resources/Raw folder
+                    files.AddFile("ron.traineddata");
+                });
 
             var app = builder.Build();
             Services = app.Services;

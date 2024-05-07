@@ -1,12 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 using TezorwasV2.View.Authentication;
 using TezorwasV2.Helpers;
+using TesseractOcrMaui;
 
 namespace TezorwasV2
 {
     public partial class MainPage : ContentPage
     {
         IConfiguration configuration;
+
         public double ScreenHeight { get; }
         public double ScreenWidth { get; }
         public MainPage()
@@ -16,7 +18,6 @@ namespace TezorwasV2
             ScreenHeight = DeviceDisplay.MainDisplayInfo.Height;
             ScreenWidth = DeviceDisplay.MainDisplayInfo.Width;
             BindingContext = this;
-
 
         }
         private async void OnClickGoToPage(object sender, EventArgs e)
