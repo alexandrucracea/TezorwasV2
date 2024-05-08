@@ -1,7 +1,5 @@
 using CommunityToolkit.Maui.Behaviors;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;
+using CommunityToolkit.Maui.Views;
 using TezorwasV2.Helpers;
 using TezorwasV2.View.AppPages;
 using TezorwasV2.ViewModel;
@@ -33,10 +31,13 @@ public partial class LoginView : ContentPage
         _loginViewModel.Username = emailToAuthenticate;
         _loginViewModel.Password = passwordToAuthenticate;
 
+        var popup = new LoadingSpinnerPopup();
+        this.ShowPopup(popup);
         HttpCallResponseData callResponse = await _loginViewModel.AuthenticateUser();
         if (callResponse.StatusCode == (int)Enums.StatusCodes.Success)
         {
             await Shell.Current.GoToAsync($"//{nameof(TasksView)}", true);
+            popup.Close();
         }
         else
         {

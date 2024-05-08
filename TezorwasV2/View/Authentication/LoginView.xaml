@@ -6,9 +6,9 @@
              xmlns:core="http://schemas.syncfusion.com/maui"
              xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
              BackgroundColor="{StaticResource BACKGROUND}">
+    
 
     <ScrollView VerticalOptions="FillAndExpand">
-
         <VerticalStackLayout>
             <ImageButton x:Name="BackButton"
                          Source="Resources/Images/back_button.png"

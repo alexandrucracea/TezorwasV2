@@ -51,7 +51,8 @@
                     WidthRequest="320"
                     CornerRadius="40"
                     FontFamily="Inter-VariableFont"
-                    FontSize="18" ></Button>
+                    FontSize="18" >
+                </Button>
 
                 <Button Text="Register"
                     Clicked="OnClickGoToPage"

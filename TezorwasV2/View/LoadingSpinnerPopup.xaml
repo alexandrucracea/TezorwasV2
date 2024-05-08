@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                x:Class="TezorwasV2.View.LoadingSpinnerPopup"
+                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+                xmlns:popups="TezorwasV2.View.LoadingSpinnerPopup"
+                CanBeDismissedByTappingOutsideOfPopup="False"
+                Size="100,100"
+                Color="Transparent"
+                >
+    <Border Padding="0" HeightRequest="300"
+           WidthRequest="300"
+           Stroke="Transparent"
+           BackgroundColor="#FFEAE7EC">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="28"/>
+        </Border.StrokeShape>
+        <Grid BackgroundColor="{StaticResource BACKGROUND}">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <core:SfBusyIndicator   x:Name="busyIndicator"
+                                    IsRunning="True"
+                                    AnimationType="CircularMaterial"
+                                    IndicatorColor="{StaticResource PRIMARY-COLOR}"
+                                    Background="{StaticResource BACKGROUND}"
+                                    SizeFactor="0.7"
+                                    Grid.Row="0"
+                           />
+
+        </Grid>
+    </Border>
+
+</toolkit:Popup>

@@ -4,7 +4,7 @@
              x:Class="TezorwasV2.View.Authentication.RegisterView"
              xmlns:core="http://schemas.syncfusion.com/maui"
              Title="RegisterView"
-             Background="red">
+             Background="{StaticResource BACKGROUND}">
     <ScrollView x:Name="ScrollViewX">
         <!--<ImageButton Source="Resources/Images/back_button.png"
                   HorizontalOptions="StartAndExpand"
