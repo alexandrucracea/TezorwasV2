@@ -24,18 +24,31 @@ namespace TezorwasV2.ViewModel.MainPages
         private readonly IProfileService _profileService;
         private readonly IGlobalContext _globalContext;
 
-        public TasksViewModel(IGlobalContext globalContext, IProfileService profileService)
+        public  TasksViewModel(IGlobalContext globalContext, IProfileService profileService)
         {
             _globalContext = globalContext;
             _profileService = profileService;
 
-            PopulateTasks();
+            Task.Run(OnAppearing);
 
-            NoAvailableTasksMessage = "You completed all the available tasks for today.";
             NoCompletedTasksMessage = "You didn't complete any tasks today";
 
         }
-       
+       public async Task OnAppearing()
+        {
+            await PopulateTasks();
+            if (CompletedTasks.Count == 0)
+            {
+                NoAvailableTasksMessage = "You don't have any available tasks";
+
+            }
+            else
+            {
+                NoAvailableTasksMessage = "You completed all the available tasks for today.";
+
+            }
+
+        }
         [RelayCommand]
         public async Task CompleteTask()
         {

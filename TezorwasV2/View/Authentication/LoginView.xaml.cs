@@ -1,5 +1,8 @@
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Behaviors;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
+using Microsoft.Maui.ApplicationModel.Communication;
 using TezorwasV2.Helpers;
 using TezorwasV2.View.AppPages;
 using TezorwasV2.ViewModel;
@@ -12,7 +15,7 @@ public partial class LoginView : ContentPage
     private readonly LoginViewModel _loginViewModel;
     public LoginView(LoginViewModel loginViewModel)
     {
- 
+
         InitializeComponent();
 
         _loginViewModel = loginViewModel;
@@ -24,24 +27,42 @@ public partial class LoginView : ContentPage
 
     private async void LoginButton_Clicked(object sender, EventArgs e)
     {
-
         string emailToAuthenticate = EmailEntry.Text;
         string passwordToAuthenticate = PasswordEntry.Text;
 
         _loginViewModel.Username = emailToAuthenticate;
         _loginViewModel.Password = passwordToAuthenticate;
 
-        var popup = new LoadingSpinnerPopup();
-        this.ShowPopup(popup);
+
         HttpCallResponseData callResponse = await _loginViewModel.AuthenticateUser();
         if (callResponse.StatusCode == (int)Enums.StatusCodes.Success)
         {
+            var popup = new LoadingSpinnerPopup();
+            this.ShowPopup(popup);
             await Shell.Current.GoToAsync($"//{nameof(TasksView)}", true);
             popup.Close();
         }
         else
         {
-            await DisplayAlert("CallResponse", callResponse.Response + " " + callResponse.StatusCode.ToString(), "OK");
+ 
+            var snackbarOptions = new SnackbarOptions
+            {
+                BackgroundColor = Colors.LightGray,
+                TextColor = Colors.Green,
+                CornerRadius = new CornerRadius(40),
+                Font =Microsoft.Maui.Font.SystemFontOfSize(14)
+            };
+
+            var content = new Label
+            {
+                Text = "Incorrect email or password",
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Center
+            };
+            var snackbar = Snackbar.Make("Incorrect email or password", null, actionButtonText: "", duration: new TimeSpan(0, 0, 3), snackbarOptions);
+            
+            await snackbar.Show(default);
+            //await DisplayAlert("CallResponse", callResponse.Response + " " + callResponse.StatusCode.ToString(),"");
 
         }
     }
@@ -63,7 +84,8 @@ public partial class LoginView : ContentPage
     }
     private async void BackButton_Clicked(object sender, EventArgs e)
     {
-
+        EmailEntry.Text = "";
+        PasswordEntry.Text="";
         await Shell.Current.GoToAsync("..", true);
     }
 
