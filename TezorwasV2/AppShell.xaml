@@ -25,8 +25,8 @@
                         Route="TasksView"
                         Icon="task.png"/>
         <ShellContent  ContentTemplate="{DataTemplate appPages:ReceiptsView}"
-                        Route="ReceiptsView"
-                       Icon="receipt.png"/>
+                       Route="ReceiptsView"
+                       Icon="receipt.png" />
         <ShellContent  ContentTemplate="{DataTemplate appPages:ScanReceiptView}"
                        Route="ScanReceiptView"
                        Icon="add_receipt.png"/>

@@ -55,9 +55,13 @@
 	  <None Remove="Resources\Images\article.svg" />
 	  <None Remove="Resources\Images\back_button.svg" />
 	  <None Remove="Resources\Images\profile.svg" />
+	  <None Remove="Resources\Images\quest.svg" />
 	  <None Remove="Resources\Images\receipt.svg" />
 	  <None Remove="Resources\Images\start_main_image.svg" />
+	  <None Remove="Resources\Images\take_photo.svg" />
 	  <None Remove="Resources\Images\task.svg" />
+	  <None Remove="Resources\Images\task_done.svg" />
+	  <None Remove="Resources\Images\upload_photo.svg" />
 	  <None Remove="Resources\ron.traineddata" />
 	</ItemGroup>
 

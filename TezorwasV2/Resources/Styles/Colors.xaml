@@ -48,6 +48,6 @@
     <Color x:Key="TEXT-COLOR-LIGHT">#9aadab</Color>
     <Color x:Key="PRIMARY-COLOR-LIGHT">#b3d4d4</Color>
     <Color x:Key="PRIMARY-COLOR">#037171</Color>
-    <Color x:Key="ERROR-COLOR">#ff1654</Color>
+    <Color x:Key="ERROR-COLOR">#850023</Color>
 
 </ResourceDictionary>

@@ -34,23 +34,27 @@ public partial class LoginView : ContentPage
         _loginViewModel.Password = passwordToAuthenticate;
 
 
+        var popup = new LoadingSpinnerPopup();
+        this.ShowPopup(popup);
+
         HttpCallResponseData callResponse = await _loginViewModel.AuthenticateUser();
         if (callResponse.StatusCode == (int)Enums.StatusCodes.Success)
         {
-            var popup = new LoadingSpinnerPopup();
-            this.ShowPopup(popup);
+
             await Shell.Current.GoToAsync($"//{nameof(TasksView)}", true);
             popup.Close();
         }
         else
         {
- 
+            popup.Close();
+            
             var snackbarOptions = new SnackbarOptions
             {
-                BackgroundColor = Colors.LightGray,
-                TextColor = Colors.Green,
+                BackgroundColor = Color.FromRgb(133, 0, 35),
+                TextColor = Color.FromRgb(255, 255, 255),
                 CornerRadius = new CornerRadius(40),
                 Font =Microsoft.Maui.Font.SystemFontOfSize(14)
+                
             };
 
             var content = new Label

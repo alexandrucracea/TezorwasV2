@@ -15,18 +15,32 @@
                FontFamily="Inter-VariableFont"
                FontSize="30"
                FontAttributes="Bold"
+               TextColor="{StaticResource TEXT-COLOR}"
                Margin="20,10,0,10">
-
         </Label>
+        <!--<HorizontalStackLayout HeightRequest="50"
+                              
+                               HorizontalOptions="Center">
+            <Label Text="1/3"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   FontFamily="Inter-VariableFont"
+                   TextColor="{StaticResource PRIMARY-COLOR}"
+                   Margin="0,10,0,0"/>
+            <Image Source="Resources/Images/task_done.png"
+                    HeightRequest="20"
+                   Margin="0,0,0,5"/>
+
+        </HorizontalStackLayout>-->
 
         <VerticalStackLayout >
             <Label Text="Available tasks"
-                        FontFamily="Inter-VariableFont"
-                        FontAttributes="Bold"
-                        FontSize="18"
-                        TextColor="{StaticResource TEXT-COLOR}"
-                        Margin="20,20,10,0"/>
-            <BoxView Color="{StaticResource PRIMARY-COLOR}"
+                   FontFamily="Inter-VariableFont"
+                   FontAttributes="Bold"
+                   FontSize="18"
+                   TextColor="{StaticResource TEXT-COLOR}"
+                   Margin="25,50,10,0"/>
+            <BoxView Color="{StaticResource TEXT-COLOR}"
                      HeightRequest="1"
                      Margin="10,5,10,0"/>
             <Border  MaximumHeightRequest="220"
@@ -88,12 +102,12 @@
             <Label Text="Today's completed tasks"
                    FontFamily="Inter-VariableFont"
                    FontAttributes="Bold"
-                   FontSize="16"
+                   FontSize="18"
                    TextColor="{StaticResource TEXT-COLOR}"
-                    Margin="10,90,10,0"/>
-            <BoxView Color="{StaticResource PRIMARY-COLOR}"
+                    Margin="25,90,10,0"/>
+            <BoxView Color="{StaticResource TEXT-COLOR}"
                      HeightRequest="1"
-                     Margin="10,20,10,0"/>
+                     Margin="10,10,10,0"/>
             <Border  MaximumHeightRequest="220"
                      Margin="10,20,10,0"
                      Background="{StaticResource BACKGROUND-LIGHT}"
