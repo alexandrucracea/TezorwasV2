@@ -40,7 +40,6 @@
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
-		<MauiImage Update="Resources\Images\task.svg" BaseSize="100,100" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -54,6 +53,7 @@
 	  <None Remove="Resources\Images\add_receipt.svg" />
 	  <None Remove="Resources\Images\article.svg" />
 	  <None Remove="Resources\Images\back_button.svg" />
+	  <None Remove="Resources\Images\green_hero.png" />
 	  <None Remove="Resources\Images\profile.svg" />
 	  <None Remove="Resources\Images\quest.svg" />
 	  <None Remove="Resources\Images\receipt.svg" />

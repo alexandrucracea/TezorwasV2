@@ -8,12 +8,15 @@
         xmlns:appPages="using:TezorwasV2.View.AppPages"
         Shell.FlyoutBehavior="Disabled"
         Shell.NavBarIsVisible="False"
-        Shell.TabBarTitleColor="{StaticResource PRIMARY-COLOR}">
+        Shell.TabBarTitleColor="{StaticResource PRIMARY-COLOR}"
+        Shell.TabBarUnselectedColor="{StaticResource TAB-BAR-UNSELECTED}">
 
     <Shell.Behaviors>
         <toolkit:StatusBarBehavior  StatusBarColor="{StaticResource BACKGROUND}" 
                                     StatusBarStyle="DarkContent">
         </toolkit:StatusBarBehavior>
+
+
     </Shell.Behaviors>
 
     <ShellContent   ContentTemplate="{DataTemplate tezorwas:MainPage}"
@@ -23,10 +26,13 @@
     <TabBar>
         <ShellContent   ContentTemplate="{DataTemplate appPages:TasksView}"
                         Route="TasksView"
-                        Icon="task.png"/>
+                        Icon="task.png"
+                        >
+        </ShellContent>
         <ShellContent  ContentTemplate="{DataTemplate appPages:ReceiptsView}"
                        Route="ReceiptsView"
-                       Icon="receipt.png" />
+                       Icon="receipt.png"
+                       />
         <ShellContent  ContentTemplate="{DataTemplate appPages:ScanReceiptView}"
                        Route="ScanReceiptView"
                        Icon="add_receipt.png"/>

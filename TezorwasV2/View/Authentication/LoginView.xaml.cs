@@ -50,8 +50,8 @@ public partial class LoginView : ContentPage
             
             var snackbarOptions = new SnackbarOptions
             {
-                BackgroundColor = Color.FromRgb(133, 0, 35),
-                TextColor = Color.FromRgb(255, 255, 255),
+                BackgroundColor = Color.FromRgb(244, 214, 210),
+                TextColor = Color.FromRgb(150, 25, 17),
                 CornerRadius = new CornerRadius(40),
                 Font =Microsoft.Maui.Font.SystemFontOfSize(14)
                 
@@ -63,7 +63,7 @@ public partial class LoginView : ContentPage
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center
             };
-            var snackbar = Snackbar.Make("Incorrect email or password", null, actionButtonText: "", duration: new TimeSpan(0, 0, 3), snackbarOptions);
+            var snackbar = Snackbar.Make(callResponse.Response, null, actionButtonText: "", duration: new TimeSpan(0, 0, 3), snackbarOptions);
             
             await snackbar.Show(default);
             //await DisplayAlert("CallResponse", callResponse.Response + " " + callResponse.StatusCode.ToString(),"");
@@ -92,9 +92,13 @@ public partial class LoginView : ContentPage
         PasswordEntry.Text="";
         await Shell.Current.GoToAsync("..", true);
     }
-
     private void EmailEntry_Completed(object sender, EventArgs e)
     {
         PasswordEntry.Focus();
+    }
+
+    private void PasswordEntry_Completed(object sender, EventArgs e)
+    {
+        LoginButton.Focus();
     }
 }

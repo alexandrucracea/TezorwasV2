@@ -54,20 +54,32 @@ namespace TezorwasV2.ViewModel
                     Password = Password
                 };
                 callResponse = await _authenticationService.AuthenticateUser(userToAuthenticate);
-                string bearerToken = callResponse.GetKeyValue("idToken");
+                if (callResponse is not null && callResponse.StatusCode == (int)Enums.StatusCodes.Success)
+                {
+                    string bearerToken = callResponse.GetKeyValue("idToken");
 
-                var allPersons = await _personService.GetAllPersons(bearerToken);
-                var searchedPerson = allPersons.FirstOrDefault(person => person.Email.Equals(Username, StringComparison.OrdinalIgnoreCase));
-                
-                _globalContext.PersonId = searchedPerson.Id;
-                _globalContext.UserToken = bearerToken;
+                    var allPersons = await _personService.GetAllPersons(bearerToken);
+                    var searchedPerson = allPersons.FirstOrDefault(person => person.Email.Equals(Username, StringComparison.OrdinalIgnoreCase));
+
+                    _globalContext.PersonId = searchedPerson.Id;
+                    _globalContext.UserToken = bearerToken;
+                }
+                else
+                {
+                    callResponse = new HttpCallResponseData
+                    {
+                        Response = "Incorrect username or password",
+                        StatusCode = (int)Enums.StatusCodes.BadRequest
+                    };
+                }
+
 
             }
             else
             {
                 callResponse = new HttpCallResponseData
                 {
-                    Response = "Login process failed",
+                    Response = "The email provided is not correct",
                     StatusCode = (int)Enums.StatusCodes.InternalServerError
                 };
             }

@@ -1,4 +1,6 @@
 
+using CommunityToolkit.Maui.Behaviors;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using TezorwasV2.ViewModel.MainPages;
 
@@ -15,10 +17,21 @@ public partial class TasksView : ContentPage
 	}
 	public TasksView(TasksViewModel tasksViewModel)
 	{
-		InitializeComponent();
 
+		InitializeComponent();
 		_taskViewModel = tasksViewModel;
         BindingContext = _taskViewModel;
+
+    }
+	protected override void  OnAppearing()
+	{
+#pragma warning disable CA1416 // Validate platform compatibility
+        this.Behaviors.Add(new StatusBarBehavior
+        {
+            StatusBarColor = Color.FromArgb("037171"),
+            StatusBarStyle = StatusBarStyle.LightContent
+        });
+#pragma warning restore CA1416 // Validate platform compatibility
     }
 
     private void SfCheckBox_StateChanged(object sender, Syncfusion.Maui.Buttons.StateChangedEventArgs e)

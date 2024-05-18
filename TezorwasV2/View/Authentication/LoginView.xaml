@@ -44,21 +44,21 @@
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
             </ImageButton>
-            <VerticalStackLayout Spacing="10"
+            <VerticalStackLayout 
                    Padding="20"
                    StyleClass="verticalLayout">
                 <VerticalStackLayout Margin="0,20,0,0">
                     <Label  x:Name="MessageLabel"
                             Text="Sign in with email"
-                            FontSize="20"
+                            FontSize="32"
                             FontFamily="Inter-VariableFont"
                             FontAttributes="Bold"
                             Margin="15,100,0,0"></Label>
                     <Label  x:Name="InstructionsLabel"
                             Text="Enter your user details:"
-                            FontSize="14"
+                            FontSize="20"
                             FontFamily="Inter-VariableFont"
-                            Margin="15,20,0,0"></Label>
+                            Margin="15,10,0,20"></Label>
                 </VerticalStackLayout>
                 <core:SfTextInputLayout Hint="Email"
                                      ContainerType="Outlined"
@@ -83,7 +83,8 @@
                                         ContainerBackground="{StaticResource BACKGROUND}"
                                         Stroke="{StaticResource TEXT-COLOR-LIGHT}">
                     <Entry  x:Name="PasswordEntry"
-                            IsPassword="true"/>
+                            IsPassword="true"
+                            Completed="PasswordEntry_Completed"/>
                     <core:SfTextInputLayout.HintLabelStyle>
                         <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}"/>
                     </core:SfTextInputLayout.HintLabelStyle>
@@ -92,12 +93,14 @@
                 <Button Text="Login"
                         x:Name="LoginButton"
                         Clicked="LoginButton_Clicked"
+                        Margin="0,50,0,0"
                         BackgroundColor="{StaticResource PRIMARY-COLOR}"
-                        HeightRequest="50"
+                        HeightRequest="60"
                         WidthRequest="320"
                         CornerRadius="40"
                         FontFamily="Inter-VariableFont"
-                        FontSize="18"
+                        FontSize="24"
+                        FontAttributes="Bold"
                         Command="{Binding ShowActivityIndicator}"/>
 
                 <Button Text="Forgot password?"

@@ -24,7 +24,7 @@ namespace TezorwasV2.ViewModel.MainPages
         private readonly IProfileService _profileService;
         private readonly IGlobalContext _globalContext;
 
-        public  TasksViewModel(IGlobalContext globalContext, IProfileService profileService)
+        public TasksViewModel(IGlobalContext globalContext, IProfileService profileService)
         {
             _globalContext = globalContext;
             _profileService = profileService;
@@ -34,8 +34,11 @@ namespace TezorwasV2.ViewModel.MainPages
             NoCompletedTasksMessage = "You didn't complete any tasks today";
 
         }
-       public async Task OnAppearing()
+        public async Task OnAppearing()
         {
+            //GptService gptService = new GptService();
+            //var x = await gptService.GenerateTasks(3, _globalContext.UserToken);
+            //var y = GptObjectParser.ParseGptCompletionsData(x);
             await PopulateTasks();
             if (CompletedTasks.Count == 0)
             {
@@ -103,7 +106,7 @@ namespace TezorwasV2.ViewModel.MainPages
             profileToUpdate.Xp += task.XpEarned;
             profileToUpdate.Level = UpdateLevelIfNecessary(profileToUpdate);
 
-            
+
             await _profileService.UpdateAProfile(profileToUpdate, _globalContext.UserToken);
         }
         static string GetEnumDescription(Enum value)
@@ -118,7 +121,7 @@ namespace TezorwasV2.ViewModel.MainPages
             //var levelXp = (int)levelsXp.GetValue(0);
             //var levelDescription = GetEnumDescription((Enums.Level)levelsXp.GetValue(0));
             Array levelsXp = Enum.GetValues(typeof(Enums.Level));
-            for (int i = 0; i < levelsXp.Length-1; i++)
+            for (int i = 0; i < levelsXp.Length - 1; i++)
             {
                 var level = levelsXp.GetValue(i);
                 if (profileToUpdate.Xp > (int)level)

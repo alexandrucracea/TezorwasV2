@@ -43,13 +43,13 @@
             </ImageButton>
             <Label  x:Name="MessageLabel"
                          Text="Create an accout"
-                         FontSize="28"
+                         FontSize="32"
                          FontFamily="Inter-VariableFont"
                          FontAttributes="Bold"
                          Margin="20,20,0,0"></Label>
             <Label  x:Name="InstructionsLabel"
                          Text="Enter the following details:"
-                         FontSize="14"
+                         FontSize="20"
                          FontFamily="Inter-VariableFont"
                          Margin="20,10,0,40"></Label>
 
@@ -60,9 +60,10 @@
                                      WidthRequest="320"
                                      ContainerBackground="{StaticResource BACKGROUND}"
                                      Stroke="{StaticResource TEXT-COLOR-LIGHT}">
-                <Entry  x:Name="FirstNameEntry"
+                <Entry   x:Name="FirstNameEntry"
                          Keyboard="Default"
-                         Text="{Binding FirstName}">
+                         Text="{Binding FirstName}"
+                         Completed="FirstNameEntry_Completed">
                 </Entry>
                 <core:SfTextInputLayout.HintLabelStyle>
                     <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
@@ -80,7 +81,8 @@
                 <Entry  x:Name="LastNameEntry"
                          Keyboard="Default"
                          Text="{Binding LastName}"
-                         FontSize="16">
+                         FontSize="16"
+                         Completed="LastNameEntry_Completed">
                 </Entry>
                 <core:SfTextInputLayout.HintLabelStyle>
                     <core:LabelStyle  TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
@@ -95,9 +97,10 @@
                                      WidthRequest="320"
                                      ContainerBackground="{StaticResource BACKGROUND}"
                                      Stroke="{StaticResource TEXT-COLOR-LIGHT}">
-                <Entry  x:Name="EmailEntry"
+                <Entry   x:Name="EmailEntry"
                          Keyboard="Email"
-                         Text="{Binding Email}">
+                         Text="{Binding Email}"
+                         Completed="EmailEntry_Completed">
                 </Entry>
                 <core:SfTextInputLayout.HintLabelStyle>
                     <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
@@ -112,9 +115,10 @@
                                      WidthRequest="320"
                                      ContainerBackground="{StaticResource BACKGROUND}"
                                      Stroke="{StaticResource TEXT-COLOR-LIGHT}">
-                <Entry  x:Name="PasswordEntry"
+                <Entry   x:Name="PasswordEntry"
                          IsPassword="true"
-                         Text="{Binding Password}"></Entry>
+                         Text="{Binding Password}"
+                         Completed="PasswordEntry_Completed"/>
                 <core:SfTextInputLayout.HintLabelStyle>
                     <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
                 </core:SfTextInputLayout.HintLabelStyle>
@@ -129,7 +133,8 @@
                                      Stroke="{StaticResource TEXT-COLOR-LIGHT}">
                 <Entry  x:Name="ConfirmPasswordEntry"
                          IsPassword="true"
-                         Text="{Binding ConfirmPassword}"></Entry>
+                         Text="{Binding ConfirmPassword}"
+                         Completed="ConfirmPasswordEntry_Completed"/>
                 <core:SfTextInputLayout.HintLabelStyle>
                     <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
                 </core:SfTextInputLayout.HintLabelStyle>
@@ -138,12 +143,13 @@
             <Button Text="Register"
                             x:Name="RegisterButton"
                             Background="{StaticResource PRIMARY-COLOR}"
-                            HeightRequest="50"
-                            WidthRequest="320"
+                            Margin="0,70,0,0"
                             CornerRadius="40"
+                            HeightRequest="60"
+                            WidthRequest="320"
                             FontFamily="Inter-VariableFont"
-                            FontSize="16"
-                            Margin="0,90,0,0"
+                            FontSize="24"
+                            FontAttributes="Bold"
                             Command="{Binding RegisterCommand}"/>
         </VerticalStackLayout>
     </ScrollView>

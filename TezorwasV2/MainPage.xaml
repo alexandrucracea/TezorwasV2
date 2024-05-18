@@ -6,52 +6,79 @@
 
 
     <Grid>
-        <Label  x:Name="appNameLabel"
-            HorizontalOptions="Center"
-            HorizontalTextAlignment="Center"
-            Text="Welcome to APP_NAME"
-            TextColor="{StaticResource TEXT-COLOR}"
-            FontSize="24"
-            FontAttributes="Bold"
-            Margin="0,100,0,0"
-            FontFamily="Inter-VariableFont"/>
+        <VerticalStackLayout>
+            <Label  x:Name="appNameLabel"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="Welcome to"
+                    TextColor="{StaticResource TEXT-COLOR}"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    Margin="0,60,0,0"
+                    FontFamily="Inter-VariableFont"/>
+            <Label  x:Name="appNameLabel2"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="Green Hero"
+                    TextColor="{StaticResource PRIMARY-COLOR}"
+                    FontSize="35"
+                    FontAttributes="Bold"
+                    Margin="0,0,0,0"
+                    FontFamily="Inter-VariableFont"/>
+        </VerticalStackLayout>
+        
 
         <Image  x:Name="mainImage"
-            Source="Resources/Images/start_main_image.png"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            WidthRequest="300"
-            HeightRequest="300"
-            Margin="0,150,0,20"/>
+                Source="Resources/Images/green_hero.png"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                WidthRequest="300"
+                HeightRequest="300"
+                Margin="0,150,0,60"/>
 
         <Border x:Name="actionsArea"
-            Padding="0,32,0,32"
-            BackgroundColor="{StaticResource PRIMARY-COLOR-LIGHT}"
-            Stroke="{StaticResource PRIMARY-COLOR-LIGHT}"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="End" >
+                Padding="0,32,0,32"
+                Margin="-10,0,-10,0"
+                BackgroundColor="{StaticResource PRIMARY-COLOR-LIGHT}"
+                Stroke="{StaticResource PRIMARY-COLOR-LIGHT}"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="End"
+                HeightRequest="250">
             <Border.StrokeShape>
-                <RoundRectangle CornerRadius="20,20,0,0" />
+                <RoundRectangle CornerRadius="40,40,0,0" />
             </Border.StrokeShape>
 
             <VerticalStackLayout    x:Name="ButtonsContainer"
                                     Spacing="16">
-                <Label
-                   HorizontalOptions="Center"
-                   HorizontalTextAlignment="Center"
-                   Text="Sloganussy"
-                   FontSize="16"
-                   FontFamily="Inter-VariableFont"/>
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="Begin your "
+                            FontSize="16"
+                            FontFamily="Inter-VariableFont"
+                            TextColor="{StaticResource TEXT-COLOR}"/>
+                    <Label
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="Ecology Quest"
+                            FontSize="16"
+                            FontFamily="Inter-VariableFont"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TEXT-COLOR}"/>
+                </HorizontalStackLayout>
+                
 
                 <Button Text="Login"
                     Clicked="OnClickGoToPage"
                     x:Name="LoginButton"
                     BackgroundColor="{StaticResource PRIMARY-COLOR}"
-                    HeightRequest="50"
+                    HeightRequest="60"
                     WidthRequest="320"
                     CornerRadius="40"
                     FontFamily="Inter-VariableFont"
-                    FontSize="18" >
+                    FontSize="24"
+                    FontAttributes="Bold">
                 </Button>
 
                 <Button Text="Register"
@@ -59,10 +86,11 @@
                     x:Name="RegisterButton"
                     BackgroundColor="{StaticResource PRIMARY-COLOR}"
                     CornerRadius="40"
-                    HeightRequest="50"
+                    HeightRequest="60"
                     WidthRequest="320"
                     FontFamily="Inter-VariableFont"
-                    FontSize="18"></Button>
+                    FontSize="24"
+                    FontAttributes="Bold"></Button>
 
             </VerticalStackLayout>
 

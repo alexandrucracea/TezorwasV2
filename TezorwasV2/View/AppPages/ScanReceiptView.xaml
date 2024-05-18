@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TezorwasV2.View.AppPages.ScanReceiptView"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Background="{StaticResource BACKGROUND}">
+    <ContentPage.Behaviors>
+    </ContentPage.Behaviors>
     <VerticalStackLayout>
         <!--<Label Text="Upload your receipt"
                Margin="20,10,0,10"
@@ -11,30 +14,32 @@
                FontSize="30"
                FontAttributes="Bold"
                TextColor="{StaticResource TEXT-COLOR}"/>-->
-        <Image Source="Resources/Images/quest.png"
-               HeightRequest="130"
-               Margin="0,80,0,0"/>
-        <Label  Text="Let's create a recycling quest"
-                Margin="30,60,30,0"
-                FontFamily="Inter-VariableFont"
-                FontSize="23"
-                TextColor="{StaticResource TEXT-COLOR}"
-                FontAttributes="Bold"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
-        <Label  Text="Here you can add a receipt that will transform into a recyclingquest that will give you xp points."
-                Margin="30,3,30,20"
-                FontFamily="Inter-VariableFont"
-                FontSize="18"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"/>
-    
-        <buttons:SfButton   x:Name="CameraBtn"
+
+            <Image  Source="Resources/Images/quest.png"
+                        HeightRequest="130"
+                        Margin="0,100,0,0"/>
+            <Label  Text="Let's create a recycling quest"
+                        Margin="20,60,30,0"
+                        FontFamily="Inter-VariableFont"
+                        FontSize="26"
+                        TextColor="{StaticResource TEXT-COLOR}"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" />
+            <Label  Text="Here you can add a receipt that will transform into a recyclingquest that will give you xp points."
+                        Margin="50,10,50,20"
+                        FontFamily="Inter-VariableFont"
+                        FontSize="18"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"/>
+
+            <buttons:SfButton   x:Name="CameraBtn"
 	                        Text="Capture receipt"
                             Clicked="OnCameraClicked"
                             HorizontalTextAlignment="Center"
+                            Padding="0,0,40,0"
                             Background="{StaticResource PRIMARY-COLOR}"
                             HeightRequest="70"
                             WidthRequest="320"
@@ -44,11 +49,12 @@
                             Margin="0,30,0,0"
                             ImageSource="Resources/Images/take_photo.png"
                             ShowIcon="True"
-                            ImageSize="30"/>
+                            ImageSize="35"/>
         
         <buttons:SfButton   x:Name="UploadBtn"
 	                        Text="Upload receipt"
                             HorizontalTextAlignment="Center"
+                            Padding="0,0,40,0"
                             Background="{StaticResource PRIMARY-COLOR}"
                             HeightRequest="70"
                             WidthRequest="320"

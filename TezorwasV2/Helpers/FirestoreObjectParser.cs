@@ -1,6 +1,4 @@
-﻿
-using Newtonsoft.Json.Linq;
-using System.Text.Json.Nodes;
+﻿using System.Text.Json.Nodes;
 using TezorwasV2.DTO;
 using TezorwasV2.Model;
 

@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Behaviors;
+using CommunityToolkit.Maui.Core;
 using SkiaSharp;
 using System.Reflection;
 using TesseractOcrMaui;
@@ -15,6 +17,17 @@ public partial class ScanReceiptView : ContentPage
         InitializeComponent();
         Tesseract = tesseract;
 
+    }
+    protected override void OnAppearing()
+    {
+#pragma warning disable CA1416 // Validate platform compatibility
+        this.Behaviors.Add(new StatusBarBehavior
+        {
+            StatusBarColor = Color.FromArgb("#eff1f3"),
+            StatusBarStyle = StatusBarStyle.DarkContent
+        });
+#pragma warning restore CA1416 // Validate platform compatibility
+        base.OnAppearing();
     }
     private void OnCameraClicked(object sender, EventArgs e)
     {
