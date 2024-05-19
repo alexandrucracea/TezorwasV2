@@ -4,67 +4,124 @@
              x:Class="TezorwasV2.View.AppPages.QuestionsView"
              xmlns:inputs="http://schemas.syncfusion.com/maui"
              xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
+             xmlns:core="http://schemas.syncfusion.com/maui"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              x:DataType="pagesViewModels:QuestionsViewModel"
              Title="QuestionsView"
-             Background="{StaticResource BACKGROUND}">
+             Background="{StaticResource PRIMARY-COLOR}">
 
-    <VerticalStackLayout HorizontalOptions="Center"
+    <ScrollView>
+
+
+        <VerticalStackLayout HorizontalOptions="Center"
                          VerticalOptions="Start"
-                         Margin="0,200,0,0">
-        <StackLayout>
-            <StackLayout 
-                    Orientation="Horizontal">
-                <Label Text="Hello "/>
-                <Label Text="{Binding PersonName}"></Label>
-            </StackLayout>
-        </StackLayout>
-        <Border x:Name="actionsArea"
-                BackgroundColor="{StaticResource PRIMARY-COLOR-LIGHT}"
-                Stroke="{StaticResource PRIMARY-COLOR-LIGHT}"
+                         Margin="0,40,0,0">
+            <VerticalStackLayout Margin="30,0,0,0">
+                <Label Text="Hello"
+                   TextColor="{StaticResource BACKGROUND}"
+                   FontSize="36"
+                   FontFamily="Inter-VariableFont"
+                   FontAttributes="Bold"/>
+                <Label Text="{Binding PersonName}"
+                   TextColor="{StaticResource BACKGROUND}"
+                   FontSize="45"
+                   FontFamily="Inter-VariableFont"
+                   FontAttributes="Bold"/>
+            </VerticalStackLayout>
+            <Border x:Name="actionsArea"
+                Background="{StaticResource BACKGROUND-LIGHT}"
+                Stroke="{StaticResource BACKGROUND-DARK}"
                 HorizontalOptions="FillAndExpand"
-                VerticalOptions="End"
+                VerticalOptions="EndAndExpand"
                 HeightRequest="550"
-                WidthRequest="370">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="40,40,0,0" />
-            </Border.StrokeShape>
-            <Border.Content>
-                <Grid Background="red">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+                WidthRequest="370"
+                Margin="0,80,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="40,40,0,0" />
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                        Offset="0,20"
+                        Radius="40"
+                        Opacity="0.1"/>
+                </Border.Shadow>
+                <Border.Content>
+                    <VerticalStackLayout>
+                        <VerticalStackLayout x:Name="SectionOne"
+                                         VerticalOptions="Center">
+                            <Label Text="To continue the registration process please enter the following details:"
+                                   TextColor="{StaticResource TEXT-COLOR}"
+                                   FontSize="20"
+                                   FontFamily="Inter-VariableFont"
+                                   Margin="30,30,30,20"/>
+                            <core:SfTextInputLayout Hint="Street"
+                                        ContainerType="Outlined"
+                                        OutlineCornerRadius="30"
+                                        HeightRequest="80"
+                                        WidthRequest="320"
+                                        ContainerBackground="{StaticResource BACKGROUND}"
+                                        Stroke="{StaticResource TEXT-COLOR-LIGHT}"
+                                        Margin="0,0,0,0">
+                                <Entry  x:Name="StreetEntry"
+                                    Keyboard="Default"
+                                    Text="{Binding Street}"
+                                    Completed="StreetEntry_Completed"/>
+                                <core:SfTextInputLayout.HintLabelStyle>
+                                    <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}"/>
+                                </core:SfTextInputLayout.HintLabelStyle>
+                            </core:SfTextInputLayout>
 
-                    <Entry      x:Name="StreetEntry"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                WidthRequest="20"
-                                Placeholder="Street"
-                                Keyboard="Default"
-                                Text="{Binding Street}"
-                                Background="yellow">
-                    </Entry>
-                    <Entry  x:Name="CityEntry"
-                                Placeholder="City"
-                                Keyboard="Default"
-                                Text="{Binding City}">
-                        </Entry>
-                    <Entry  x:Name="CountyEntry"
-                                Placeholder="County"
-                                Keyboard="Default"
-                                Text="{Binding County}">
-                    </Entry>
-                    <Entry  x:Name="AgeEntry"
-                            Placeholder="Age"
-                            Keyboard="Numeric"
-                            Text="{Binding Age}">
-                    </Entry>
-                    <Button Text="Continue"
+                            <core:SfTextInputLayout Hint="City"
+                                        ContainerType="Outlined"
+                                        OutlineCornerRadius="30"
+                                        HeightRequest="80"
+                                        WidthRequest="320"
+                                        ContainerBackground="{StaticResource BACKGROUND}"
+                                        Stroke="{StaticResource TEXT-COLOR-LIGHT}" >
+                                <Entry  x:Name="CityEntry"
+                                    Keyboard="Default"
+                                    Text="{Binding City}"
+                                    Completed="CityEntry_Completed"/>
+                                <core:SfTextInputLayout.HintLabelStyle>
+                                    <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}"/>
+                                </core:SfTextInputLayout.HintLabelStyle>
+                            </core:SfTextInputLayout>
+
+                            <core:SfTextInputLayout Hint="County"
+                                            ContainerType="Outlined"
+                                            OutlineCornerRadius="30"
+                                            HeightRequest="80"
+                                            WidthRequest="320"
+                                            ContainerBackground="{StaticResource BACKGROUND}"
+                                            Stroke="{StaticResource TEXT-COLOR-LIGHT}" >
+                                <Entry  x:Name="CountyEntry"
+                                    Keyboard="Default"
+                                    Text="{Binding County}"
+                                    Completed="CountyEntry_Completed"/>
+
+                                <core:SfTextInputLayout.HintLabelStyle>
+                                    <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}"/>
+                                </core:SfTextInputLayout.HintLabelStyle>
+                            </core:SfTextInputLayout>
+
+
+                            <core:SfTextInputLayout Hint="Age"
+                                            ContainerType="Outlined"
+                                            OutlineCornerRadius="30"
+                                            HeightRequest="80"
+                                            WidthRequest="320"
+                                            ContainerBackground="{StaticResource BACKGROUND}"
+                                            Stroke="{StaticResource TEXT-COLOR-LIGHT}" >
+                                <Entry  x:Name="AgeEntry"
+                                    Keyboard="Numeric"
+                                    Text="{Binding Age}"
+                                    Completed="AgeEntry_Completed"/>
+                                <core:SfTextInputLayout.HintLabelStyle>
+                                    <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}"/>
+                                </core:SfTextInputLayout.HintLabelStyle>
+                            </core:SfTextInputLayout>
+
+                            <!--<buttons:SfButton Text="Continue"
                             x:Name="ContinueQuestionsSectionOne"
                             WidthRequest="250"
                             CornerRadius="50"
@@ -72,76 +129,171 @@
                             TextColor="{StaticResource BACKGROUND}"
                             FontAttributes="Bold"
                             FontFamily="Inter-VariableFont"
-                            Clicked="ContinueQuestionsSectionOne_OnClicked"/>
-                    <!--<StackLayout x:Name="HabbitCardLayout"
+                            Clicked="ContinueQuestionsSectionOne_OnClicked"/>-->
+
+                            <buttons:SfButton   x:Name="ContinueQuestionsSectionOne"
+                                            Padding="0,0,40,0"
+                                            Background="{StaticResource PRIMARY-COLOR}"
+                                            HorizontalOptions="End"
+                                            HeightRequest="70"
+                                            WidthRequest="70"
+                                            Margin="0,20,30,0"
+                                            ImageSource="Resources/Images/cont_btn.png"
+                                            ImageSize="35"
+                                            ShowIcon="True"
+                                            Clicked="ContinueQuestionsSectionOne_OnClicked"
+                                            CornerRadius="50"/>
+
+                        </VerticalStackLayout>
+                        <VerticalStackLayout x:Name="SectionTwo">
+                            <Grid Margin="10, 0, 10 ,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Label  x:Name="LblHabbitTitle" 
+                                        Grid.Row="0"
+                                        Text="Tell us some wasteful habbits of yours"
+                                        TextColor="{StaticResource TEXT-COLOR}"
+                                        FontSize="20"
+                                        FontFamily="Inter-VariableFont"
+                                        Margin="30,20,30,10"/>
+                                <core:SfTextInputLayout Hint="Habbit One"
+                                     ContainerType="Outlined"
+                                     OutlineCornerRadius="30"
+                                     HeightRequest="80"
+                                     WidthRequest="320"
+                                     Grid.Row="1"
+                                     ContainerBackground="{StaticResource BACKGROUND}"
+                                     Stroke="{StaticResource TEXT-COLOR-LIGHT}">
+                                    <Editor Grid.Row="1"
+                                            x:Name="EdtHabbitOneDescription"
+                                            PlaceholderColor="Red"
+                                            Text="{Binding HabbitOneDescription}"
+                                            VerticalTextAlignment="Center"/>
+                                    <core:SfTextInputLayout.HintLabelStyle>
+                                        <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}"                                               FontFamily="Lobster-Regular"/>
+                                    </core:SfTextInputLayout.HintLabelStyle>
+                                </core:SfTextInputLayout>
+                                <core:SfTextInputLayout Hint="Habbit Two"
+                                     ContainerType="Outlined"
+                                     OutlineCornerRadius="30"
+                                     HeightRequest="80"
+                                     WidthRequest="320"
+                                     Grid.Row="2"
+                                     ContainerBackground="{StaticResource BACKGROUND}"
+                                     Stroke="{StaticResource TEXT-COLOR-LIGHT}">
+                                    <Editor x:Name="EdtHabbitTwoDescription"
+                                        PlaceholderColor="Red"
+                                        Placeholder="Habbit two"
+                                        Text="{Binding HabbitTwoDescription}"/>
+                                    <core:SfTextInputLayout.HintLabelStyle>
+                                        <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}"                                               FontFamily="Lobster-Regular"/>
+                                    </core:SfTextInputLayout.HintLabelStyle>
+                                </core:SfTextInputLayout>
+                                <core:SfTextInputLayout Grid.Row="3"
+                                     Hint="Habbit Three"
+                                     ContainerType="Outlined"
+                                     OutlineCornerRadius="30"
+                                     HeightRequest="80"
+                                     WidthRequest="320"
+                                     ContainerBackground="{StaticResource BACKGROUND}"
+                                     Stroke="{StaticResource TEXT-COLOR-LIGHT}">
+                                    <Editor 
+                                        x:Name="EdtHabbitThreeDescription"
+                                        PlaceholderColor="Red"
+                                        Placeholder="Habbit three"
+                                        Text="{Binding HabbitThreeDescription}"/>
+                                    <core:SfTextInputLayout.HintLabelStyle>
+                                        <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}"                                               FontFamily="Lobster-Regular"/>
+                                    </core:SfTextInputLayout.HintLabelStyle>
+                                </core:SfTextInputLayout>
+
+                                <Label  x:Name="lblLvlOfWasteDescription" 
+                                        Grid.Row="4"
+                                        Text="On a scale from 1 to 5 choose how wasteful do you think these habbits are"
+                                        TextColor="{StaticResource TEXT-COLOR}"
+                                        FontSize="16"
+                                        FontFamily="Inter-VariableFont"
+                                        Margin="30,0,30,20"/>
+
+                                <inputs:SfRating Grid.Row="5" 
+                                                 x:Name="wasteRating" 
+                                                 ItemCount="5"
+                                                 Value="{Binding HabbitLevelOfWaste}"
+                                                 Precision="Half"
+                                                 RatingShape="Circle"
+                                                 HeightRequest="20"
+                                                 ItemSize="25"
+                                                 ItemSpacing="40"
+                                                 BackgroundColor="{StaticResource BACKGROUND}">
+                                    <inputs:SfRating.RatingSettings>
+                                        <inputs:RatingSettings RatedFill="{StaticResource PRIMARY-COLOR}"
+                                                               RatedStroke="{StaticResource PRIMARY-COLOR}"
+                                                               >
+                                        </inputs:RatingSettings>
+                                    </inputs:SfRating.RatingSettings>
+                                </inputs:SfRating>
+                                <Grid Grid.Row="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label  x:Name="lblLvlOfWasteStartDescription" 
+                                            Grid.Column="0"
+                                            Text="Not wasteful"
+                                            TextColor="{StaticResource TEXT-COLOR}"
+                                            FontSize="15"
+                                            FontFamily="Inter-VariableFont"
+                                            Margin="20,10,30,20"
+                                            HorizontalTextAlignment="Center"
+                                            HorizontalOptions="Start"
+                                            WidthRequest="50"/>
+                                    <Label  x:Name="lblLvlOfWasteEndDescription" 
+                                            Grid.Column="2"
+                                            Text="Extremely wasteful"
+                                            TextColor="{StaticResource TEXT-COLOR}"
+                                            FontSize="15"
+                                            FontFamily="Inter-VariableFont"
+                                            Margin="20,10,10,20"
+                                            HorizontalTextAlignment="Center"
+                                            HorizontalOptions="End"
+                                            WidthRequest="60"/>
+                                </Grid>
+                            </Grid>
+                            <Button Text="Continue"
+                                    x:Name="ContinueQuestionsSectionTwo"
+                                    WidthRequest="320"
+                                    CornerRadius="50"
+                                    HeightRequest="70"
+                                    Background="{StaticResource PRIMARY-COLOR}"
+                                    TextColor="{StaticResource BACKGROUND}"
+                                    FontAttributes="Bold"
+                                    FontFamily="Inter-VariableFont"
+                                    Clicked="ContinueQuestionsSectionTwo_OnClicked"
+                                    FontSize="24"
+                                    Command="{Binding UpdatePersonDataCommand}"
+                                    Margin="0,10,0,0"/>
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border.Content>
+            </Border>
+            <!--<StackLayout x:Name="HabbitCardLayout"
              BackgroundColor="red">
     <controls:HabbitCard x:Name="HabbitCard"
                          HabbitTitle="Tell us some wasteful habbits of yours"></controls:HabbitCard>
 </StackLayout>-->
 
-                    <Frame
-                            BorderColor="Transparent">
-                        <Grid Margin="10, 10, 10 ,10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Label x:Name="LblHabbitTitle" 
-                                    Grid.Row="0"
-                                    Text="Tell us some wasteful habbits of yours" />
-                                                 <Editor Grid.Row="1"
-                                     x:Name="EdtHabbitOneDescription"
-                                     PlaceholderColor="Red"
-                                     Placeholder="Habbit one"
-                                     Text="{Binding HabbitOneDescription}"/>
-                                                 <Editor Grid.Row="2"
-                                     x:Name="EdtHabbitTwoDescription"
-                                     PlaceholderColor="Red"
-                                     Placeholder="Habbit two"
-                                     Text="{Binding HabbitTwoDescription}"/>
-                                                 <Editor Grid.Row="3"
-                                     x:Name="EdtHabbitThreeDescription"
-                                     PlaceholderColor="Red"
-                                     Placeholder="Habbit three"
-                                     Text="{Binding HabbitThreeDescription}"
-        />
-                            <inputs:SfRating Grid.Row="4" 
-                                             x:Name="wasteRating" 
-                                             ItemCount="5"
-                                             Value="{Binding HabbitLevelOfWaste}"
-                                             Precision="Half"
-                                             RatingShape="Circle"
-                                             HeightRequest="20"
-                                             ItemSize="25"
-                                             ItemSpacing="25">
-                                <inputs:SfRating.RatingSettings>
-                                    <inputs:RatingSettings RatedFill="{StaticResource PRIMARY-COLOR}"
-                                       RatedStroke="{StaticResource PRIMARY-COLOR}">
-                                    </inputs:RatingSettings>
-                                </inputs:SfRating.RatingSettings>
-                            </inputs:SfRating>
+            <!--</Border.Content>-->
 
-
-                        </Grid>
-                    </Frame>
-
-                    <Button Text="Continue"
-                            x:Name="ContinueQuestionsSectionTwo"
-                            WidthRequest="250"
-                            CornerRadius="50"
-                            Background="{StaticResource PRIMARY-COLOR}"
-                            TextColor="{StaticResource TEXT-COLOR}"
-                            FontAttributes="Bold"
-                            FontFamily="Inter-VariableFont"
-                            Clicked="ContinueQuestionsSectionTwo_OnClicked"
-                            Command="{Binding UpdatePersonDataCommand}"/>
-                </Grid>
-            </Border.Content>
-
-        </Border>
-
-    </VerticalStackLayout>
+            <!--</Border>-->
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

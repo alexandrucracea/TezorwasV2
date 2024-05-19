@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using TezorwasV2.DTO;
 using TezorwasV2.Helpers;
 using TezorwasV2.Services;
+using TezorwasV2.View;
 using TezorwasV2.View.AppPages;
 
 
@@ -158,7 +159,11 @@ namespace TezorwasV2.ViewModel
 
                 }
             }
-            await Shell.Current.DisplayAlert("CallResponse", "The registration could not be completed", "OK");
+            else
+            {
+                await Shell.Current.DisplayAlert("CallResponse", "The registration could not be completed", "OK");
+
+            }
             //todo de adaugat o proprietate ceva pe care o atribuim si o adaugam in alerta ori in ceva si de aici vedem cum afisam eroare (pentru viitor)
         }
     }

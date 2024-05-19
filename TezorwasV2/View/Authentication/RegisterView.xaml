@@ -141,16 +141,17 @@
 
             </core:SfTextInputLayout>
             <Button Text="Register"
-                            x:Name="RegisterButton"
-                            Background="{StaticResource PRIMARY-COLOR}"
-                            Margin="0,70,0,0"
-                            CornerRadius="40"
-                            HeightRequest="60"
-                            WidthRequest="320"
-                            FontFamily="Inter-VariableFont"
-                            FontSize="24"
-                            FontAttributes="Bold"
-                            Command="{Binding RegisterCommand}"/>
+                    x:Name="RegisterButton"
+                    Background="{StaticResource PRIMARY-COLOR}"
+                    Margin="0,70,0,0"
+                    CornerRadius="40"
+                    HeightRequest="60"
+                    WidthRequest="320"
+                    FontFamily="Inter-VariableFont"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    Command="{Binding RegisterCommand}"
+                    Clicked="RegisterButton_Clicked"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

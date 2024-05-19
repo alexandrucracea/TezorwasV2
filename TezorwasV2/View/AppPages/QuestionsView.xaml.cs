@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Behaviors;
+using CommunityToolkit.Maui.Core;
 using TezorwasV2.Helpers;
 using TezorwasV2.ViewModel.MainPages;
 
@@ -24,6 +26,17 @@ public partial class QuestionsView : ContentPage
 
     }
 
+    protected override void OnAppearing()
+    {
+#pragma warning disable CA1416 // Validate platform compatibility
+        this.Behaviors.Add(new StatusBarBehavior
+        {
+            StatusBarColor = Color.FromArgb("037171"),
+            StatusBarStyle = StatusBarStyle.LightContent
+        });
+#pragma warning restore CA1416 // Validate platform compatibility
+    }
+
     private void ContinueQuestionsSectionOne_OnClicked(object? sender, EventArgs e)
     {
         SetVisibilityToSectionOne(false);
@@ -35,11 +48,12 @@ public partial class QuestionsView : ContentPage
 
     private void SetVisibilityToSectionOne(bool visibility)
     {
-        AgeEntry.IsVisible = visibility;
-        StreetEntry.IsVisible = visibility;
-        CityEntry.IsVisible = visibility;
-        CountyEntry.IsVisible = visibility;
-        ContinueQuestionsSectionOne.IsVisible = visibility;
+        //AgeEntry.IsVisible = visibility;
+        //StreetEntry.IsVisible = visibility;
+        //CityEntry.IsVisible = visibility;
+        //CountyEntry.IsVisible = visibility;
+        //ContinueQuestionsSectionOne.IsVisible = visibility;
+        SectionOne.IsVisible = visibility;
 
         SetVisibilityToSectionTwo(!visibility);
 
@@ -52,7 +66,7 @@ public partial class QuestionsView : ContentPage
         EdtHabbitTwoDescription.IsVisible = visibility;
         EdtHabbitThreeDescription.IsVisible = visibility;
         wasteRating.IsVisible = visibility;
-        ContinueQuestionsSectionTwo.IsVisible = visibility;
+        //ContinueQuestionsSectionTwo.IsVisible = visibility;
     }
 
     private void ContinueQuestionsSectionTwo_OnClicked(object? sender, EventArgs e)
@@ -65,5 +79,22 @@ public partial class QuestionsView : ContentPage
         //todo trebuie preluat ratingul si adaugat la fiecare habbit
         //todo trebuie facuta redirectionare catre ecranul principal
         //todo de vazut daca au sens dto urile in loc de servicii in aplicatie (momentan sunt la fel si nu pare sa aiba sens distinctia)
+    }
+
+    private void StreetEntry_Completed(object sender, EventArgs e)
+    {
+        CityEntry.Focus();
+    }
+    private void CityEntry_Completed(object sender, EventArgs e)
+    {
+        CountyEntry.Focus();
+    }
+    private void CountyEntry_Completed(object sender, EventArgs e)
+    {
+        AgeEntry.Focus();
+    }
+    private void AgeEntry_Completed(object sender, EventArgs e)
+    {
+        ContinueQuestionsSectionOne.Focus();
     }
 }

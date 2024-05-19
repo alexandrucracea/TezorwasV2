@@ -53,6 +53,7 @@
 	  <None Remove="Resources\Images\add_receipt.svg" />
 	  <None Remove="Resources\Images\article.svg" />
 	  <None Remove="Resources\Images\back_button.svg" />
+	  <None Remove="Resources\Images\cont_btn.svg" />
 	  <None Remove="Resources\Images\green_hero.png" />
 	  <None Remove="Resources\Images\profile.svg" />
 	  <None Remove="Resources\Images\quest.svg" />

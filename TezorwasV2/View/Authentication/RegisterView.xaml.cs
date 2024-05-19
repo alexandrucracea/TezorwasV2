@@ -7,22 +7,21 @@ public partial class RegisterView : ContentPage
 {
 
     private readonly RegisterViewModel _registerViewModel;
+    public readonly LoadingSpinnerPopup _popup;
 
     public RegisterView(RegisterViewModel registerViewModel)
     {
         InitializeComponent();
-
         _registerViewModel = registerViewModel;
         BindingContext = _registerViewModel;
+        _popup = new LoadingSpinnerPopup();
+
 
 
     }
     private async void BackButton_Clicked(object sender, EventArgs e)
     {
-        var popup = new LoadingSpinnerPopup();
-        this.ShowPopup(popup);
         await Shell.Current.GoToAsync("..", true);
-        popup.Close();
     }
 
     private void FirstNameEntry_Completed(object sender, EventArgs e)
@@ -48,5 +47,15 @@ public partial class RegisterView : ContentPage
     private void ConfirmPasswordEntry_Completed(object sender, EventArgs e)
     {
         RegisterButton.Focus();
+    }
+
+    private void RegisterButton_Clicked(object sender, EventArgs e)
+    {
+        this.ShowPopup(_popup);
+
+    }
+    protected override void OnDisappearing()
+    {
+        _popup.Close();
     }
 }
