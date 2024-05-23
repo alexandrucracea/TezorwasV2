@@ -82,7 +82,9 @@ namespace TezorwasV2
             builder.Services.AddSingleton<TasksViewModel>();
             builder.Services.AddSingleton<TasksView>();
             builder.Services.AddSingleton<ScanReceiptView>();
-            //todo de vazut daca le lasam cu singleton sau daca le punem cu transient
+            builder.Services.AddSingleton<ProfileViewModel>();
+            builder.Services.AddSingleton<ProfileView>();
+
 
             builder.Services.AddTesseractOcr(
                 files =>

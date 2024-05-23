@@ -41,32 +41,18 @@ public partial class QuestionsView : ContentPage
     {
         SetVisibilityToSectionOne(false);
         SetVisibilityToSectionTwo(true);
-        //todo de vazut ce mesaj punem in acest caz si daca tratam asta aici sau in vm
-
-
     }
 
     private void SetVisibilityToSectionOne(bool visibility)
     {
-        //AgeEntry.IsVisible = visibility;
-        //StreetEntry.IsVisible = visibility;
-        //CityEntry.IsVisible = visibility;
-        //CountyEntry.IsVisible = visibility;
-        //ContinueQuestionsSectionOne.IsVisible = visibility;
         SectionOne.IsVisible = visibility;
-
         SetVisibilityToSectionTwo(!visibility);
 
     }
 
     private void SetVisibilityToSectionTwo(bool visibility)
     {
-        LblHabbitTitle.IsVisible = visibility;
-        EdtHabbitOneDescription.IsVisible = visibility;
-        EdtHabbitTwoDescription.IsVisible = visibility;
-        EdtHabbitThreeDescription.IsVisible = visibility;
-        wasteRating.IsVisible = visibility;
-        //ContinueQuestionsSectionTwo.IsVisible = visibility;
+        SectionTwo.IsVisible = visibility;
     }
 
     private void ContinueQuestionsSectionTwo_OnClicked(object? sender, EventArgs e)

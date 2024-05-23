@@ -15,7 +15,6 @@ public partial class LoginView : ContentPage
     private readonly LoginViewModel _loginViewModel;
     public LoginView(LoginViewModel loginViewModel)
     {
-
         InitializeComponent();
 
         _loginViewModel = loginViewModel;

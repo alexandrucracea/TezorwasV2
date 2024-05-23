@@ -32,11 +32,9 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#037171" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
@@ -50,14 +48,18 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="Resources\AppIcon\start_main_image.svg" />
+	  <None Remove="Resources\Images\achievments.svg" />
 	  <None Remove="Resources\Images\add_receipt.svg" />
 	  <None Remove="Resources\Images\article.svg" />
 	  <None Remove="Resources\Images\back_button.svg" />
 	  <None Remove="Resources\Images\cont_btn.svg" />
 	  <None Remove="Resources\Images\green_hero.png" />
+	  <None Remove="Resources\Images\habbits.svg" />
 	  <None Remove="Resources\Images\profile.svg" />
 	  <None Remove="Resources\Images\quest.svg" />
 	  <None Remove="Resources\Images\receipt.svg" />
+	  <None Remove="Resources\Images\splash_icon.png" />
 	  <None Remove="Resources\Images\start_main_image.svg" />
 	  <None Remove="Resources\Images\take_photo.svg" />
 	  <None Remove="Resources\Images\task.svg" />
@@ -87,6 +89,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="View\AppPages\AchievmentsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\AppPages\ArticlesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -114,10 +119,17 @@
 	  <MauiXaml Update="View\LoadingSpinnerPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\ProfileView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="OCR\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
 </Project>

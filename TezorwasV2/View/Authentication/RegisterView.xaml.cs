@@ -8,6 +8,7 @@ public partial class RegisterView : ContentPage
 
     private readonly RegisterViewModel _registerViewModel;
     public readonly LoadingSpinnerPopup _popup;
+    private bool popupIsOpened;
 
     public RegisterView(RegisterViewModel registerViewModel)
     {
@@ -51,11 +52,16 @@ public partial class RegisterView : ContentPage
 
     private void RegisterButton_Clicked(object sender, EventArgs e)
     {
-        this.ShowPopup(_popup);
+         this.ShowPopup(_popup);
+        popupIsOpened = true;
 
     }
     protected override void OnDisappearing()
     {
-        _popup.Close();
+        if(popupIsOpened)
+        {
+            _popup.Close();
+        }
+       
     }
 }

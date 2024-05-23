@@ -3,25 +3,22 @@ using CommunityToolkit.Maui.Core;
 
 namespace TezorwasV2.View.AppPages;
 
-public partial class ProfileView : ContentPage
+public partial class AchievmentsView : ContentPage
 {
-	public ProfileView()
+	public AchievmentsView()
 	{
 		InitializeComponent();
-	}
-
-    private async void AchievmentsBtn_Clicked(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync(nameof(AchievmentsView), true);
     }
     protected override void OnAppearing()
     {
 #pragma warning disable CA1416 // Validate platform compatibility
         this.Behaviors.Add(new StatusBarBehavior
         {
-            StatusBarColor = Color.FromArgb("037171"),
-            StatusBarStyle = StatusBarStyle.LightContent
+            StatusBarColor = Color.FromArgb("#eff1f3"),
+            StatusBarStyle = StatusBarStyle.DarkContent
         });
 #pragma warning restore CA1416 // Validate platform compatibility
+        base.OnAppearing();
     }
+
 }

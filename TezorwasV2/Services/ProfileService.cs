@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;

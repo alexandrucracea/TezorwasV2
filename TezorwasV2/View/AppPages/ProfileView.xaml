@@ -2,11 +2,292 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TezorwasV2.View.AppPages.ProfileView"
-             Title="ProfileView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:pageViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             Shell.TabBarUnselectedColor="{StaticResource TEXT-COLOR}"
+             Background="{StaticResource BACKGROUND}">
+    <ScrollView>
+        <Grid>
+            <Grid>
+                <Path Data="M -10,200 Q 100,110 220,170 T 500,100 V 0 H 0 Z"
+                      Fill="{StaticResource PRIMARY-COLOR}"
+                      HorizontalOptions="FillAndExpand"
+                      VerticalOptions="Start" 
+                      Margin="0,-10,0,0"/>
+
+            </Grid>
+            <VerticalStackLayout>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                <Grid>
+                    <Border Stroke="{StaticResource PRIMARY-COLOR}" 
+                        StrokeThickness="2" 
+                        BackgroundColor="{StaticResource BACKGROUND}"
+                        HeightRequest="100" 
+                        WidthRequest="100" 
+                        HorizontalOptions="Start" 
+                        VerticalOptions="End" 
+                        StrokeShape="Ellipse"
+                        Margin="30,20,0,0">
+                        <Border.Shadow>
+                            <Shadow Brush="Black"
+                                Offset="0,20"
+                                Radius="40"
+                                Opacity="0.3"/>
+                        </Border.Shadow>
+
+                        <Image Source="Rseources/Images/green_hero.png" 
+                           Aspect="AspectFill"
+                           WidthRequest="130"
+                           Margin="0,10,10,0"/>
+                    </Border>
+                    <Grid   WidthRequest="200"
+                            HeightRequest="85"
+                            HorizontalOptions="End"
+                            VerticalOptions="Start"
+                            Margin="30,30,10,0"
+                            Padding="0,0,0,0">
+                        <Label Text="Marian Marinica"
+                               VerticalTextAlignment="End"
+                               FontSize="38"
+                               FontFamily="Inter-VariableFont"
+                               FontAttributes="Bold"
+                               Margin="30,0,0,15"
+                               TextColor="{StaticResource BACKGROUND}"/>
+                        <VerticalStackLayout>
+                            <Label Text="Lvl. 10"
+                                   TextColor="{StaticResource BACKGROUND}"
+                                   Margin="30,80,0,0"/>
+                            <ProgressBar Margin="1,5,0,0"
+                                        HeightRequest="5"
+                                        Progress="0.5"
+                                        WidthRequest="140"     
+                                        ProgressColor="{StaticResource PRIMARY-COLOR-LIGHT}"
+                                        />
+                        </VerticalStackLayout>
+                        
+                    </Grid>
+                </Grid>
+
+            </VerticalStackLayout>
+            <Label Text="General info"
+                   Margin="25,180,10,0"
+                   FontSize="22"
+                   FontFamily="Inter-VariableFont"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TEXT-COLOR}"/>
+            <Border  HeightRequest="100"
+                     WidthRequest="350"
+                     Margin="10,210,10,0"
+                     Background="{StaticResource BACKGROUND-LIGHT}"
+                     Stroke="{StaticResource BACKGROUND-DARK}"
+                     Padding="20,0,0,0"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Start">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="40,40,40,40" />
+                </Border.StrokeShape>
+
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                            Offset="0,20"
+                            Radius="40"
+                            Opacity="0.1"/>
+                </Border.Shadow>
+
+                <VerticalStackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.2*"/>
+                            <ColumnDefinition Width="0.8*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Age"
+                               Margin="0,15,0,0"
+                               FontSize="16"
+                               FontFamily="Inter-VariableFont"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TEXT-COLOR}"/>
+                        <Label  Grid.Row="0"
+                                Grid.Column="1"
+                                Text="14"
+                                Margin="0,15,0,0"
+                                FontSize="16"
+                                FontFamily="Inter-VariableFont"
+                                TextColor="{StaticResource TEXT-COLOR}"
+                                />
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Address"
+                               Margin="0,15,0,0"
+                               FontSize="16"
+                               FontFamily="Inter-VariableFont"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TEXT-COLOR}"/>
+                        <Label  Grid.Row="1"
+                                Grid.Column="1"
+                                Text="Bucuresti, Str Ctin Radulescu Motru 5"
+                                Margin="0,15,0,0"
+                                FontSize="16"
+                                FontFamily="Inter-VariableFont"
+                                TextColor="{StaticResource TEXT-COLOR}"
+                                />
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+            <Label Text="Overview"
+                   Margin="25,340,10,0"
+                   FontSize="22"
+                   FontFamily="Inter-VariableFont"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TEXT-COLOR}"/>
+            <HorizontalStackLayout Margin="0,370,0,0" 
+                                   WidthRequest="350">
+                <Border   HeightRequest="70"
+                          WidthRequest="110"
+                          Background="{StaticResource BACKGROUND-LIGHT}"
+                          Stroke="{StaticResource BACKGROUND-DARK}"
+                          HorizontalOptions="Start"
+                          VerticalOptions="Start">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="40,40,40,40" />
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Gray"
+                            Offset="0,20"
+                            Radius="40"
+                            Opacity="0.1"/>
+                    </Border.Shadow>
+                    <Border.Content>
+                        <VerticalStackLayout>
+                            <Label Text="Xp points"
+                                    Margin="0,10,0,0"
+                                    FontSize="18"
+                                    FontFamily="Inter-VariableFont"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TEXT-COLOR}"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label  Text="343567"
+                                    Margin="0,5,0,0"
+                                    HorizontalTextAlignment="Center"
+                                    FontSize="16"
+                                    FontFamily="Inter-VariableFont"
+                                    TextColor="{StaticResource TEXT-COLOR}"/>
+                        </VerticalStackLayout>
+                    </Border.Content>
+                </Border>
+                <Border   HeightRequest="70"
+                          WidthRequest="110"
+                          Background="{StaticResource BACKGROUND-LIGHT}"
+                          Stroke="{StaticResource BACKGROUND-DARK}"
+                          HorizontalOptions="Start"
+                          VerticalOptions="Start"
+                          Margin="10,0,0,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="40,40,40,40" />
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Gray"
+                                Offset="0,20"
+                                Radius="40"
+                                Opacity="0.1"/>
+                    </Border.Shadow>
+                    <Border.Content>
+                        <VerticalStackLayout>
+                            <Label Text="Tasks done"
+                                   Margin="0,10,0,0"
+                                   FontSize="18"
+                                   FontFamily="Inter-VariableFont"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource TEXT-COLOR}"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label  Text="27"
+                                    Margin="0,5,0,0"
+                                    HorizontalTextAlignment="Center"
+                                    FontSize="16"
+                                    FontFamily="Inter-VariableFont"
+                                    TextColor="{StaticResource TEXT-COLOR}"/>
+                        </VerticalStackLayout>
+                    </Border.Content>
+                </Border>
+                <Border   HeightRequest="70"
+                          WidthRequest="110"
+                          Background="{StaticResource BACKGROUND-LIGHT}"
+                          Stroke="{StaticResource BACKGROUND-DARK}"
+                          HorizontalOptions="Start"
+                          VerticalOptions="Start"
+                          Margin="10,0,0,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="40,40,40,40" />
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Gray"
+                                Offset="0,20"
+                                Radius="40"
+                                Opacity="0.1"/>
+                    </Border.Shadow>
+                    <Border.Content>
+                        <VerticalStackLayout>
+                            <Label Text="Habbits"
+                                   Margin="0,10,0,0"
+                                   FontSize="18"
+                                   FontFamily="Inter-VariableFont"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource TEXT-COLOR}"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label  Text="7"
+                                    Margin="0,5,0,0"
+                                    HorizontalTextAlignment="Center"
+                                    FontSize="16"
+                                    FontFamily="Inter-VariableFont"
+                                    TextColor="{StaticResource TEXT-COLOR}"/>
+                        </VerticalStackLayout>
+                    </Border.Content>
+                </Border>
+            </HorizontalStackLayout>
+            <VerticalStackLayout Margin="0,450,0,0">
+                <buttons:SfButton   x:Name="AchievmentsBtn"
+	                                Text="Achievments"
+                                    HorizontalTextAlignment="Center"
+                                    Padding="0,0,40,0"
+                                    Background="{StaticResource PRIMARY-COLOR}"
+                                    HeightRequest="70"
+                                    WidthRequest="320"
+                                    CornerRadius="40"
+                                    FontFamily="Inter-VariableFont"
+                                    FontSize="21"
+                                    Margin="0,30,0,0"
+                                    ImageSource="Resources/Images/achievments.png"
+                                    ShowIcon="True"
+                                    ImageSize="35"
+                                    Clicked="AchievmentsBtn_Clicked"/>
+                <buttons:SfButton   x:Name="HabbitsBtn"
+	                                Text="Habbits"
+                                    HorizontalTextAlignment="Center"
+                                    Padding="0,0,40,0"
+                                    Background="{StaticResource PRIMARY-COLOR}"
+                                    HeightRequest="70"
+                                    WidthRequest="320"
+                                    CornerRadius="40"
+                                    FontFamily="Inter-VariableFont"
+                                    FontSize="21"
+                                    Margin="0,10,0,0"
+                                    ImageSource="Resources/Images/habbits.png"
+                                    ShowIcon="True"
+                                    ImageSize="35"/>
+            </VerticalStackLayout>
+
+        </Grid>
+    </ScrollView>
 </ContentPage>

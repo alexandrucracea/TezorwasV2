@@ -29,33 +29,7 @@
                    TextColor="{StaticResource BACKGROUND}"
                    Margin="20,10,0,10">
             </Label>
-            <!--<Grid HorizontalOptions="Center"
-                  Background="red"
-                  WidthRequest="360"
-                  HeightRequest="30">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label  Grid.Column="0"
-                    Background="blue"
-                    HorizontalOptions="Start"
-                    HorizontalTextAlignment="Center"
-                    Margin="10,0,20,0"
-                    Text="Salut"/>
-
-                <Label  Grid.Column="2"
-                    
-                    Background="blue"
-                    HorizontalOptions="End"
-                    HorizontalTextAlignment="Center"
-                    Margin="20,0,10,0"
-                    Text="Salut"/>
-            </Grid>-->
+           
         </VerticalStackLayout>
         <VerticalStackLayout Margin="0,100,0,0">
             <Border  MaximumHeightRequest="250"
