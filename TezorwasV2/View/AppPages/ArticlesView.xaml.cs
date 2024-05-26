@@ -14,8 +14,8 @@ public partial class ArticlesView : ContentPage
 #pragma warning disable CA1416 // Validate platform compatibility
         this.Behaviors.Add(new StatusBarBehavior
         {
-            StatusBarColor = Color.FromArgb("037171"),
-            StatusBarStyle = StatusBarStyle.LightContent
+            StatusBarColor = Color.FromArgb("#eff1f3"),
+            StatusBarStyle = StatusBarStyle.DarkContent
         });
 #pragma warning restore CA1416 // Validate platform compatibility
     }

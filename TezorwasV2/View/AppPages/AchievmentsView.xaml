@@ -5,20 +5,269 @@
              Title="AchievmentsView"
              Background="{StaticResource BACKGROUND}">
     <VerticalStackLayout>
-        <Label 
-            Text="Achievments"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Border x:Name="actionsArea"
+                Padding="0,32,0,32"
+                Margin="-10,-10,-10,0"
+                BackgroundColor="{StaticResource PRIMARY-COLOR}"
+                Stroke="{StaticResource PRIMARY-COLOR}"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="End"
+                HeightRequest="130">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0,0,40,40" />
+            </Border.StrokeShape>
+            <Label  Text="Achievments"
+                    FontFamily="Inter-VariableFont"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource BACKGROUND}"
+                    Margin="20,0,0,10"/>
+        </Border>
+        <Label Text="Recent achievments"
+               Margin="20,10,0,0"
+               FontFamily="Inter-VariableFont"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="{StaticResource TEXT-COLOR}"/>
         <ScrollView Orientation="Horizontal"
-                    HorizontalScrollBarVisibility="Never" >
-            <HorizontalStackLayout Background="Yellow"
-                                   Spacing="100"
-                                   >
-                <Label Text="Salut"/>
-                <Label Text="Salut"/>
-                <Label Text="Salut"/>
-                <Label Text="Salut"/>
+                    HorizontalScrollBarVisibility="Never"
+                    Margin="0,10,0,0">
+
+            <HorizontalStackLayout Spacing="10">
+                <Border  HeightRequest="140"
+                         WidthRequest="100"
+                         Margin="10,0,0,0"
+                         Background="{StaticResource BACKGROUND}"
+                         Stroke="{StaticResource BACKGROUND-DARK}"
+                         StrokeThickness="2"
+                         Padding="0,0,0,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20,20,20,20" />
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Gray"
+                        Offset="0,20"
+                        Radius="40"
+                        Opacity="0.1"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Image Source="Resources/Images/green_hero.png"
+                                WidthRequest="90"
+                               HeightRequest="90"/>   
+                        <Label Text="Salut"
+                               HorizontalTextAlignment="Center"
+                               FontFamily="Inter-VariableFont"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TEXT-COLOR}"/>
+                        <Label Text="28 mai 2024"
+                               HorizontalTextAlignment="Center"/>
+
+                    </VerticalStackLayout>
+                </Border>
+                <Border  HeightRequest="140"
+                         WidthRequest="100"
+                         Margin="10,0,0,0"
+                         Background="{StaticResource BACKGROUND}"
+                         Stroke="{StaticResource BACKGROUND-DARK}"
+                         StrokeThickness="2"
+                         Padding="0,0,0,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20,20,20,20" />
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Gray"
+                                Offset="0,20"
+                                Radius="40"
+                                Opacity="0.1"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Image Source="Resources/Images/green_hero.png"
+                               WidthRequest="90"
+                               HeightRequest="90"/>
+                        <Label Text="Salut"
+                               HorizontalTextAlignment="Center"
+                               FontFamily="Inter-VariableFont"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TEXT-COLOR}"/>
+                        <Label Text="28 mai 2024"
+                               HorizontalTextAlignment="Center"/>
+
+                    </VerticalStackLayout>
+                </Border>
+                <Border  HeightRequest="140"
+                         WidthRequest="100"
+                         Margin="10,0,0,0"
+                         Background="{StaticResource BACKGROUND}"
+                         Stroke="{StaticResource BACKGROUND-DARK}"
+                         StrokeThickness="2"
+                         Padding="0,0,0,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20,20,20,20" />
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Gray"
+                                Offset="0,20"
+                                Radius="40"
+                                Opacity="0.1"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Image Source="Resources/Images/green_hero.png"
+                               WidthRequest="90"
+                               HeightRequest="90"/>
+                        <Label Text="Salut"
+                               HorizontalTextAlignment="Center"
+                               FontFamily="Inter-VariableFont"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TEXT-COLOR}"/>
+                        <Label Text="28 mai 2024"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+                <Border  HeightRequest="140"
+                         WidthRequest="100"
+                         Margin="10,0,10,0"
+                         Background="{StaticResource BACKGROUND}"
+                         Stroke="{StaticResource BACKGROUND-DARK}"
+                         StrokeThickness="2"
+                         Padding="0,0,0,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20,20,20,20" />
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Gray"
+                                Offset="0,20"
+                                Radius="40"
+                                Opacity="0.1"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Image Source="Resources/Images/green_hero.png"
+                               WidthRequest="90"
+                               HeightRequest="90"/>
+                        <Label Text="Salut"
+                               HorizontalTextAlignment="Center"
+                               FontFamily="Inter-VariableFont"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TEXT-COLOR}"/>
+                        <Label Text="28 mai 2024"
+                               HorizontalTextAlignment="Center"/>
+
+                    </VerticalStackLayout>
+                </Border>
+                <Border  HeightRequest="140"
+                         WidthRequest="100"
+                         Margin="0,0,10,0"
+                         Background="{StaticResource BACKGROUND}"
+                         Stroke="{StaticResource BACKGROUND-DARK}"
+                         StrokeThickness="2"
+                         Padding="0,0,0,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20,20,20,20" />
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Gray"
+                                Offset="0,20"
+                                Radius="40"
+                                Opacity="0.1"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Image Source="Resources/Images/green_hero.png"
+                               WidthRequest="90"
+                               HeightRequest="90"/>
+                        <Label Text="Salut"
+                               HorizontalTextAlignment="Center"
+                               FontFamily="Inter-VariableFont"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource TEXT-COLOR}"/>
+                        <Label Text="28 mai 2024"
+                                HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
             </HorizontalStackLayout>
+        </ScrollView>
+        <Label Text="Records"
+               Margin="20,10,0,0"
+               FontFamily="Inter-VariableFont"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="{StaticResource TEXT-COLOR}"/>
+        <ScrollView Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Never"
+                    Margin="0,10,0,0">
+            <Grid Margin="0,0,0,0"
+                  WidthRequest="320">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.33*"/>
+                    <ColumnDefinition Width="0.33*"/>
+                    <ColumnDefinition Width="0.33*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <VerticalStackLayout HeightRequest="130"
+                                     WidthRequest="90"
+                                     Margin="5"
+                                     >
+                    <Image Source="Resources/Images/green_hero.png"
+                                WidthRequest="90"
+                               HeightRequest="90"/>
+                    <Label Text="Salut"
+                           HorizontalTextAlignment="Center"
+                           FontFamily="Inter-VariableFont"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TEXT-COLOR}"/>
+                    <Label Text="28 mai 2024"
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1">
+                    <Image Source="Resources/Images/green_hero.png"
+                           WidthRequest="90"
+                           HeightRequest="90"/>
+                    <Label Text="Salut"
+                           HorizontalTextAlignment="Center"
+                           FontFamily="Inter-VariableFont"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TEXT-COLOR}"/>
+                    <Label Text="28 mai 2024"
+                            HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="2">
+                    <Image Source="Resources/Images/green_hero.png"
+                           WidthRequest="90"
+                           HeightRequest="90"/>
+                    <Label Text="Salut"
+                           HorizontalTextAlignment="Center"
+                           FontFamily="Inter-VariableFont"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TEXT-COLOR}"/>
+                    <Label Text="28 mai 2024"
+                            HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="0"
+                                     Grid.Row="2">
+                    <Image Source="Resources/Images/green_hero.png"
+                           WidthRequest="90"
+                           HeightRequest="90"/>
+                    <Label Text="Salut"
+                           HorizontalTextAlignment="Center"
+                           FontFamily="Inter-VariableFont"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TEXT-COLOR}"/>
+                    <Label Text="28 mai 2024"
+                            HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+
+            </Grid>
+
         </ScrollView>
     </VerticalStackLayout>
     

@@ -53,9 +53,11 @@
 	  <None Remove="Resources\Images\add_receipt.svg" />
 	  <None Remove="Resources\Images\article.svg" />
 	  <None Remove="Resources\Images\back_button.svg" />
+	  <None Remove="Resources\Images\bolt.svg" />
 	  <None Remove="Resources\Images\cont_btn.svg" />
 	  <None Remove="Resources\Images\green_hero.png" />
 	  <None Remove="Resources\Images\habbits.svg" />
+	  <None Remove="Resources\Images\habbits_primary.svg" />
 	  <None Remove="Resources\Images\profile.svg" />
 	  <None Remove="Resources\Images\quest.svg" />
 	  <None Remove="Resources\Images\receipt.svg" />
@@ -64,6 +66,7 @@
 	  <None Remove="Resources\Images\take_photo.svg" />
 	  <None Remove="Resources\Images\task.svg" />
 	  <None Remove="Resources\Images\task_done.svg" />
+	  <None Remove="Resources\Images\task_done_primary.svg" />
 	  <None Remove="Resources\Images\upload_photo.svg" />
 	  <None Remove="Resources\ron.traineddata" />
 	</ItemGroup>
@@ -95,6 +98,9 @@
 	  <MauiXaml Update="View\AppPages\ArticlesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\AppPages\HabbitsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\AppPages\ProfileView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -117,9 +123,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\LoadingSpinnerPopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="View\ProfileView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

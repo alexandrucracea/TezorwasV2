@@ -14,6 +14,7 @@ public partial class ProfileView : ContentPage
     {
         await Shell.Current.GoToAsync(nameof(AchievmentsView), true);
     }
+
     protected override void OnAppearing()
     {
 #pragma warning disable CA1416 // Validate platform compatibility
@@ -23,5 +24,10 @@ public partial class ProfileView : ContentPage
             StatusBarStyle = StatusBarStyle.LightContent
         });
 #pragma warning restore CA1416 // Validate platform compatibility
+    }
+
+    private async void HabbitsBtn_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(HabbitsView), true);
     }
 }
