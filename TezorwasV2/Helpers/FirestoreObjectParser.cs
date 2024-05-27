@@ -116,6 +116,47 @@ namespace TezorwasV2.Helpers
             }
             return persons;
         }
+        public static PersonDto ParseFirestoreSinglePersonData(dynamic personObject)
+        {
+            PersonDto personToParse = new PersonDto();
+
+            JsonDocument jsonDocument = JsonDocument.Parse(personObject);
+            JsonElement root = jsonDocument.RootElement;
+
+
+            JsonElement id = root.GetProperty("_fieldsProto").GetProperty("id").GetProperty("stringValue");
+            personToParse.Id = id.ToString();
+
+            JsonElement payload = root.GetProperty("_fieldsProto").GetProperty("payload").GetProperty("mapValue").GetProperty("fields");
+
+            JsonElement lastName = payload.GetProperty("lastName").GetProperty("stringValue");
+            personToParse.LastName = lastName.ToString();
+
+            JsonElement firstName = payload.GetProperty("firstName").GetProperty("stringValue");
+            personToParse.FirstName = firstName.ToString();
+
+            JsonElement email = payload.GetProperty("email").GetProperty("stringValue");
+            personToParse.Email = email.ToString();
+
+            JsonElement age = payload.GetProperty("age").GetProperty("integerValue");
+            personToParse.Age = int.Parse(age.GetString()!);
+
+            JsonElement address = payload.GetProperty("address").GetProperty("mapValue").GetProperty("fields");
+            JsonElement streetName =  address.GetProperty("streetName").GetProperty("stringValue");
+            JsonElement city = address.GetProperty("city").GetProperty("stringValue");
+            JsonElement county = address.GetProperty("county").GetProperty("stringValue");
+
+
+            AddressModel addressToAdd = new AddressModel
+            {
+                StreetName = streetName.ToString(),
+                City = city.ToString(),
+                County = county.ToString()
+            };
+            personToParse.Address = addressToAdd;
+
+            return personToParse;
+        }
         public static List<ProfileDto> ParseFirestoreProfilesData(dynamic profilesObject)
         {
             List<ProfileDto> profiles = new List<ProfileDto>();

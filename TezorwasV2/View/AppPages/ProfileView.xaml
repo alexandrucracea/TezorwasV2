@@ -52,13 +52,14 @@
                             VerticalOptions="Start"
                             Margin="30,30,10,0"
                             Padding="0,0,0,0">
-                        <Label Text="Marian Marinica"
+                        <Label Text="{Binding FullName}"
                                VerticalTextAlignment="End"
                                FontSize="42"
                                FontFamily="Inter-VariableFont"
                                FontAttributes="Bold"
                                Margin="30,0,0,15"
                                TextColor="{StaticResource BACKGROUND}"/>
+
                         <!--<VerticalStackLayout>
                             <Label Text="Lvl. 10"
                                    TextColor="{StaticResource BACKGROUND}"
@@ -76,13 +77,13 @@
 
             </VerticalStackLayout>
             <VerticalStackLayout>
-                <Label Text="Lvl. 10"
+                <Label Text="{Binding Lvl}"
                        TextColor="{StaticResource TEXT-COLOR}"
                        Margin="20,180,0,0"
                        FontSize="20"/>
                 <ProgressBar Margin="4,0,10,0"
                              HeightRequest="20"
-                             Progress="0.5"
+                             Progress="{StaticResource XpBarValue}"
                              WidthRequest="320"     
                              ProgressColor="{StaticResource PRIMARY-COLOR}">
                 </ProgressBar>
@@ -132,7 +133,7 @@
                                TextColor="{StaticResource TEXT-COLOR}"/>
                         <Label  Grid.Row="0"
                                 Grid.Column="1"
-                                Text="14"
+                                Text="{Binding Age}"
                                 Margin="0,15,0,0"
                                 FontSize="16"
                                 FontFamily="Inter-VariableFont"
@@ -148,7 +149,7 @@
                                TextColor="{StaticResource TEXT-COLOR}"/>
                         <Label  Grid.Row="1"
                                 Grid.Column="1"
-                                Text="Bucuresti, Str Ctin Radulescu Motru 5"
+                                Text="{Binding FullAddress}"
                                 Margin="0,15,0,0"
                                 FontSize="16"
                                 FontFamily="Inter-VariableFont"
@@ -204,7 +205,7 @@
                                       />
                             </Grid>
 
-                            <Label  Text="343567"
+                            <Label  Text="{Binding Xp}"
                                     Margin="0,0,0,0"
                                     HorizontalTextAlignment="Center"
                                     FontSize="16"
@@ -250,7 +251,7 @@
                                        TextColor="{StaticResource TEXT-COLOR}"
                                        HorizontalTextAlignment="Center"/>
                             </Grid>
-                            <Label  Text="27"
+                            <Label  Text="{Binding TasksDone}"
                                     Margin="0,0,0,0"
                                     HorizontalTextAlignment="Center"
                                     FontSize="16"
@@ -296,7 +297,7 @@
                                    TextColor="{StaticResource TEXT-COLOR}"
                                    HorizontalTextAlignment="Center"/>
                             </Grid>
-                            <Label  Text="7"
+                            <Label  Text="{Binding HabbitNo}"
                                     Margin="0,0,0,0"
                                     HorizontalTextAlignment="Center"
                                     FontSize="16"

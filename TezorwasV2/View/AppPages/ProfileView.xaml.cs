@@ -1,13 +1,18 @@
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
+using TezorwasV2.ViewModel;
 
 namespace TezorwasV2.View.AppPages;
 
 public partial class ProfileView : ContentPage
 {
-	public ProfileView()
+    private readonly ProfileViewModel _profileViewModel;
+
+    public ProfileView(ProfileViewModel profileViewModel)
 	{
 		InitializeComponent();
+        _profileViewModel = profileViewModel;
+        BindingContext = _profileViewModel;
 	}
 
     private async void AchievmentsBtn_Clicked(object sender, EventArgs e)
@@ -15,8 +20,11 @@ public partial class ProfileView : ContentPage
         await Shell.Current.GoToAsync(nameof(AchievmentsView), true);
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
+        await _profileViewModel.InitializeProfile();
+        //todo de adaugat valoare in progress bar
+
 #pragma warning disable CA1416 // Validate platform compatibility
         this.Behaviors.Add(new StatusBarBehavior
         {

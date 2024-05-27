@@ -13,6 +13,11 @@ namespace TezorwasV2
             //Window.SetBack
 
             base.OnCreate(savedInstanceState);
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+            {
+                Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#037171")); // Set your desired color here
+            }
         }
     }
 }

@@ -10,5 +10,6 @@ namespace TezorwasV2.Services
         Task<HttpCallResponseData> CreatePerson(PersonDto personToCreate, string bearerToken);
         Task<HttpCallResponseData> UpdateAPerson(PersonDto personToUpdate, string bearerToken);
         Task<List<PersonDto>> GetAllPersons(string bearerToken);
+        Task<dynamic> GetPersonInfo(string personId, string bearerToken);
     }
 }

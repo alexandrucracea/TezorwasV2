@@ -98,7 +98,7 @@ namespace TezorwasV2.Services
                     responseData.Response = await response.Content.ReadAsStringAsync();
                     if (responseData.StatusCode == (int)Enums.StatusCodes.Success)
                     {
-                        var personParsed = FirestoreObjectParser.ParseFirestoreProfileData(responseData.Response);
+                        var personParsed = FirestoreObjectParser.ParseFirestoreSinglePersonData(responseData.Response);
                         return personParsed;
                     }
 
