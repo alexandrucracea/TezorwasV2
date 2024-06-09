@@ -220,5 +220,30 @@ namespace TezorwasV2.Helpers
             }
             return profiles;
         }
+        public static List<ArticleModel> ParseFirestoreArticlesData(dynamic articlesObject)
+        {
+            List<ArticleModel> articles = new List<ArticleModel>();
+
+            JsonDocument jsonDocument = JsonDocument.Parse(articlesObject);
+            JsonArray roots = jsonDocument.Deserialize<JsonArray>();
+
+            foreach (JsonObject obj in roots.Cast<JsonObject>())
+            {
+                ArticleModel articleToParse = new ArticleModel();
+                var root = obj["_fieldsProto"];
+                articleToParse.Id = root["id"]["stringValue"].ToString();
+
+                var payload = root["payload"]["mapValue"]["fields"];
+
+                articleToParse.DatePublished = DateTime.Parse(payload["datePublished"]["stringValue"].ToString());
+                articleToParse.Title = payload["title"]["stringValue"].ToString();
+                articleToParse.Content = payload["content"]["stringValue"].ToString();
+                articleToParse.CoverUrl = payload["coverLink"]["stringValue"].ToString();
+               
+                articles.Add(articleToParse);
+            }
+            return articles;
+        }
+
     }
 }

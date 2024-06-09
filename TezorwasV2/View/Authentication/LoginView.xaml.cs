@@ -2,7 +2,6 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
-using Microsoft.Maui.ApplicationModel.Communication;
 using TezorwasV2.Helpers;
 using TezorwasV2.View.AppPages;
 using TezorwasV2.ViewModel;

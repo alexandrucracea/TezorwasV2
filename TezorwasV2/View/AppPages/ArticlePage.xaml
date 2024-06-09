@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TezorwasV2.View.AppPages.ArticlePage"
+             Title="ArticlePage"
+             Background="{StaticResource BACKGROUND}">
+    <VerticalStackLayout>
+        <Label 
+            Text="Why is recycling important?"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label Text="Recycling is crucial for the sustainability of our environment and the health of our planet. It helps reduce the waste that ends up in landfills, where it can take centuries to decompose and release harmful toxins into the soil and water. By recycling materials like paper, plastic, glass, and metal, we can conserve natural resources, reduce pollution, and lower greenhouse gas emissions, which contribute to climate change. Additionally, recycling reduces the need for new raw materials, preserving ecosystems and wildlife habitats that might otherwise be destroyed by mining, logging, or drilling."
+          Margin="0,20,0,0"/>
+
+        <Label Text="Beyond environmental benefits, recycling also has significant economic and social advantages. It creates jobs in the recycling and manufacturing industries and promotes a circular economy where products are reused and repurposed, leading to sustainable economic growth. Communities that embrace recycling programs can save money on waste management and disposal costs while fostering a culture of environmental responsibility and stewardship. By understanding and acting on the importance of recycling, we can ensure a cleaner, healthier, and more sustainable future for generations to come."
+            Margin="0,20,0,0"></Label>
+    </VerticalStackLayout>
+</ContentPage>

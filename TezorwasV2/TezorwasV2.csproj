@@ -32,10 +32,9 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#037171" />
-
+		<MauiIcon Include="Resources\AppIcon\recycleapp.svg" Color="037171" />
 		<!-- Splash Screen -->
-		
+		<MauiSplashScreen Include="Resources\Splash\recycle.svg" Color="#037171" />
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
@@ -93,8 +92,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<MauiXaml Update="View\AppPages\AchievmentsView.xaml">
-			<Generator>MSBuild:Compile</Generator>
+		<MauiXaml Update="View\AppPages\AchievmentssView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\AppPages\ArticlePage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\AppPages\ArticlesView.xaml">
 			<Generator>MSBuild:Compile</Generator>

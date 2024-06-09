@@ -83,7 +83,7 @@
                        FontSize="20"/>
                 <ProgressBar Margin="4,0,10,0"
                              HeightRequest="20"
-                             Progress="{StaticResource XpBarValue}"
+                             Progress="0.5"
                              WidthRequest="320"     
                              ProgressColor="{StaticResource PRIMARY-COLOR}">
                 </ProgressBar>

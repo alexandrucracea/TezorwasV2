@@ -9,7 +9,8 @@ namespace TezorwasV2.Helpers
         {
             persons,
             profiles,
-            completions
+            completions,
+            articles
         }
 
         public enum StatusCodes

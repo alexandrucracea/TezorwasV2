@@ -71,6 +71,7 @@ namespace TezorwasV2
             builder.Services.AddTransient<IRegisterService, RegisterService>();
             builder.Services.AddTransient<IPersonService, PersonService>();
             builder.Services.AddTransient<IProfileService, ProfileService>();
+            builder.Services.AddTransient<IArticleService,ArticleService>();
 
             builder.Services.AddSingleton<IGlobalContext, GlobalContext>();
             builder.Services.AddSingleton<LoginViewModel>();
@@ -84,6 +85,10 @@ namespace TezorwasV2
             builder.Services.AddSingleton<ScanReceiptView>();
             builder.Services.AddSingleton<ProfileViewModel>();
             builder.Services.AddSingleton<ProfileView>();
+            builder.Services.AddSingleton<ArticleViewModel>();
+            builder.Services.AddSingleton<ArticlesView>();
+            builder.Services.AddSingleton<ArticlePageViewModel>();
+            builder.Services.AddSingleton<ArticlePage>();
 
 
             builder.Services.AddTesseractOcr(

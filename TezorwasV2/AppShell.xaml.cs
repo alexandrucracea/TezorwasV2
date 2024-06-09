@@ -12,8 +12,10 @@ namespace TezorwasV2
             Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
             Routing.RegisterRoute(nameof(RegisterView), typeof(RegisterView));
             Routing.RegisterRoute(nameof(QuestionsView), typeof(QuestionsView));
-            Routing.RegisterRoute(nameof(AchievmentsView), typeof(AchievmentsView));
+            Routing.RegisterRoute(nameof(AchievmentssView), typeof(AchievmentssView));
             Routing.RegisterRoute(nameof(HabbitsView),typeof(HabbitsView));
+            Routing.RegisterRoute(nameof(ArticlesView),typeof(ArticlesView));
+            Routing.RegisterRoute(nameof(ArticlePage),typeof(ArticlePage));
             #endregion
         }
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TezorwasV2.View.AppPages.AchievmentsView"
+             x:Class="TezorwasV2.View.AppPages.AchievmentssView"
              Title="AchievmentsView"
              Background="{StaticResource BACKGROUND}">
     <VerticalStackLayout>
@@ -51,10 +51,17 @@
                         Opacity="0.1"/>
                     </Border.Shadow>
                     <VerticalStackLayout HorizontalOptions="Center">
-                        <Image Source="Resources/Images/green_hero.png"
+                        <!--<Image 
                                 WidthRequest="90"
-                               HeightRequest="90"/>   
-                        <Label Text="Salut"
+                               HeightRequest="90">
+                            <Image.Source>
+                                <UriImageSource Uri="https://example.com/yourimage.jpg" />"
+                            </Image.Source>
+                        </Image>-->
+                        <Image x:Name="imgTest"
+                               HeightRequest="60"
+                               Margin="0,10,0,0"/>
+                        <Label Text="Welcome to GreenHero"
                                HorizontalTextAlignment="Center"
                                FontFamily="Inter-VariableFont"
                                FontSize="18"
@@ -82,10 +89,11 @@
                                 Opacity="0.1"/>
                     </Border.Shadow>
                     <VerticalStackLayout HorizontalOptions="Center">
-                        <Image Source="Resources/Images/green_hero.png"
-                               WidthRequest="90"
-                               HeightRequest="90"/>
-                        <Label Text="Salut"
+                        <Image x:Name="img1stTask"
+                               WidthRequest="60"
+                               HeightRequest="60"
+                               Margin="0,10,0,0"/>
+                        <Label Text="First task completed"
                                HorizontalTextAlignment="Center"
                                FontFamily="Inter-VariableFont"
                                FontSize="18"
@@ -113,16 +121,17 @@
                                 Opacity="0.1"/>
                     </Border.Shadow>
                     <VerticalStackLayout HorizontalOptions="Center">
-                        <Image Source="Resources/Images/green_hero.png"
-                               WidthRequest="90"
-                               HeightRequest="90"/>
-                        <Label Text="Salut"
+                        <Image x:Name="firstMonth"
+                               WidthRequest="60"
+                               HeightRequest="60"
+                               Margin="0,10,0,0"/>
+                        <Label Text="Hero for a month"
                                HorizontalTextAlignment="Center"
                                FontFamily="Inter-VariableFont"
                                FontSize="18"
                                FontAttributes="Bold"
                                TextColor="{StaticResource TEXT-COLOR}"/>
-                        <Label Text="28 mai 2024"
+                        <Label Text="29 mai 2024"
                                HorizontalTextAlignment="Center"/>
                     </VerticalStackLayout>
                 </Border>
@@ -143,48 +152,19 @@
                                 Opacity="0.1"/>
                     </Border.Shadow>
                     <VerticalStackLayout HorizontalOptions="Center">
-                        <Image Source="Resources/Images/green_hero.png"
-                               WidthRequest="90"
-                               HeightRequest="90"/>
-                        <Label Text="Salut"
+                        <Image x:Name="tenTasks1"
+                               WidthRequest="60"
+                               HeightRequest="60"
+                               Margin="0,10,0,0"/>
+                        <Label Text="10 tasks completed"
                                HorizontalTextAlignment="Center"
                                FontFamily="Inter-VariableFont"
                                FontSize="18"
                                FontAttributes="Bold"
                                TextColor="{StaticResource TEXT-COLOR}"/>
-                        <Label Text="28 mai 2024"
+                        <Label Text="30 mai 2024"
                                HorizontalTextAlignment="Center"/>
 
-                    </VerticalStackLayout>
-                </Border>
-                <Border  HeightRequest="140"
-                         WidthRequest="100"
-                         Margin="0,0,10,0"
-                         Background="{StaticResource BACKGROUND}"
-                         Stroke="{StaticResource BACKGROUND-DARK}"
-                         StrokeThickness="2"
-                         Padding="0,0,0,0">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="20,20,20,20" />
-                    </Border.StrokeShape>
-                    <Border.Shadow>
-                        <Shadow Brush="Gray"
-                                Offset="0,20"
-                                Radius="40"
-                                Opacity="0.1"/>
-                    </Border.Shadow>
-                    <VerticalStackLayout HorizontalOptions="Center">
-                        <Image Source="Resources/Images/green_hero.png"
-                               WidthRequest="90"
-                               HeightRequest="90"/>
-                        <Label Text="Salut"
-                               HorizontalTextAlignment="Center"
-                               FontFamily="Inter-VariableFont"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               TextColor="{StaticResource TEXT-COLOR}"/>
-                        <Label Text="28 mai 2024"
-                                HorizontalTextAlignment="Center"/>
                     </VerticalStackLayout>
                 </Border>
             </HorizontalStackLayout>
@@ -213,56 +193,63 @@
                                      WidthRequest="90"
                                      Margin="5"
                                      >
-                    <Image Source="Resources/Images/green_hero.png"
-                                WidthRequest="90"
-                               HeightRequest="90"/>
-                    <Label Text="Salut"
+                    <Image x:Name="welcomeAchv"
+                                WidthRequest="60"
+                               HeightRequest="60"
+                           Margin="0,10,0,0"/>
+                    <Label Text="Welcome to GreenHero"
                            HorizontalTextAlignment="Center"
                            FontFamily="Inter-VariableFont"
                            FontSize="18"
                            FontAttributes="Bold"
-                           TextColor="{StaticResource TEXT-COLOR}"/>
+                           TextColor="{StaticResource TEXT-COLOR}"
+                           Margin="0,5,0,0"/>
                     <Label Text="28 mai 2024"
                            HorizontalTextAlignment="Center"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="1">
-                    <Image Source="Resources/Images/green_hero.png"
-                           WidthRequest="90"
-                           HeightRequest="90"/>
-                    <Label Text="Salut"
+                    <Image x:Name="firstTaks2"
+                           WidthRequest="60"
+                           HeightRequest="60"
+                           Margin="0,10,0,0"/>
+                    <Label Text="First task completed"
                            HorizontalTextAlignment="Center"
                            FontFamily="Inter-VariableFont"
                            FontSize="18"
                            FontAttributes="Bold"
-                           TextColor="{StaticResource TEXT-COLOR}"/>
+                           TextColor="{StaticResource TEXT-COLOR}"
+                           Margin="0,10,0,0"/>
                     <Label Text="28 mai 2024"
                             HorizontalTextAlignment="Center"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="2">
-                    <Image Source="Resources/Images/green_hero.png"
-                           WidthRequest="90"
-                           HeightRequest="90"/>
-                    <Label Text="Salut"
+                    <Image x:Name="firstMonth2"
+                           WidthRequest="60"
+                           HeightRequest="60"
+                           Margin="0,10,0,0"/>
+                    <Label Text="Hero for a month"
                            HorizontalTextAlignment="Center"
                            FontFamily="Inter-VariableFont"
                            FontSize="18"
                            FontAttributes="Bold"
-                           TextColor="{StaticResource TEXT-COLOR}"/>
-                    <Label Text="28 mai 2024"
+                           TextColor="{StaticResource TEXT-COLOR}"
+                           Margin="0,10,0,0"/>
+                    <Label Text="29 mai 2024"
                             HorizontalTextAlignment="Center"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="0"
                                      Grid.Row="2">
-                    <Image Source="Resources/Images/green_hero.png"
-                           WidthRequest="90"
-                           HeightRequest="90"/>
-                    <Label Text="Salut"
+                    <Image x:Name="tenTasks2"
+                           WidthRequest="60"
+                           HeightRequest="60"
+                           Margin="0,20,0,0"/>
+                    <Label Text="10 tasks completed"
                            HorizontalTextAlignment="Center"
                            FontFamily="Inter-VariableFont"
                            FontSize="18"
                            FontAttributes="Bold"
                            TextColor="{StaticResource TEXT-COLOR}"/>
-                    <Label Text="28 mai 2024"
+                    <Label Text="30 mai 2024"
                             HorizontalTextAlignment="Center"/>
                 </VerticalStackLayout>
 
@@ -270,5 +257,5 @@
 
         </ScrollView>
     </VerticalStackLayout>
-    
+
 </ContentPage>

@@ -1,5 +1,6 @@
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using TezorwasV2.ViewModel;
 
 namespace TezorwasV2.View.AppPages;
@@ -17,14 +18,17 @@ public partial class ProfileView : ContentPage
 
     private async void AchievmentsBtn_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(AchievmentsView), true);
+        var popup = new LoadingSpinnerPopup();
+        this.ShowPopup(popup);
+
+        await Shell.Current.GoToAsync(nameof(AchievmentssView), true);
+
+        popup.Close();
+
     }
 
     protected override async void OnAppearing()
     {
-        await _profileViewModel.InitializeProfile();
-        //todo de adaugat valoare in progress bar
-
 #pragma warning disable CA1416 // Validate platform compatibility
         this.Behaviors.Add(new StatusBarBehavior
         {
@@ -32,10 +36,21 @@ public partial class ProfileView : ContentPage
             StatusBarStyle = StatusBarStyle.LightContent
         });
 #pragma warning restore CA1416 // Validate platform compatibility
+
+        await _profileViewModel.InitializeProfile();
+        //todo de adaugat valoare in progress bar
+
+
     }
 
     private async void HabbitsBtn_Clicked(object sender, EventArgs e)
     {
+        var popup = new LoadingSpinnerPopup();
+        this.ShowPopup(popup);
+
         await Shell.Current.GoToAsync(nameof(HabbitsView), true);
+
+        popup.Close();
+        //todo de pus in global context
     }
 }
