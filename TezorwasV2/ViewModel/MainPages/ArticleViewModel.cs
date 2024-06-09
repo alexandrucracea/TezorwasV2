@@ -38,13 +38,13 @@ namespace TezorwasV2.ViewModel.MainPages
             }
         }
         [RelayCommand]
-        public async Task GoToArticle()
+        public async Task GoToArticle(dynamic articleToTransfer)
         {
-            var navigationParameters = new Dictionary<string, object>
+            var navigationParameters = new Dictionary<string, dynamic>
             {
-                { "Yourkey", "salut" },
+                { "ArticleToShow",articleToTransfer},
             };
-            await Shell.Current.GoToAsync(nameof(ArticlePage), true,navigationParameters);
+            await Shell.Current.GoToAsync(nameof(ArticlePage), true, navigationParameters);
         }
     }
 }

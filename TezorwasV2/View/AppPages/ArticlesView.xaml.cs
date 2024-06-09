@@ -1,20 +1,20 @@
 ﻿using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
+using Syncfusion.Maui.ListView;
 using TezorwasV2.ViewModel.MainPages;
 
 namespace TezorwasV2.View.AppPages;
 
 public partial class ArticlesView : ContentPage
 {
-    ArticleViewModel viewModel;
-    List<ArticleDto> allArticles {get;set;} = new List<ArticleDto>();
+    private readonly ArticleViewModel _viewModel;
+    List<ArticleDto> allArticles { get; set; } = new List<ArticleDto>();
     public ArticlesView(ArticleViewModel articleViewModel)
     {
         InitializeComponent();
 
-        viewModel = articleViewModel;
-        this.BindingContext = viewModel;
-
+        _viewModel = articleViewModel;
+        BindingContext = _viewModel;
         #region test
         //var art1Url = "https://firebasestorage.googleapis.com/v0/b/tezorwas.appspot.com/o/art1.jpg?alt=media&token=7f4c1d15-fd48-4538-a219-29779d1f447e";
         //var art2Url = "https://firebasestorage.googleapis.com/v0/b/tezorwas.appspot.com/o/art2.jpg?alt=media&token=494c4525-f289-4767-b486-73a74ed2beb9";
@@ -49,15 +49,16 @@ public partial class ArticlesView : ContentPage
             StatusBarStyle = StatusBarStyle.DarkContent
         });
 #pragma warning restore CA1416 // Validate platform compatibility
+
         allArticles = new List<ArticleDto>();
         await LoadArticles();
-        var x = 3;
     }
-
     protected async Task LoadArticles()
     {
-        await viewModel.LoadAllArticles();
-        var articlesToParse = viewModel.AllArticles;
+        await _viewModel.LoadAllArticles();
+        var articlesToParse = _viewModel.AllArticles;
+
+
         foreach (var article in articlesToParse)
         {
             ArticleDto articleToAdd = new ArticleDto();
@@ -75,11 +76,17 @@ public partial class ArticlesView : ContentPage
         }
         itemsCollectionView.ItemsSource = allArticles;
     }
-
-    private async void Button_Clicked(object sender, EventArgs e)
+    private void itemsCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(ArticlePage),true);
+        var currentArticle = e.CurrentSelection.FirstOrDefault() as ArticleDto;
+        if (currentArticle is not null)
+        {
+            _viewModel.GoToArticleCommand.Execute(currentArticle);
+        }
+
+        this.ShowBottomSheet(GetMyBottomSheetContent(), true);
     }
+
 
     public class ArticleDto
     {
@@ -88,4 +95,6 @@ public partial class ArticlesView : ContentPage
         public DateTime DatePublished { get; set; }
         public UriImageSource UriCover { get; set; }
     }
+
+
 }

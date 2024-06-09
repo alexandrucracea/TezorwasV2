@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TezorwasV2.View.AppPages.ArticlesView"
              xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
+             xmlns:vm="clr-namespace:TezorwasV2.ViewModel.MainPages"
              Title="ArticlesView"
              Background="{StaticResource BACKGROUND}">
     <Grid>
@@ -20,7 +21,9 @@
         </Label>
 
         <CollectionView Grid.Row="1" x:Name="itemsCollectionView"
-                        VerticalOptions="FillAndExpand">
+                        VerticalOptions="FillAndExpand"
+                        SelectionMode="Single"
+                        SelectionChanged="itemsCollectionView_SelectionChanged">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border  HeightRequest="300"
@@ -61,8 +64,8 @@
                                     HeightRequest="100"
                                     WidthRequest="340"
                                     HorizontalOptions="Start"
-                                    Command="{Binding GoToArticle}"
-                                    Clicked="Button_Clicked"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ArticleViewModel}}, Path=GoToArticleCommand}"
+                                    
                                     />
                             <!--<Image x:Name="art1Img"></Image>-->
                         </VerticalStackLayout>

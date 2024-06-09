@@ -1,15 +1,29 @@
-using TezorwasV2.ViewModel.MainPages;
+﻿using TezorwasV2.ViewModel.MainPages;
+using static TezorwasV2.View.AppPages.ArticlesView;
+using Microsoft.Maui.Controls;
 
-namespace TezorwasV2.View.AppPages;
-
-public partial class ArticlePage : ContentPage
+namespace TezorwasV2.View.AppPages
 {
-	ArticlePageViewModel viewModel;
-    public ArticlePage(ArticlePageViewModel articlePageViewModel)
-	{
-		InitializeComponent();
-		viewModel = articlePageViewModel;
-		this.BindingContext = this;
-	}
+    public partial class ArticlePage : ContentPage, IQueryAttributable
+    {
+        ArticlePageViewModel viewModel;
 
+        public ArticlePage(ArticlePageViewModel articlePageViewModel)
+        {
+            InitializeComponent();
+
+            viewModel = articlePageViewModel;
+            BindingContext = viewModel;
+        }
+
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            if (query.ContainsKey("ArticleToShow"))
+            {
+                var article = query["ArticleToShow"] as ArticleDto;
+                viewModel.ArticleToShow = article;
+                viewModel.PopulateArticle();
+            }
+        }
+    }
 }
