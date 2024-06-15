@@ -9,7 +9,7 @@ namespace TezorwasV2.ViewModel.MainPages
     {
         public ArticleDto ArticleToShow { get; set; }
 
-        public ObservableCollection<string> paragraphs = new ObservableCollection<string>();
+        public ObservableCollection<ParagraphDto> paragraphs = new ObservableCollection<ParagraphDto>();
         [ObservableProperty] public string articleTitle;
         [ObservableProperty] public UriImageSource coverUri;
         [ObservableProperty] public DateTime publishDate;
@@ -20,7 +20,7 @@ namespace TezorwasV2.ViewModel.MainPages
             var phrases = ArticleToShow.Content.Split('.');
             foreach (var phrase in phrases)
             {
-                paragraphs.Add(phrase);
+                paragraphs.Add(new ParagraphDto { Content = phrase });
             }
         }
         public void PopulateArticle()
@@ -33,5 +33,9 @@ namespace TezorwasV2.ViewModel.MainPages
                 PopulateParagraphs();
             }
         }
+    }
+    public class ParagraphDto
+    {
+        public string Content { get; set; }
     }
 }

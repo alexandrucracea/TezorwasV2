@@ -6,6 +6,23 @@
              xmlns:vm="clr-namespace:TezorwasV2.ViewModel.MainPages"
              Title="ArticlesView"
              Background="{StaticResource BACKGROUND}">
+    <ContentPage.Resources>
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -23,10 +40,12 @@
         <CollectionView Grid.Row="1" x:Name="itemsCollectionView"
                         VerticalOptions="FillAndExpand"
                         SelectionMode="Single"
-                        SelectionChanged="itemsCollectionView_SelectionChanged">
+                        SelectionChanged="itemsCollectionView_SelectionChanged"
+                        >
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border  HeightRequest="300"
+                    <Border  Style="{StaticResource BorderStyle}"
+                             HeightRequest="300"
                              Margin="10,20,10,0"
                              Background="{StaticResource BACKGROUND-LIGHT}"
                              Stroke="{StaticResource BACKGROUND-DARK}"
@@ -55,7 +74,7 @@
                                     TextColor="{StaticResource TEXT-COLOR}"
                                     Margin="20,10,0,10"
                             />
-                            <Button Text="{Binding Title}"
+                            <!--<Button Text="{Binding Title}"
                                     FontFamily="Inter-VariableFont"
                                     FontSize="26"
                                     FontAttributes="Bold"
@@ -66,7 +85,7 @@
                                     HorizontalOptions="Start"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ArticleViewModel}}, Path=GoToArticleCommand}"
                                     
-                                    />
+                                    />-->
                             <!--<Image x:Name="art1Img"></Image>-->
                         </VerticalStackLayout>
                     </Border>

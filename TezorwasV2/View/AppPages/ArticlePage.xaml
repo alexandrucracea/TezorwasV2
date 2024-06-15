@@ -1,62 +1,54 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TezorwasV2.View.AppPages.ArticlePage"
              xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
              Title="ArticlePage"
-             Background="{StaticResource PRIMARY-COLOR}">
-    <Grid>
-        <VerticalStackLayout Margin="0,0,0,0">
-            <Border
-                StrokeThickness="0"
-                HorizontalOptions="FillAndExpand"
-                Background="{StaticResource PRIMARY-COLOR}"
-                VerticalOptions="Start"
-                Margin="-10,0,-10,0">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="0,0,0,0" />
-                </Border.StrokeShape>
+             Background="{StaticResource BACKGROUND}">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Border HeightRequest="250" 
+                    WidthRequest="330"
+                    StrokeShape="RoundRectangle 20,20,20,20"
+                    HorizontalOptions="Center"
+                    Stroke="{StaticResource BACKGROUND-DARK}"
+                    StrokeThickness="3"
+                    Margin="-10,0,-10,0">
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                    Offset="20,20"
+                    Radius="30"
+                    Opacity="0.3"/>
+                </Border.Shadow>
                 <Image Source="{Binding CoverUri}"
                        HeightRequest="250"
-                       WidthRequest="400"
-                       HorizontalOptions="FillAndExpand" />
+                       WidthRequest="320"
+                       HorizontalOptions="FillAndExpand"
+                       Aspect="AspectFill">
+                </Image>
             </Border>
+
+
+            <VerticalStackLayout>
+                <Label Text="{Binding ArticleTitle}"
+                       FontSize="28"
+                       FontFamily="Inter-VariableFont"
+                       FontAttributes="Bold"
+                       Margin="30,0,0,15"
+                       TextColor="{StaticResource TEXT-COLOR}"/>
+                <CollectionView x:Name="itemsCollectionView"
+                                 VerticalOptions="FillAndExpand">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding Content}"
+                                   FontFamily="Inter-VariableFont"
+                                   FontSize="16"
+                                   Margin="30,0,30,20"
+                                   HorizontalTextAlignment="Start"
+                                   TextColor="{StaticResource TEXT-COLOR}"></Label>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
         </VerticalStackLayout>
-        <Border x:Name="actionsArea"
-                Background="{StaticResource BACKGROUND}"
-                Stroke="{StaticResource BACKGROUND-DARK}"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="Start"
-                HeightRequest="500"
-                Margin="0,210,0,0">
-            <!-- Ajustăm margin pentru a-l plasa sub imagine -->
-            <Border.StrokeShape>
-                <RoundRectangle x:Name="actionsAreaStrokeShape" CornerRadius="40,40,0,0" />
-            </Border.StrokeShape>
-            <Border.Shadow>
-                <Shadow Brush="Gray"
-                        Offset="0,20"
-                        Radius="40"
-                        Opacity="0.1" />
-            </Border.Shadow>
-            <Border.Content>
-                <VerticalStackLayout>
-                    <VerticalStackLayout x:Name="SectionOne"
-                                         VerticalOptions="Center">
-                        <Label Text="{Binding ArticleTitle}"
-                               TextColor="{StaticResource TEXT-COLOR}"
-                               FontSize="32"
-                               FontFamily="Inter-VariableFont"
-                               FontAttributes="Bold"
-                               Margin="30,10,10,0" />
-                        <Label Text="To continue the registration process please enter the following details:"
-                               TextColor="{StaticResource TEXT-COLOR}"
-                               FontSize="20"
-                               FontFamily="Inter-VariableFont"
-                               Margin="30,30,30,20" />
-                    </VerticalStackLayout>
-                </VerticalStackLayout>
-            </Border.Content>
-        </Border>
-    </Grid>
+    </ScrollView>
 </ContentPage>

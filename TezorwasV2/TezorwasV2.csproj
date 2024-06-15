@@ -12,7 +12,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>TezorwasV2</ApplicationTitle>
+		<ApplicationTitle>GreenHero</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.tezorwasv2</ApplicationId>
@@ -32,9 +32,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\recycleapp.svg" Color="037171" />
+		<MauiIcon Include="Resources\AppIcon\greenhero.svg" Color="#eff1f3" />
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\recycle.svg" Color="#037171" />
+		<MauiSplashScreen Include="Resources\Splash\greenhero3.png" />
+
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
@@ -48,6 +49,7 @@
 
 	<ItemGroup>
 		<None Remove="appsettings.json" />
+		<None Remove="Platforms\Android\Resources\values\styles.xml" />
 		<None Remove="Resources\AppIcon\start_main_image.svg" />
 		<None Remove="Resources\Images\achievments.svg" />
 		<None Remove="Resources\Images\add_receipt.svg" />

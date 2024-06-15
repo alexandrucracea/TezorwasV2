@@ -1,6 +1,5 @@
 ﻿using TezorwasV2.ViewModel.MainPages;
 using static TezorwasV2.View.AppPages.ArticlesView;
-using Microsoft.Maui.Controls;
 
 namespace TezorwasV2.View.AppPages
 {
@@ -22,8 +21,17 @@ namespace TezorwasV2.View.AppPages
             {
                 var article = query["ArticleToShow"] as ArticleDto;
                 viewModel.ArticleToShow = article;
-                viewModel.PopulateArticle();
+                if (viewModel.ArticleTitle == null)
+                    viewModel.PopulateArticle();
             }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            itemsCollectionView.ItemsSource = viewModel.paragraphs;
+
         }
     }
 }

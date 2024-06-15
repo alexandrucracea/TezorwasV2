@@ -10,11 +10,11 @@ public partial class ProfileView : ContentPage
     private readonly ProfileViewModel _profileViewModel;
 
     public ProfileView(ProfileViewModel profileViewModel)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _profileViewModel = profileViewModel;
         BindingContext = _profileViewModel;
-	}
+    }
 
     private async void AchievmentsBtn_Clicked(object sender, EventArgs e)
     {
@@ -37,7 +37,13 @@ public partial class ProfileView : ContentPage
         });
 #pragma warning restore CA1416 // Validate platform compatibility
 
+
+        var popup = new LoadingSpinnerPopup();
+        this.ShowPopup(popup);
+
         await _profileViewModel.InitializeProfile();
+
+        popup.Close();
         //todo de adaugat valoare in progress bar
 
 

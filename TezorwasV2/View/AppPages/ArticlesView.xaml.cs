@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using Syncfusion.Maui.ListView;
 using TezorwasV2.ViewModel.MainPages;
 
@@ -15,29 +16,6 @@ public partial class ArticlesView : ContentPage
 
         _viewModel = articleViewModel;
         BindingContext = _viewModel;
-        #region test
-        //var art1Url = "https://firebasestorage.googleapis.com/v0/b/tezorwas.appspot.com/o/art1.jpg?alt=media&token=7f4c1d15-fd48-4538-a219-29779d1f447e";
-        //var art2Url = "https://firebasestorage.googleapis.com/v0/b/tezorwas.appspot.com/o/art2.jpg?alt=media&token=494c4525-f289-4767-b486-73a74ed2beb9";
-
-        //var uriImageSource = new UriImageSource
-        //{
-        //    Uri = new Uri(art1Url),
-        //    CachingEnabled = false, // Setează la true dacă dorești caching
-        //    CacheValidity = TimeSpan.FromDays(1) // Valabilitate cache, dacă este activat
-        //};
-
-        //art1Imgg.Source = uriImageSource;
-
-
-        //uriImageSource = new UriImageSource
-        //{
-        //    Uri = new Uri(art2Url),
-        //    CachingEnabled = false, // Setează la true dacă dorești caching
-        //    CacheValidity = TimeSpan.FromDays(1) // Valabilitate cache, dacă este activat
-        //};
-
-        //art2Imgg.Source = uriImageSource;
-        #endregion
 
     }
     protected override async void OnAppearing()
@@ -51,7 +29,13 @@ public partial class ArticlesView : ContentPage
 #pragma warning restore CA1416 // Validate platform compatibility
 
         allArticles = new List<ArticleDto>();
+
+        var popup = new LoadingSpinnerPopup();
+        this.ShowPopup(popup);
+
         await LoadArticles();
+
+        popup.Close();
     }
     protected async Task LoadArticles()
     {
@@ -84,7 +68,7 @@ public partial class ArticlesView : ContentPage
             _viewModel.GoToArticleCommand.Execute(currentArticle);
         }
 
-        this.ShowBottomSheet(GetMyBottomSheetContent(), true);
+        //this.ShowBottomSheet(GetMyBottomSheetContent(), true);
     }
 
 
