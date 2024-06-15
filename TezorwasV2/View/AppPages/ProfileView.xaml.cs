@@ -44,9 +44,6 @@ public partial class ProfileView : ContentPage
         await _profileViewModel.InitializeProfile();
 
         popup.Close();
-        //todo de adaugat valoare in progress bar
-
-
     }
 
     private async void HabbitsBtn_Clicked(object sender, EventArgs e)
@@ -57,6 +54,5 @@ public partial class ProfileView : ContentPage
         await Shell.Current.GoToAsync(nameof(HabbitsView), true);
 
         popup.Close();
-        //todo de pus in global context
     }
 }

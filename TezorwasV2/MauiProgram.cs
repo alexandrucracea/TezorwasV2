@@ -89,6 +89,8 @@ namespace TezorwasV2
             builder.Services.AddSingleton<ArticlesView>();
             builder.Services.AddSingleton<ArticlePageViewModel>();
             builder.Services.AddSingleton<ArticlePage>();
+            builder.Services.AddSingleton<HabbitViewModel>();
+            builder.Services.AddSingleton<HabbitsView>();
 
 
             builder.Services.AddTesseractOcr(
