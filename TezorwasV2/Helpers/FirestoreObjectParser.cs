@@ -72,8 +72,8 @@ namespace TezorwasV2.Helpers
                 {
                     Name = name.ToString(),
                     Description = description.ToString(),
-                    completionDate = DateTime.Parse(completionDate.GetString()!),
-                    creationDate = DateTime.Parse(creationDate.GetString()!),
+                    CompletionDate = DateTime.Parse(completionDate.GetString()!),
+                    CreationDate = DateTime.Parse(creationDate.GetString()!),
                     XpEarned = int.Parse(xpEarned.GetString()!),
                     IsCompleted = isCompleted.GetBoolean(),
                 });
@@ -205,8 +205,8 @@ namespace TezorwasV2.Helpers
                         TaskModel taskToAdd = new TaskModel();
                         taskToAdd.Name = taskObj["mapValue"]["fields"]["name"]["stringValue"].ToString();
                         taskToAdd.Description = taskObj["mapValue"]["fields"]["description"]["stringValue"].ToString();
-                        taskToAdd.completionDate = DateTime.Parse(taskObj["mapValue"]["fields"]["completionDate"]["stringValue"].ToString());
-                        taskToAdd.creationDate = DateTime.Parse(taskObj["mapValue"]["fields"]["creationDate"]["stringValue"].ToString());
+                        taskToAdd.CompletionDate = DateTime.Parse(taskObj["mapValue"]["fields"]["completionDate"]["stringValue"].ToString());
+                        taskToAdd.CreationDate = DateTime.Parse(taskObj["mapValue"]["fields"]["creationDate"]["stringValue"].ToString());
                         taskToAdd.XpEarned = int.Parse(taskObj["mapValue"]["fields"]["xpEarned"]["integerValue"].ToString());
                         taskToAdd.IsCompleted = bool.Parse(taskObj["mapValue"]["fields"]["isCompleted"]["booleanValue"].ToString());
 

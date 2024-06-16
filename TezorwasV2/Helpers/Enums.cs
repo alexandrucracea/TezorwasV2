@@ -233,5 +233,7 @@ namespace TezorwasV2.Helpers
             Lvl100 = 505000
 
         }
+
+        
     }
 }

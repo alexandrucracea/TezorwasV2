@@ -19,7 +19,7 @@ namespace TezorwasV2.Helpers
             for(int i=0; i<choices.Count; i++)
             {
                 JsonObject deserializedChoice = choices[i].Deserialize<JsonObject>();
-                completionsToParse += deserializedChoice["text"].ToString();
+                completionsToParse += deserializedChoice["message"]["content"].ToString();
             }
 
             //trebuie parsat jsonul in string si el si dupa aplicat ce e aici
@@ -27,11 +27,11 @@ namespace TezorwasV2.Helpers
             foreach (string completion in responsedSplitted)
             {
                 CompletionsDto taskParsed = new CompletionsDto();
-                int finalWordInTaskIndex = completion.LastIndexOf("points");
+                int finalWordInTaskIndex = completion.LastIndexOf("xp");
                 if (finalWordInTaskIndex >= 0)
                 {
                     int xpEarned = int.Parse(completion.Substring(finalWordInTaskIndex - 2, 2));
-                    string description = completion.Substring(2, finalWordInTaskIndex - 2).Trim();
+                    string description = completion.Substring(0, finalWordInTaskIndex - 5).Trim();
 
                     taskParsed.TaskDescription = description;
                     taskParsed.XpEarned = xpEarned;

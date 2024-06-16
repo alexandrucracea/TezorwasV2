@@ -19,14 +19,19 @@ namespace TezorwasV2.ViewModel.MainPages
         [ObservableProperty] public string noAvailableTasksMessage;
         [ObservableProperty] public string noCompletedTasksMessage;
         [ObservableProperty] public int availableTasksToday;
+        [ObservableProperty] public int completedTasksToday;
+        [ObservableProperty] public int availableXpToday;
+        [ObservableProperty] public int actualXpGotToday;
 
         private readonly IProfileService _profileService;
         private readonly IGlobalContext _globalContext;
+        private readonly IGptService _gptService;
 
-        public TasksViewModel(IGlobalContext globalContext, IProfileService profileService)
+        public TasksViewModel(IGlobalContext globalContext, IProfileService profileService, IGptService gptService)
         {
             _globalContext = globalContext;
             _profileService = profileService;
+            _gptService = gptService;
 
             Task.Run(OnAppearing);
 
@@ -35,9 +40,6 @@ namespace TezorwasV2.ViewModel.MainPages
         }
         public async Task OnAppearing()
         {
-            //GptService gptService = new GptService();
-            //var x = await gptService.GenerateTasks(3, _globalContext.UserToken);
-            //var y = GptObjectParser.ParseGptCompletionsData(x);
             await PopulateTasks();
             if (CompletedTasks.Count == 0)
             {
@@ -72,7 +74,7 @@ namespace TezorwasV2.ViewModel.MainPages
                     CompletedTasks.Add(task);
                     AvailableTasks.Remove(task);
 
-                    await UpdateProfile(task);
+                    await UpdateProfilesCompletedTasks(task);
                     return;
                 }
             }
@@ -92,13 +94,70 @@ namespace TezorwasV2.ViewModel.MainPages
                     if (!task.IsCompleted)
                     {
                         AvailableTasks.Add(task);
+                        AvailableXpToday += task.XpEarned;
+                    }
+                    else
+                    {
+                        if (task.CompletionDate.Date == DateTime.Now.Date)
+                        {
+                            CompletedTasks.Add(task);
+                            ActualXpGotToday += task.XpEarned;
+                        }
                     }
                 }
+                double levelOfWaste = currentUserProfile.Habbits.FirstOrDefault().LevelOfWaste;
+
+                //checking the there are any available tasks generated today
+                DateTime todaysDate = DateTime.Now.Date;
+
+                int tasksAvailableToday = AvailableTasks.Where(task => task.CreationDate.Date == todaysDate).Count();
+
+                if (AvailableTasks.Count < 3 && tasksAvailableToday < 5)
+                {
+                    var tasksGenerated = await GenerateTasksWithGpt(levelOfWaste);
+
+                    List<TaskModel> gptGeneratedTasks = new List<TaskModel>();
+                    foreach (var task in tasksGenerated)
+                    {
+                        AvailableTasks.Add(new TaskModel
+                        {
+                            Name = "tasks_" + DateTime.Now.ToString(),
+                            CreationDate = DateTime.Now,
+                            Description = task.TaskDescription,
+                            IsCompleted = false,
+                            XpEarned = task.XpEarned,
+                            CompletionDate = DateTime.Now //trebuie suprascris cand se completeaza taskul
+                        });
+
+                        gptGeneratedTasks.Add(new TaskModel
+                        {
+                            Name = "tasks_" + DateTime.Now.ToString(),
+                            CreationDate = DateTime.Now,
+                            Description = task.TaskDescription,
+                            IsCompleted = false,
+                            XpEarned = task.XpEarned,
+                            CompletionDate = DateTime.Now //trebuie suprascris cand se completeaza taskul
+                        });
+
+                    }
+                    await UpdateProfilesAvailableTasks(gptGeneratedTasks);
+                }
             }
-            AvailableTasksToday = AvailableTasks.Count;
+            AvailableTasksToday = AvailableTasks.Count + CompletedTasks.Count;
+            CompletedTasksToday = CompletedTasks.Count;
         }
-        private async Task UpdateProfile(TaskModel task)
+        private async Task UpdateProfilesAvailableTasks(dynamic generatedTasksByGpt)
         {
+            ProfileDto profileToUpdate = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
+            foreach (var task in generatedTasksByGpt)
+            {
+                profileToUpdate.Tasks.Add(task);
+            }
+            await _profileService.UpdateAProfile(profileToUpdate, _globalContext.UserToken);
+        }
+        private async Task UpdateProfilesCompletedTasks(TaskModel task)
+        {
+            task.CompletionDate = DateTime.Now;
 
             ProfileDto profileToUpdate = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
             profileToUpdate.Tasks = AvailableTasks.Concat(CompletedTasks).ToList();
@@ -107,6 +166,12 @@ namespace TezorwasV2.ViewModel.MainPages
 
 
             await _profileService.UpdateAProfile(profileToUpdate, _globalContext.UserToken);
+
+            CompletedTasksToday = CompletedTasks.Count;
+            AvailableTasksToday += CompletedTasksToday;
+
+            ActualXpGotToday += task.XpEarned;
+
         }
         static string GetEnumDescription(Enum value)
         {
@@ -131,6 +196,13 @@ namespace TezorwasV2.ViewModel.MainPages
             }
 
             return profileToUpdate.Level;
+        }
+        private async Task<dynamic> GenerateTasksWithGpt(double levelOfWaste)
+        {
+            var tasksGeneratedString = await _gptService.GenerateTasks(levelOfWaste, _globalContext.UserToken);
+            var tasksGenerated = GptObjectParser.ParseGptCompletionsData(tasksGeneratedString);
+
+            return tasksGenerated;
         }
     }
 }

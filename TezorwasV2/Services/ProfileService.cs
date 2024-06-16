@@ -190,8 +190,8 @@ namespace TezorwasV2.Services
                             tasksDictionary.Add("name", task.Name);
                         }
                         tasksDictionary.Add("xpEarned",task.XpEarned);
-                        tasksDictionary.Add("creationDate",task.creationDate);
-                        tasksDictionary.Add("completionDate",task.completionDate);
+                        tasksDictionary.Add("creationDate",task.CreationDate);
+                        tasksDictionary.Add("completionDate",task.CompletionDate);
 
                         tasksList.Add(tasksDictionary);
                     }

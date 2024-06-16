@@ -29,38 +29,88 @@
                    TextColor="{StaticResource BACKGROUND}"
                    Margin="20,10,0,10">
             </Label>
+            <Grid WidthRequest="320"
+                  HeightRequest="50"
+                  Margin="0,30,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <HorizontalStackLayout Grid.Column="0"
+                                       Spacing="10"
+                                       HorizontalOptions="Start">
+                    <Image x:Name="taskCompletedImg" 
+                           Source="Resources/Images/task_done_background.png"
+                           HeightRequest="30"></Image>
+                    <Label  VerticalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            FontFamily="Inter-VariableFont"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource BACKGROUND}"
+                            FontSize="18">
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}{0} / {1}">
+                                <Binding Path="CompletedTasksToday" />
+                                <Binding Path="AvailableTasksToday" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Column="1"
+                                       Spacing="10"
+                                       HorizontalOptions="End">
+                    <Image x:Name="taskCompletedImg2" 
+                           Source="Resources/Images/bolt_background.png"
+                           HeightRequest="30"/>
+                    <Label VerticalTextAlignment="Center"
+                           VerticalOptions="Center"
+                           FontFamily="Inter-VariableFont"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource BACKGROUND}"
+                           FontSize="18" >
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}{0} / {1} xp">
+                                <Binding Path="ActualXpGotToday" />
+                                <Binding Path="AvailableXpToday" />
+                            </MultiBinding>
+                        </Label.Text>
+
+                    </Label>
+                </HorizontalStackLayout>
+            </Grid>
         </VerticalStackLayout>
-        <VerticalStackLayout Margin="0,100,0,0">
-            <Border  MaximumHeightRequest="250"
-                     Margin="10,100,10,0"
-                     Background="{StaticResource BACKGROUND-LIGHT}"
-                     Stroke="{StaticResource BACKGROUND-DARK}"
-                     Padding="20,0,0,0">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="40,40,40,40" />
-                </Border.StrokeShape>
-
-                <Border.Shadow>
-                    <Shadow Brush="Gray"
-                        Offset="0,20"
-                        Radius="40"
-                        Opacity="0.1"/>
-                </Border.Shadow>
-
-                <VerticalStackLayout>
-                    <Label  Text="{Binding NoAvailableTasksMessage}"
+        <VerticalStackLayout Margin="0,170,0,0">
+            <VerticalStackLayout>
+                <Label  Text="{Binding NoAvailableTasksMessage}"
                             FontFamily="Inter-VariableFont"
                             FontSize="16"
                             TextColor="{StaticResource TEXT-COLOR}"
                             IsVisible="{Binding AllTasksIncompleted, Converter={StaticResource BooleanConverter}}"
                             HeightRequest="60"
                             VerticalTextAlignment="Center"/>
-                    <CollectionView ItemsSource="{Binding AvailableTasks}">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
+                <CollectionView ItemsSource="{Binding AvailableTasks}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border  MaximumHeightRequest="220"
+                                        Margin="10,20,10,0"
+                                        Background="{StaticResource BACKGROUND-LIGHT}"
+                                        Stroke="{StaticResource BACKGROUND-DARK}"
+                                        Padding="20,0,0,0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="40,40,40,40" />
+                                </Border.StrokeShape>
+
+                                <Border.Shadow>
+                                    <Shadow Brush="Gray"
+                                            Offset="0,20"
+                                            Radius="40"
+                                            Opacity="0.1"/>
+                                </Border.Shadow>
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="100" />
+                                        <RowDefinition Height="80" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*" />
@@ -68,23 +118,88 @@
                                     </Grid.ColumnDefinitions>
                                     <Label  Grid.Row="0"
                                             Grid.Column="0"
-                                            Text="{Binding Name}"
+                                            Text="{Binding Description}"
                                             VerticalOptions="Center"
                                             FontFamily="Inter-VariableFont"
-                                            FontSize="16"/>
+                                            FontSize="18"
+                                            Margin="10,0,0,0"
+                                            />
                                     <sf:SfCheckBox  Grid.Row="0"
                                                     Grid.Column="1"
                                                     IsChecked="{Binding IsDone}"
                                                     CornerRadius="10"
                                                     UncheckedColor="{StaticResource TEXT-COLOR}"
                                                     CheckedColor="{StaticResource PRIMARY-COLOR}"
-                                                    StateChanged="SfCheckBox_StateChanged"/>
+                                                    StateChanged="SfCheckBox_StateChanged"
+                                                   />
                                 </Grid>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </VerticalStackLayout>
-            </Border>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <CollectionView ItemsSource="{Binding CompletedTasks}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border  MaximumHeightRequest="250"
+                                     Margin="10,20,10,0"
+                                     Background="{StaticResource BACKGROUND-LIGHT-DARKEN}"
+                                     Stroke="{StaticResource BACKGROUND-DARK}"
+                                     Padding="20,0,0,0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="40,40,40,40" />
+                                </Border.StrokeShape>
+
+                                <Border.Shadow>
+                                    <Shadow Brush="Gray"
+                                            Offset="0,20"
+                                            Radius="40"
+                                            Opacity="0.1"/>
+                                </Border.Shadow>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="70" />
+                                        <RowDefinition Height="10"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="0.5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label  Grid.Row="0"
+                                            Grid.Column="0"
+                                            Text="{Binding Description}"
+                                            VerticalOptions="Center"
+                                            FontFamily="Inter-VariableFont"
+                                            FontAttributes="Italic"
+                                            TextColor="{StaticResource TEXT-COLOR-LLIGHTV2}"
+                                            FontSize="18"
+                                            Margin="10,0,0,0"/>
+                                    <sf:SfCheckBox  Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    IsChecked="{Binding IsCompleted}"
+                                                    CornerRadius="10"
+                                                    UncheckedColor="{StaticResource TEXT-COLOR}"
+                                                    CheckedColor="{StaticResource PRIMARY-COLOR}" 
+                                                    IsEnabled="False"/>
+                                    <Label  Grid.Row="1"
+                                            Margin="10,-20,0,0"
+                                            WidthRequest="30"
+                                            HorizontalOptions="Start"
+                                            FontFamily="Inter-VariableFont"
+                                            FontAttributes="Italic"
+                                            FontSize="14"
+                                            TextColor="{StaticResource PRIMARY-COLOR}">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} xp">
+                                                <Binding Path="XpEarned" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

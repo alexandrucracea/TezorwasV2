@@ -43,8 +43,10 @@
 
     <Color x:Key="BACKGROUND">#eff1f3</Color>
     <Color x:Key="BACKGROUND-LIGHT">#f1f2f4</Color>
+    <Color x:Key="BACKGROUND-LIGHT-DARKEN">#f0f0f1</Color>
     <Color x:Key="BACKGROUND-DARK">#d7d9db</Color>
-    <Color x:Key="TEXT-COLOR">#03312e</Color>
+    <Color x:Key="TEXT-COLOR">#1c4643</Color>
+    <Color x:Key="TEXT-COLOR-LLIGHTV2">#03312e</Color>
     <Color x:Key="TEXT-COLOR-LIGHT">#9aadab</Color>
     <Color x:Key="PRIMARY-COLOR-LIGHT">#b3d4d4</Color>
     <Color x:Key="PRIMARY-COLOR">#037171</Color>

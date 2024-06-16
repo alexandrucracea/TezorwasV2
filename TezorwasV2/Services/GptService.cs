@@ -8,7 +8,7 @@ using TezorwasV2.Helpers;
 
 namespace TezorwasV2.Services
 {
-    public class GptService
+    public class GptService : IGptService
     {
         IConfiguration configuration;
         public TezorwasApiHelper TezorwasApiHelper { get; set; }
@@ -23,7 +23,7 @@ namespace TezorwasV2.Services
                 TezorwasApiHelper = new TezorwasApiHelper(apiUrl: tezorwasApiUrl);
             }
         }
-        public async Task<dynamic> GenerateTasks(int levelOfWaste, string bearerToken)
+        public async Task<dynamic> GenerateTasks(double levelOfWaste, string bearerToken)
         {
             List<string> tasksGenerated = new List<string>();
             string responseContent = string.Empty;
@@ -35,18 +35,34 @@ namespace TezorwasV2.Services
                 try
                 {
 
-                    string prompt = $"Stiind ca utilizatorul aplicatiei mele poate fi incadrat intr-o categorie de poluare cu o gravitate de la 1 la 5 si acesta are numarul {levelOfWaste}," +
-                                    $" genereaza o sarcina de reciclare pe care o poate realiza in viata de zi cu zi cu usurinta pentru a adopta un comportament mai putin  daunator. Sarcina " +
-                                    $"ar trebui sa fie destul de scurta si intuitiva. Vreau sa imi dai doar actiunea pe care acesta ar trebui sa o realizeze. Limiteaza-te la maxim 7 cuvinte. " +
-                                    $"Sarcina trebuie sa includa si ce produs sau ce parte a produsului trebuie reciclata.Fiecare sarcina generata trebuie sa fie diferita.Genereaza 3 sarcini," +
-                                    $" fiecare sarcina fiind separata prin separatorul: -. Fiecare sarcina ar trebui sa fie insotita cu un numar de la 1 la 10 (numarulreprezinta punctele de " +
-                                    $"experiente capatate de utilizator prin indeplinirea taskului. Genereaza in engleza adaugand dupa fiecare numar cuvantul points";
-
-                    var requestParameters = new Dictionary<string, string>
+                    string prompt = $"User category: {levelOfWaste} pollution level (points out of 5). Generate three recycling tasks. Each task should be concise, intuitive, and include a specific number of products/parts to recycle. Tasks closer to pollution level 1 should be easier and involve fewer items, while tasks closer to pollution level 5 should be more challenging and involve more items. Tasks around level 3 should be of medium difficulty. Each task should be no longer than 7 words and specify the number of items to recycle and the experience points (0-20). Format the response as follows: Recycle: number of items product - numberOfExperiencePoints xp.";
+                    RequestDto requestDto = new RequestDto();
+                    requestDto.Temperature = 1;
+                    requestDto.Messages.Add(new Messages
                     {
-                        {"prompt",prompt }
+                        Role = "system",
+                        Content = prompt
+                    });
+
+
+                    var requestBody = new
+                    {
+                        messages = new[]
+           {
+                new
+                {
+                    role = "system",
+                    content = "User category: {pollution level} pollution level (points out of 5). Generate three recycling tasks. Each task should be concise, intuitive, and include a specific number of products/parts to recycle. Tasks closer to pollution level 1 should be easier and involve fewer items, while tasks closer to pollution level 5 should be more challenging and involve more items. Tasks around level 3 should be of medium difficulty. Each task should be no longer than 7 words and specify the number of items to recycle and the experience points (0-20). Format the response as follows: Recycle: number of items product - numberOfExperiencePoints xp."
+                }
+            },
+                        temperature = 1
                     };
-                    var jsonBody = JsonConvert.SerializeObject(requestParameters);
+                    var requestParameters = new Dictionary<string, dynamic>
+                    {
+                        {"messages",requestDto.Messages},
+                        { "temperature",requestDto.Temperature}
+                    };
+                    var jsonBody = JsonConvert.SerializeObject(requestBody);
                     var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
                     HttpResponseMessage response = await client.PostAsync(TezorwasApiHelper!.ApiUrl, content);
@@ -54,7 +70,7 @@ namespace TezorwasV2.Services
                     responseData.Response = await response.Content.ReadAsStringAsync();
                     if (responseData.StatusCode == (int)Enums.StatusCodes.Success)
                     {
-                       responseContent =  responseData.Response;
+                        responseContent = responseData.Response;
                         //trebuie parsat raspunsul si returnata lista
                     }
                 }
@@ -66,5 +82,17 @@ namespace TezorwasV2.Services
                 return responseContent;
             }
         }
+    }
+
+    class RequestDto
+    {
+        public int Temperature { get; set; }
+        public List<Messages> Messages { get; set; } = new List<Messages>();
+
+    }
+    class Messages
+    {
+        public string Role { get; set; }
+        public string Content { get; set; }
     }
 }
