@@ -19,5 +19,6 @@ namespace TezorwasV2.DTO
         //todo de adaugat un friend list model si de pus aici proprietate
         public int Xp { get; set; }
         public List<TaskModel>? Tasks { get; set; }
+        public List<ReceiptModel>? Receipts { get; set;}
     }
 }

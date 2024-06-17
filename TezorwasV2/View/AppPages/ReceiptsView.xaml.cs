@@ -16,7 +16,7 @@ public partial class ReceiptsView : ContentPage
         BindingContext = viewModel;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
@@ -28,43 +28,7 @@ public partial class ReceiptsView : ContentPage
         });
 #pragma warning restore CA1416 // Validate platform compatibility
 
-        var item = new ReceiptItemModel
-        {
-            Id = "123",
-            CompletionDate = DateTime.Now,
-            CreationDate = DateTime.Now,
-            Name = "name",
-            XpEarned = 10
-        };
-        viewModel.Receipts.Add(new ReceiptModel
-        {
-            Id = "salut",
-            CreationDate = DateTime.Now,
-            CompletionDate = DateTime.Now,
-            ReceiptItems = new List<ReceiptItemModel> { item }
-        });
-        viewModel.Receipts.Add(new ReceiptModel
-        {
-            Id = "salut",
-            CreationDate = DateTime.Now,
-            CompletionDate = DateTime.Now,
-            ReceiptItems = new List<ReceiptItemModel> { item }
-        });
-        viewModel.Receipts.Add(new ReceiptModel
-        {
-            Id = "salut",
-            CreationDate = DateTime.Now,
-            CompletionDate = DateTime.Now,
-            ReceiptItems = new List<ReceiptItemModel> { item }
-        });
-        viewModel.Receipts.Add(new ReceiptModel
-        {
-            Id = "salut",
-            CreationDate = DateTime.Now,
-            CompletionDate = DateTime.Now,
-            ReceiptItems = new List<ReceiptItemModel> { item }
-        });
-
+        await viewModel.GetAllProfileReceipts();
         ApplyGradientBackground(viewModel.Receipts);
     }
 

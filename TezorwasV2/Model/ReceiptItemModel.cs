@@ -8,5 +8,6 @@ namespace TezorwasV2.Model
         public int XpEarned { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime CompletionDate { get; set; }
+        public bool IsRecycled { get; set; }
     }
 }

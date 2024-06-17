@@ -5,6 +5,7 @@
              xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
              xmlns:calendar="clr-namespace:Syncfusion.Maui.Calendar;assembly=Syncfusion.Maui.Calendar"
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              Title="ReceiptsView"
              Background="{StaticResource BACKGROUND}">
 
@@ -37,17 +38,22 @@
                        TextColor="{StaticResource TEXT-COLOR}"
                        Margin="20,10,0,10"
                        VerticalTextAlignment="Center"/>
-                <Button Grid.Column="2"
-                        Text="{Binding ShowCalendarBtnText}"
-                        Margin="0,0,20,0"
-                        BackgroundColor="{StaticResource PRIMARY-COLOR}"
-                        HeightRequest="40"
-                        WidthRequest="150"
-                        CornerRadius="15"
-                        FontFamily="Inter-VariableFont"
-                        FontSize="16"
-                        FontAttributes="Bold"
-                        Command="{Binding ChangeCalendarVisibilityCommand}"/>
+                <buttons:SfButton Grid.Column="2"
+                                  Text="{Binding ShowCalendarBtnText}"
+                                  HorizontalTextAlignment="Center"
+                                  Background="{StaticResource BACKGROUND}"
+                                  HeightRequest="40"
+                                  WidthRequest="140"
+                                  CornerRadius="40"
+                                  FontFamily="Inter-VariableFont"
+                                  FontSize="18"
+                                  Margin="0,30,10,30"
+                                  ImageSource="Resources/Images/calendar_text.png"
+                                  ShowIcon="True"
+                                  ImageSize="25"
+                                  ImageAlignment="Right"
+                                  TextColor="{StaticResource TEXT-COLOR}"
+                                  Command="{Binding ChangeCalendarVisibilityCommand}"/>
             </Grid>
             <Frame IsVisible="{Binding IsCalendarShown}" 
                    BackgroundColor="{StaticResource BACKGROUND}" 

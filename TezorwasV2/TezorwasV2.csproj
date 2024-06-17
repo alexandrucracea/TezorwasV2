@@ -57,6 +57,8 @@
 		<None Remove="Resources\Images\back_button.svg" />
 		<None Remove="Resources\Images\bolt.svg" />
 		<None Remove="Resources\Images\bolt_background.svg" />
+		<None Remove="Resources\Images\calendar_background.svg" />
+		<None Remove="Resources\Images\calendar_text.svg" />
 		<None Remove="Resources\Images\cont_btn.svg" />
 		<None Remove="Resources\Images\green_hero.png" />
 		<None Remove="Resources\Images\habbits.svg" />

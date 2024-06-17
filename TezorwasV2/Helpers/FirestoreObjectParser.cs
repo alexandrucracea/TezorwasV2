@@ -78,6 +78,48 @@ namespace TezorwasV2.Helpers
                     IsCompleted = isCompleted.GetBoolean(),
                 });
             }
+            profileToParse.Receipts = new List<ReceiptModel>();
+            JsonElement receipts = payload.GetProperty("receipts").GetProperty("arrayValue").GetProperty("values");
+
+            foreach(var item in receipts.EnumerateArray())
+            {
+                JsonElement mapValue = item.GetProperty("mapValue").GetProperty("fields");
+                JsonElement idReceipt = mapValue.GetProperty("id").GetProperty("stringValue");
+                JsonElement completionDate = mapValue.GetProperty("completionDate").GetProperty("stringValue");
+                JsonElement inputDate = mapValue.GetProperty("inputDate").GetProperty("stringValue");
+
+                List<ReceiptItemModel> itemsToAdd = new List<ReceiptItemModel>();
+                JsonElement itemsToParse = mapValue.GetProperty("items").GetProperty("arrayValue").GetProperty("values");
+                foreach(var itm in itemsToParse.EnumerateArray())
+                {
+                    JsonElement itemMapValue = itm.GetProperty("mapValue").GetProperty("fields");
+                    JsonElement isRecycled = itemMapValue.GetProperty("isRecycled").GetProperty("booleanValue");
+                    JsonElement idItem = itemMapValue.GetProperty("id").GetProperty("stringValue");
+                    JsonElement itemName = itemMapValue.GetProperty("name").GetProperty("stringValue");
+                    JsonElement itemCompletionDate = itemMapValue.GetProperty("completionDate").GetProperty("stringValue");
+                    JsonElement itemCreationDate = itemMapValue.GetProperty("creationDate").GetProperty("stringValue");
+                    JsonElement xpEarned = itemMapValue.GetProperty("xpEarned").GetProperty("integerValue");
+
+                    itemsToAdd.Add(new ReceiptItemModel
+                    {
+                        Id = idItem.ToString(),
+                        CompletionDate = DateTime.Parse(itemCompletionDate.GetString()!),
+                        CreationDate = DateTime.Parse(itemCreationDate.GetString()!),
+                        IsRecycled = isRecycled.GetBoolean(),
+                        Name = itemName.ToString(),
+                        XpEarned = int.Parse(xpEarned.ToString())
+                    });
+                }
+
+                profileToParse.Receipts.Add(new ReceiptModel
+                {
+                    Id = idReceipt.ToString(),
+                    CompletionDate = DateTime.Parse(completionDate.GetString()!),
+                    CreationDate = DateTime.Parse(inputDate.GetString()!),
+                    ReceiptItems = itemsToAdd
+                });
+            }
+
             return profileToParse;
         }
         public static List<PersonDto> ParseFirestorePersonsData(dynamic personObject)
