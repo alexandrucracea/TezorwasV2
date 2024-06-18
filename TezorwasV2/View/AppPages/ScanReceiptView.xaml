@@ -64,6 +64,7 @@
                             Margin="0,20,0,0"
                             ImageSource="Resources/Images/upload_photo.png"
                             ImageSize="35"
-                            ShowIcon="True"/>
+                            ShowIcon="True"
+                            Clicked="UploadBtn_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>

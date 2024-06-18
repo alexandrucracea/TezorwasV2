@@ -101,6 +101,7 @@ namespace TezorwasV2
                 {
                     // must have matching files in Resources/Raw folder
                     files.AddFile("ron.traineddata");
+                    files.AddFile("eng.traineddata");
                 });
 
             var app = builder.Build();

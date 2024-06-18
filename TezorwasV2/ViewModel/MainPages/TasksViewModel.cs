@@ -112,7 +112,7 @@ namespace TezorwasV2.ViewModel.MainPages
 
                 int tasksAvailableToday = AvailableTasks.Where(task => task.CreationDate.Date == todaysDate).Count();
 
-                if (AvailableTasks.Count < 3 && tasksAvailableToday < 5)
+                if (AvailableTasks.Count < 2 && tasksAvailableToday < 2)
                 {
                     var tasksGenerated = await GenerateTasksWithGpt(levelOfWaste);
 

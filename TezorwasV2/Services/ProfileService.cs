@@ -184,20 +184,59 @@ namespace TezorwasV2.Services
                         {
                             tasksDictionary.Add("description", task.Description);
                         }
-                        tasksDictionary.Add("isCompleted",task.IsCompleted);
+                        tasksDictionary.Add("isCompleted", task.IsCompleted);
                         if (task.Name is not null)
                         {
                             tasksDictionary.Add("name", task.Name);
                         }
-                        tasksDictionary.Add("xpEarned",task.XpEarned);
-                        tasksDictionary.Add("creationDate",task.CreationDate);
-                        tasksDictionary.Add("completionDate",task.CompletionDate);
+                        tasksDictionary.Add("xpEarned", task.XpEarned);
+                        tasksDictionary.Add("creationDate", task.CreationDate);
+                        tasksDictionary.Add("completionDate", task.CompletionDate);
 
                         tasksList.Add(tasksDictionary);
                     }
                     requestParameters.Add("tasks", tasksList);
                 }
-                //todo de adaugat friendlist
+                if (profileToUpdate.Receipts is not null)
+                {
+                    var receiptList = new List<Dictionary<string, dynamic>>();
+                    foreach (ReceiptModel receipt in profileToUpdate.Receipts)
+                    {
+                        var receiptDictionary = new Dictionary<string, dynamic>();
+                        if (receipt.Id is not null)
+                        {
+                            receiptDictionary.Add("id", receipt.Id);
+                        }
+                        receiptDictionary.Add("inputDate", receipt.CreationDate);
+                        receiptDictionary.Add("completionDate", receipt.CompletionDate);
+
+                        var receiptItemsList = new List<Dictionary<string, dynamic>>();
+                        if (receipt.ReceiptItems is not null)
+                        {
+
+                            foreach (ReceiptItemModel receiptItem in receipt.ReceiptItems)
+                            {
+                                var receiptItems = new Dictionary<string, dynamic>();
+                                receiptItems.Add("creationDate", receiptItem.CreationDate);
+                                receiptItems.Add("completionDate", receiptItem.CompletionDate);
+                                if (receiptItem.Name is not null)
+                                {
+                                    receiptItems.Add("name", receiptItem.Name);
+                                }
+                                if (receiptItem.Id is not null)
+                                {
+                                    receiptItems.Add("id", receiptItem.Name);
+                                }
+                                receiptItems.Add("xpEarned", receiptItem.XpEarned);
+                                receiptItems.Add("isRecycled", receiptItem.IsRecycled);
+                                receiptItemsList.Add(receiptItems);
+                            }
+                        }
+                        receiptDictionary.Add("items", receiptItemsList);
+                        receiptList.Add(receiptDictionary);
+                    }
+                    requestParameters.Add("receipts", receiptList);
+                }
 
                 string jsonBody = JsonConvert.SerializeObject(requestParameters);
 
