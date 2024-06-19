@@ -12,19 +12,21 @@ using Microsoft.Maui.Controls;
 using TezorwasV2.Services;
 using TezorwasV2.Helpers;
 using TesseractOcrMaui.Enums;
+using TezorwasV2.ViewModel.MainPages;
 
 namespace TezorwasV2.View.AppPages
 {
     public partial class ScanReceiptView : ContentPage
     {
-        ITesseract Tesseract { get; }
-        private readonly IGlobalContext _globalContext;
+        //ITesseract Tesseract { get; }
+        //private readonly IGlobalContext _globalContext;
+        ScanReceiptViewModel viewModel;
 
-        public ScanReceiptView(ITesseract tesseract, IGlobalContext globalContext)
+        public ScanReceiptView(ScanReceiptViewModel scanReceiptViewModel)
         {
             InitializeComponent();
-            Tesseract = tesseract;
-            _globalContext = globalContext;
+            viewModel = scanReceiptViewModel;
+            BindingContext = viewModel;
         }
 
         protected override void OnAppearing()
@@ -39,193 +41,176 @@ namespace TezorwasV2.View.AppPages
             base.OnAppearing();
         }
 
-        private void OnCameraClicked(object sender, EventArgs e)
-        {
-            TakePhoto();
-        }
+        //private void OnCameraClicked(object sender, EventArgs e)
+        //{
+        //    TakePhoto();
+        //}
 
-        // Open camera and take photo
-        public async void TakePhoto()
-        {
-            if (MediaPicker.Default.IsCaptureSupported)
-            {
-                FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
-                if (photo != null)
-                {
-                    // Save the file into local storage.
-                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+        //// Open camera and take photo
+        //public async void TakePhoto()
+        //{
+        //    if (MediaPicker.Default.IsCaptureSupported)
+        //    {
+        //        FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+        //        if (photo != null)
+        //        {
+        //            // Save the file into local storage.
+        //            string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
 
-                    // Reduce the size of the image.
-                    using Stream sourceStream = await photo.OpenReadAsync();
-                    using SKBitmap sourceBitmap = SKBitmap.Decode(sourceStream);
-                    int height = Math.Min(794, sourceBitmap.Height);
-                    int width = Math.Min(794, sourceBitmap.Width);
+        //            // Reduce the size of the image.
+        //            using Stream sourceStream = await photo.OpenReadAsync();
+        //            using SKBitmap sourceBitmap = SKBitmap.Decode(sourceStream);
+        //            int height = Math.Min(794, sourceBitmap.Height);
+        //            int width = Math.Min(794, sourceBitmap.Width);
 
-                    using SKBitmap scaledBitmap = sourceBitmap.Resize(new SKImageInfo(width, height), SKFilterQuality.Medium);
-                    using SKImage scaledImage = SKImage.FromBitmap(scaledBitmap);
+        //            using SKBitmap scaledBitmap = sourceBitmap.Resize(new SKImageInfo(width, height), SKFilterQuality.Medium);
+        //            using SKImage scaledImage = SKImage.FromBitmap(scaledBitmap);
 
-                    using (SKData data = scaledImage.Encode())
-                    {
-                        File.WriteAllBytes(localFilePath, data.ToArray());
-                    }
+        //            using (SKData data = scaledImage.Encode())
+        //            {
+        //                File.WriteAllBytes(localFilePath, data.ToArray());
+        //            }
 
-                    #region v1 - Tesseract
+        //            #region v1 - Tesseract
 
-                    var result = await Tesseract.RecognizeTextAsync(localFilePath);
-                    string resultLabel;
-                    if (result.NotSuccess())
-                    {
-                        resultLabel = $"Recognition failed: {result.Status}";
-                        return;
-                    }
-                    resultLabel = result.RecognisedText;
-                    // Create model and add to the collection
-                    #endregion
-                    ImageModel model = new ImageModel() { ImagePath = localFilePath, Title = "sample", Description = "Cool" };
-                }
-            }
-        }
+        //            var result = await Tesseract.RecognizeTextAsync(localFilePath);
+        //            string resultLabel;
+        //            if (result.NotSuccess())
+        //            {
+        //                resultLabel = $"Recognition failed: {result.Status}";
+        //                return;
+        //            }
+        //            resultLabel = result.RecognisedText;
+        //            // Create model and add to the collection
+        //            #endregion
+        //            ImageModel model = new ImageModel() { ImagePath = localFilePath, Title = "sample", Description = "Cool" };
+        //        }
+        //    }
+        //}
 
-        private async void UploadBtn_Clicked(object sender, EventArgs e)
-        {
-            if (MediaPicker.Default.IsCaptureSupported)
-            {
-                FileResult photo = await MediaPicker.Default.PickPhotoAsync();
+        //private async void UploadBtn_Clicked(object sender, EventArgs e)
+        //{
+        //    if (MediaPicker.Default.IsCaptureSupported)
+        //    {
+        //        FileResult photo = await MediaPicker.Default.PickPhotoAsync();
 
-                if (photo != null)
-                {
-                    // Save the file into local storage.
-                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
-                    string processedFilePath = Path.Combine(FileSystem.CacheDirectory, "processed_" + photo.FileName);
+        //        if (photo != null)
+        //        {
+        //            // Save the file into local storage.
+        //            string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+        //            string processedFilePath = Path.Combine(FileSystem.CacheDirectory, "processed_" + photo.FileName);
 
-                    using Stream sourceStream = await photo.OpenReadAsync();
-                    using FileStream localFileStream = File.OpenWrite(localFilePath);
+        //            using Stream sourceStream = await photo.OpenReadAsync();
+        //            using FileStream localFileStream = File.OpenWrite(localFilePath);
 
-                    await sourceStream.CopyToAsync(localFileStream);
+        //            await sourceStream.CopyToAsync(localFileStream);
 
-                    PreprocessImage(localFilePath, processedFilePath);
+        //            PreprocessImage(localFilePath, processedFilePath);
 
-                    #region v1 - Tesseract
-                    //Tesseract.EngineMode = EngineMode.TesseractAndLstm;
-                    //Tesseract.EngineConfiguration = (engine) =>
-                    //{
-                    //    // Engine uses DefaultSegmentationMode, if no other is passed as method parameter.
-                    //    // If ITesseract is injected to page, this is only way of setting PageSegmentationMode.
-                    //    // PageSegmentationMode defines how ocr tries to look for text, for example singe character or single word.
-                    //    // By default uses PageSegmentationMode.Auto.
+        //            #region v1 - Tesseract
+        //            var result = await Tesseract.RecognizeTextAsync(localFilePath);
+        //            string resultLabel;
+        //            if (result.NotSuccess())
+        //            {
+        //                resultLabel = $"Recognition failed: {result.Status}";
+        //                return;
+        //            }
+        //            resultLabel = result.RecognisedText;
+        //            // Create model and add to the collection
+        //            #endregion
 
-                    //    engine.SetCharacterWhitelist("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");   // These characters ocr is looking for
-                    //    engine.SetCharacterBlacklist("0123456789!?@#$%^&*()_+=[]{}|;:,.<>");        // These characters ocr is not looking for
-                    //                                                // Now ocr should be only finding characters 'defgh'
-                    //                                                // You can also notice that setting character listing will set ocr confidence to 0
+        //            IGptService gptService = new GptService();
+        //            var x = await gptService.GenerateReceiptTasks(resultLabel,_globalContext.UserToken);
+        //            var y = GptObjectParser.ParseGptReceiptTasksModel(x);
+        //            ImageModel model = new ImageModel() { ImagePath = localFilePath, Title = "sample", Description = "Cool" };
+        //        }
+        //    }
+        //}
 
-                    //};
-                    var result = await Tesseract.RecognizeTextAsync(localFilePath);
+        //public void PreprocessImage(string inputImagePath, string outputImagePath)
+        //{
+        //    int retryCount = 5;
+        //    int delay = 500; // 500 milliseconds delay between retries
 
+        //    while (retryCount > 0)
+        //    {
+        //        try
+        //        {
+        //            // Check if the input file exists
+        //            if (!File.Exists(inputImagePath))
+        //            {
+        //                throw new FileNotFoundException($"Input file not found: {inputImagePath}");
+        //            }
 
+        //            using (var inputStream = File.OpenRead(inputImagePath))
+        //            {
+        //                using (var original = SKBitmap.Decode(inputStream))
+        //                {
+        //                    if (original == null)
+        //                    {
+        //                        throw new Exception("Failed to decode the input image.");
+        //                    }
 
-                    string resultLabel;
-                    if (result.NotSuccess())
-                    {
-                        resultLabel = $"Recognition failed: {result.Status}";
-                        return;
-                    }
-                    resultLabel = result.RecognisedText;
-                    // Create model and add to the collection
-                    #endregion
+        //                    // Convert to grayscale
+        //                    using (var grayScaleBitmap = new SKBitmap(original.Width, original.Height, SKColorType.Gray8, SKAlphaType.Opaque))
+        //                    {
+        //                        using (var canvas = new SKCanvas(grayScaleBitmap))
+        //                        {
+        //                            var paint = new SKPaint
+        //                            {
+        //                                ColorFilter = SKColorFilter.CreateColorMatrix(new float[]
+        //                                {
+        //                                    0.2126f, 0.7152f, 0.0722f, 0, 0,
+        //                                    0.2126f, 0.7152f, 0.0722f, 0, 0,
+        //                                    0.2126f, 0.7152f, 0.0722f, 0, 0,
+        //                                    0, 0, 0, 1, 0
+        //                                })
+        //                            };
+        //                            canvas.DrawBitmap(original, new SKRect(0, 0, original.Width, original.Height), paint);
+        //                        }
 
-                    IGptService gptService = new GptService();
-                    var x = await gptService.GenerateReceiptTasks(resultLabel,_globalContext.UserToken);
+        //                        // Apply binary thresholding
+        //                        for (int y = 0; y < grayScaleBitmap.Height; y++)
+        //                        {
+        //                            for (int x = 0; x < grayScaleBitmap.Width; x++)
+        //                            {
+        //                                var color = grayScaleBitmap.GetPixel(x, y);
+        //                                var intensity = color.Red; // Since it's grayscale, red, green, and blue are equal
+        //                                var binaryColor = intensity > 128 ? (byte)255 : (byte)0;
+        //                                grayScaleBitmap.SetPixel(x, y, new SKColor(binaryColor, binaryColor, binaryColor));
+        //                            }
+        //                        }
 
-                    ImageModel model = new ImageModel() { ImagePath = localFilePath, Title = "sample", Description = "Cool" };
-                }
-            }
-        }
+        //                        // Save the preprocessed image
+        //                        using (var image = SKImage.FromBitmap(grayScaleBitmap))
+        //                        using (var data = image.Encode(SKEncodedImageFormat.Png, 100))
+        //                        using (var outputStream = File.OpenWrite(outputImagePath))
+        //                        {
+        //                            data.SaveTo(outputStream);
+        //                        }
+        //                    }
+        //                }
+        //            }
 
-        public void PreprocessImage(string inputImagePath, string outputImagePath)
-        {
-            int retryCount = 5;
-            int delay = 500; // 500 milliseconds delay between retries
+        //            // If the process is successful, break out of the retry loop
+        //            break;
+        //        }
+        //        catch (IOException ex) when (retryCount > 0)
+        //        {
+        //            // Log the exception or handle it accordingly
+        //            Console.WriteLine($"File is in use, retrying... ({retryCount} retries left)");
 
-            while (retryCount > 0)
-            {
-                try
-                {
-                    // Check if the input file exists
-                    if (!File.Exists(inputImagePath))
-                    {
-                        throw new FileNotFoundException($"Input file not found: {inputImagePath}");
-                    }
-
-                    using (var inputStream = File.OpenRead(inputImagePath))
-                    {
-                        using (var original = SKBitmap.Decode(inputStream))
-                        {
-                            if (original == null)
-                            {
-                                throw new Exception("Failed to decode the input image.");
-                            }
-
-                            // Convert to grayscale
-                            using (var grayScaleBitmap = new SKBitmap(original.Width, original.Height, SKColorType.Gray8, SKAlphaType.Opaque))
-                            {
-                                using (var canvas = new SKCanvas(grayScaleBitmap))
-                                {
-                                    var paint = new SKPaint
-                                    {
-                                        ColorFilter = SKColorFilter.CreateColorMatrix(new float[]
-                                        {
-                                            0.2126f, 0.7152f, 0.0722f, 0, 0,
-                                            0.2126f, 0.7152f, 0.0722f, 0, 0,
-                                            0.2126f, 0.7152f, 0.0722f, 0, 0,
-                                            0, 0, 0, 1, 0
-                                        })
-                                    };
-                                    canvas.DrawBitmap(original, new SKRect(0, 0, original.Width, original.Height), paint);
-                                }
-
-                                // Apply binary thresholding
-                                for (int y = 0; y < grayScaleBitmap.Height; y++)
-                                {
-                                    for (int x = 0; x < grayScaleBitmap.Width; x++)
-                                    {
-                                        var color = grayScaleBitmap.GetPixel(x, y);
-                                        var intensity = color.Red; // Since it's grayscale, red, green, and blue are equal
-                                        var binaryColor = intensity > 128 ? (byte)255 : (byte)0;
-                                        grayScaleBitmap.SetPixel(x, y, new SKColor(binaryColor, binaryColor, binaryColor));
-                                    }
-                                }
-
-                                // Save the preprocessed image
-                                using (var image = SKImage.FromBitmap(grayScaleBitmap))
-                                using (var data = image.Encode(SKEncodedImageFormat.Png, 100))
-                                using (var outputStream = File.OpenWrite(outputImagePath))
-                                {
-                                    data.SaveTo(outputStream);
-                                }
-                            }
-                        }
-                    }
-
-                    // If the process is successful, break out of the retry loop
-                    break;
-                }
-                catch (IOException ex) when (retryCount > 0)
-                {
-                    // Log the exception or handle it accordingly
-                    Console.WriteLine($"File is in use, retrying... ({retryCount} retries left)");
-
-                    // Decrement the retry count and wait before retrying
-                    retryCount--;
-                    Thread.Sleep(delay);
-                }
-                catch (Exception ex)
-                {
-                    // Log the exception or handle it accordingly
-                    Console.WriteLine($"An error occurred: {ex.Message}");
-                    break;
-                }
-            }
-        }
+        //            // Decrement the retry count and wait before retrying
+        //            retryCount--;
+        //            Thread.Sleep(delay);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            // Log the exception or handle it accordingly
+        //            Console.WriteLine($"An error occurred: {ex.Message}");
+        //            break;
+        //        }
+        //    }
+        //}
     }
 }

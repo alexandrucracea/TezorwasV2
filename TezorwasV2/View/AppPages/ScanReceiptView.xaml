@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TezorwasV2.View.AppPages.ScanReceiptView"
+             xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Background="{StaticResource BACKGROUND}">
@@ -26,7 +27,7 @@
                         FontAttributes="Bold"
                         VerticalOptions="Center" 
                         HorizontalOptions="Center" />
-            <Label  Text="Here you can add a receipt that will transform into a recyclingquest that will give you xp points."
+            <Label      Text="Here you can add a receipt that will transform into a recyclingquest that will give you xp points."
                         Margin="50,10,50,20"
                         FontFamily="Inter-VariableFont"
                         FontSize="18"
@@ -36,20 +37,20 @@
                         VerticalTextAlignment="Center"/>
 
             <buttons:SfButton   x:Name="CameraBtn"
-	                        Text="Capture receipt"
-                            Clicked="OnCameraClicked"
-                            HorizontalTextAlignment="Center"
-                            Padding="0,0,40,0"
-                            Background="{StaticResource PRIMARY-COLOR}"
-                            HeightRequest="70"
-                            WidthRequest="320"
-                            CornerRadius="40"
-                            FontFamily="Inter-VariableFont"
-                            FontSize="21"
-                            Margin="0,30,0,0"
-                            ImageSource="Resources/Images/take_photo.png"
-                            ShowIcon="True"
-                            ImageSize="35"/>
+	                            Text="Capture receipt"
+                                Command="{Binding TakePhotoCommand}"
+                                HorizontalTextAlignment="Center"
+                                Padding="0,0,40,0"
+                                Background="{StaticResource PRIMARY-COLOR}"
+                                HeightRequest="70"
+                                WidthRequest="320"
+                                CornerRadius="40"
+                                FontFamily="Inter-VariableFont"
+                                FontSize="21"
+                                Margin="0,30,0,0"
+                                ImageSource="Resources/Images/take_photo.png"
+                                ShowIcon="True"
+                                ImageSize="35"/>
         
         <buttons:SfButton   x:Name="UploadBtn"
 	                        Text="Upload receipt"
@@ -65,6 +66,6 @@
                             ImageSource="Resources/Images/upload_photo.png"
                             ImageSize="35"
                             ShowIcon="True"
-                            Clicked="UploadBtn_Clicked"/>
+                            Command="{Binding UploadPhotoCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -94,6 +94,8 @@ namespace TezorwasV2
             builder.Services.AddSingleton<HabbitsView>();
             builder.Services.AddSingleton<ReceiptsViewModel>();
             builder.Services.AddSingleton<ReceiptsView>();
+            builder.Services.AddSingleton<ScanReceiptViewModel>();
+            builder.Services.AddSingleton<ScanReceiptView>();
 
 
             builder.Services.AddTesseractOcr(

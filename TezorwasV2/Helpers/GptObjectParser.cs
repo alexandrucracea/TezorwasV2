@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Nodes;
 using TezorwasV2.DTO;
+using TezorwasV2.Model;
 
 namespace TezorwasV2.Helpers
 {
@@ -16,7 +17,7 @@ namespace TezorwasV2.Helpers
             JsonArray choices = jsonRoot.GetProperty("choices").Deserialize<JsonArray>();
             completionsToParse = string.Empty;
 
-            for(int i=0; i<choices.Count; i++)
+            for (int i = 0; i < choices.Count; i++)
             {
                 JsonObject deserializedChoice = choices[i].Deserialize<JsonObject>();
                 completionsToParse += deserializedChoice["message"]["content"].ToString();
@@ -42,5 +43,53 @@ namespace TezorwasV2.Helpers
 
             return tasksParsed;
         }
+        public static ReceiptModel ParseGptReceiptTasksModel(string receiptToParse)
+        {
+            ReceiptModel receipt = new ReceiptModel();
+
+            // Parse the JSON content from the string
+            JsonDocument jsonDocument = JsonDocument.Parse(receiptToParse);
+            JsonElement jsonRoot = jsonDocument.RootElement;
+
+            JsonElement choices = jsonRoot.GetProperty("choices");
+            receiptToParse = string.Empty;
+
+            foreach (JsonElement choice in choices.EnumerateArray())
+            {
+                JsonElement message = choice.GetProperty("message");
+                receiptToParse += message.GetProperty("content").GetString();
+            }
+
+            // Separate each line and create ReceiptItemModel objects
+            string[] responsedSplitted = receiptToParse.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            List<ReceiptItemModel> receiptItems = new List<ReceiptItemModel>();
+
+            foreach (string itemTask in responsedSplitted)
+            {
+                // Remove the number and period from the beginning
+                string cleanedTask = itemTask.Substring(itemTask.IndexOf('.') + 1).Trim();
+
+                ReceiptItemModel itemToRecycle = new ReceiptItemModel
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = cleanedTask,
+                    XpEarned = new Random().Next(1, 6),
+                    CreationDate = DateTime.Now,
+                    CompletionDate = DateTime.Now,
+                    IsRecycled = false
+                };
+
+                receiptItems.Add(itemToRecycle);
+            }
+
+            receipt.Id = Guid.NewGuid().ToString();
+            receipt.CreationDate = DateTime.Now;
+            receipt.CompletionDate = DateTime.Now;
+            receipt.ReceiptItems = receiptItems;
+
+            return receipt;
+        }
+
     }
 }
+
