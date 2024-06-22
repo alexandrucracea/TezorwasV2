@@ -54,24 +54,15 @@
                             Padding="0,0,0,0">
                         <Label Text="{Binding FullName}"
                                VerticalTextAlignment="End"
-                               FontSize="42"
+                               FontSize="38"
                                FontFamily="Inter-VariableFont"
                                FontAttributes="Bold"
-                               Margin="30,0,0,15"
+                               Margin="30,10,0,15"
                                TextColor="{StaticResource BACKGROUND}"/>
-
-                        <!--<VerticalStackLayout>
-                            <Label Text="Lvl. 10"
-                                   TextColor="{StaticResource BACKGROUND}"
-                                   Margin="30,80,0,0"/>
-                            <ProgressBar Margin="1,5,0,0"
-                                        HeightRequest="5"
-                                        Progress="0.5"
-                                        WidthRequest="140"     
-                                        ProgressColor="{StaticResource PRIMARY-COLOR-LIGHT}"
-                                        />
-                        </VerticalStackLayout>-->
-                        
+                        <ImageButton Source="Rseources/Images/menu_dark.png"
+                                     HeightRequest="40"
+                                     Margin="150,0,0,100"
+                                     Command="{Binding GoToSettingsMenuCommand}"/>
                     </Grid>
                 </Grid>
 

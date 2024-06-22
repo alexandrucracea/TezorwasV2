@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               x:Class="TezorwasV2.View.AddReceiptItemPopup"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+               xmlns:popups="TezorwasV2.View.AddReceiptItemPopup"
+               CanBeDismissedByTappingOutsideOfPopup="True"
+               Size="300,350"
+               Color="Transparent">
+    <Border Padding="0" 
+            Stroke="Transparent"
+            BackgroundColor="{StaticResource BACKGROUND}">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="28"/>
+        </Border.StrokeShape>
+        <Grid 
+              Margin="10,5,10,0"
+              >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label  Grid.Row="0"
+                    Text="Please provide the following details for the product that you want to add"
+                    Margin="10,30,10,0"/>
+            <core:SfTextInputLayout Grid.Row="1"
+                                    Hint="Product name"
+                                    ContainerType="Outlined"
+                                    OutlineCornerRadius="30"
+                                    HeightRequest="80"
+                                    WidthRequest="250"
+                                    ContainerBackground="{StaticResource BACKGROUND}"
+                                    Stroke="{StaticResource TEXT-COLOR-LIGHT}">
+                <Entry   x:Name="ProductNameEntry"
+                         Keyboard="Default"
+                         Text="{Binding FirstName}"
+                        >
+                </Entry>
+                <core:SfTextInputLayout.HintLabelStyle>
+                    <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
+                </core:SfTextInputLayout.HintLabelStyle>
+            </core:SfTextInputLayout>
+            <core:SfTextInputLayout Grid.Row="2"
+                                    Hint="What can be recycled"
+                                    ContainerType="Outlined"
+                                    OutlineCornerRadius="30"
+                                    HeightRequest="80"
+                                    WidthRequest="250"
+                                    ContainerBackground="{StaticResource BACKGROUND}"
+                                    Stroke="{StaticResource TEXT-COLOR-LIGHT}">
+                <Entry   x:Name="WhatToRecycleEntry"
+                         Keyboard="Default"
+                         Text="{Binding FirstName}">
+                </Entry>
+                <core:SfTextInputLayout.HintLabelStyle>
+                    <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
+                </core:SfTextInputLayout.HintLabelStyle>
+            </core:SfTextInputLayout>
+            <Button Grid.Row="3"
+                    Text="Add product"
+                    CornerRadius="40"
+                    HeightRequest="60"
+                    WidthRequest="250"
+                    FontFamily="Inter-VariableFont"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    Background="{StaticResource PRIMARY-COLOR}"
+                    Clicked="SaveProduct"/>
+        </Grid>
+    </Border>
+</toolkit:Popup>

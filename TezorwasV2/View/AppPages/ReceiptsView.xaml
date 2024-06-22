@@ -11,6 +11,21 @@
 
     <ContentPage.Resources>
         <syncfusion:SfRadioGroupKey x:Key="typeOfReceipt"/>
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
     </ContentPage.Resources>
 
     <ScrollView>
@@ -41,7 +56,7 @@
                 <buttons:SfButton Grid.Column="2"
                                   Text="{Binding ShowCalendarBtnText}"
                                   HorizontalTextAlignment="Center"
-                                  Background="{StaticResource BACKGROUND}"
+                                  Background="{StaticResource PRIMARY-COLOR-LIGHT}"
                                   HeightRequest="40"
                                   WidthRequest="140"
                                   CornerRadius="40"
@@ -54,6 +69,7 @@
                                   ImageAlignment="Right"
                                   TextColor="{StaticResource TEXT-COLOR}"
                                   Command="{Binding ChangeCalendarVisibilityCommand}"/>
+                
             </Grid>
             <Frame IsVisible="{Binding IsCalendarShown}" 
                    BackgroundColor="{StaticResource BACKGROUND}" 
@@ -71,7 +87,8 @@
                                      SelectionMode="Single"
                                      TodayHighlightBrush="{StaticResource PRIMARY-COLOR}"
                                      SelectionBackground="{StaticResource PRIMARY-COLOR}"
-                                     Background="{StaticResource BACKGROUND}">
+                                     Background="{StaticResource BACKGROUND}"
+                                     Tapped="CalendarReceipts_Tapped">
                     <calendar:SfCalendar.MonthView>
                         <calendar:CalendarMonthView FirstDayOfWeek="Monday"
                                                     NumberOfVisibleWeeks="4">
@@ -108,15 +125,16 @@
                                           Text="To complete" 
                                           GroupKey="{StaticResource typeOfReceipt}"
                                           Margin="10,0,0,0"
-                                          IsChecked="True"
+                                          IsChecked="{Binding ReceiptsAvailable}"
                                           FontFamily="Inter-VariableFont"
                                           FontAttributes="Bold"
                                           TextColor="{StaticResource TEXT-COLOR}"
-                                          CheckedColor="{StaticResource PRIMARY-COLOR}"/>
+                                          CheckedColor="{StaticResource PRIMARY-COLOR}"
+                                          />
                 <syncfusion:SfRadioButton Grid.Column="2"
                                           Text="Completed" 
                                           GroupKey="{StaticResource typeOfReceipt}"
-                                          Margin="0,0,0,0"
+                                          IsChecked="{Binding ReceiptsCompleted}"
                                           CheckedColor="{StaticResource PRIMARY-COLOR}"
                                           FontFamily="Inter-VariableFont"
                                           FontAttributes="Bold"
@@ -125,13 +143,15 @@
             <CollectionView x:Name="ReceiptsCollectionView"
                             ItemsSource="{Binding Receipts}"
                             VerticalOptions="FillAndExpand"
-                            SelectionChanged="ReceiptsCollectionView_SelectionChanged">
+                            SelectionChanged="ReceiptsCollectionView_SelectionChanged"
+                            SelectionMode="Single">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border MaximumHeightRequest="220"
                                 Margin="10,10,10,0"
                                 Stroke="Transparent"
-                                Padding="20,0,0,0">
+                                Padding="20,0,0,0"
+                                Style="{StaticResource BorderStyle}">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="15,15,15,15" />
                             </Border.StrokeShape>

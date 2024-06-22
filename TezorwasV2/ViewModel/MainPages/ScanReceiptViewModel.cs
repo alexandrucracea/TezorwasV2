@@ -4,9 +4,11 @@ using CommunityToolkit.Mvvm.Input;
 using SkiaSharp;
 using TesseractOcrMaui;
 using TesseractOcrMaui.Results;
+using TezorwasV2.DTO;
 using TezorwasV2.Helpers;
 using TezorwasV2.Model;
 using TezorwasV2.Services;
+using TezorwasV2.View.AppPages;
 
 namespace TezorwasV2.ViewModel.MainPages
 {
@@ -14,14 +16,15 @@ namespace TezorwasV2.ViewModel.MainPages
     {
         private readonly IGlobalContext _globalContext;
         private readonly IProfileService _profileService;
+        private readonly IGptService _gptService;
         ITesseract Tesseract { get; }
 
-        public ScanReceiptViewModel(IGlobalContext globalContext, IProfileService profileService, ITesseract tesseract)
+        public ScanReceiptViewModel(IGlobalContext globalContext, IProfileService profileService, ITesseract tesseract, IGptService gptService)
         {
             _globalContext = globalContext;
             _profileService = profileService;
             Tesseract = tesseract;
-
+            _gptService = gptService;
         }
 
         [RelayCommand]
@@ -59,8 +62,10 @@ namespace TezorwasV2.ViewModel.MainPages
                         return;
                     }
                     resultLabel = result.RecognisedText;
-                    // Create model and add to the collection
                     #endregion
+
+                    var generatedTaskMessage = await _gptService.GenerateReceiptTasks(resultLabel, _globalContext.UserToken);
+                    var generatedTasksParsed = GptObjectParser.ParseGptReceiptTasksModel(generatedTaskMessage);
                     ImageModel model = new ImageModel() { ImagePath = localFilePath, Title = "sample", Description = "Cool" };
                 }
             }
@@ -95,13 +100,15 @@ namespace TezorwasV2.ViewModel.MainPages
                         return;
                     }
                     resultLabel = result.RecognisedText;
-                    // Create model and add to the collection
                     #endregion
 
-                    IGptService gptService = new GptService();
-                    var x = await gptService.GenerateReceiptTasks(resultLabel, _globalContext.UserToken);
-                    var y = GptObjectParser.ParseGptReceiptTasksModel(x);
-                    ImageModel model = new ImageModel() { ImagePath = localFilePath, Title = "sample", Description = "Cool" };
+
+                    var generatedReceiptMessage = await _gptService.GenerateReceiptTasks(resultLabel, _globalContext.UserToken);
+                    var generatedReceiptParsed = GptObjectParser.ParseGptReceiptTasksModel(generatedReceiptMessage);
+
+                    await UpdateProfileReceipts(generatedReceiptParsed);
+                    await GoToReceipt(generatedReceiptParsed);
+
                 }
             }
         }
@@ -190,6 +197,22 @@ namespace TezorwasV2.ViewModel.MainPages
                     break;
                 }
             }
+        }
+
+        private async Task UpdateProfileReceipts(dynamic generatedTasksParsed)
+        {
+            ProfileDto profileToUpdate = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
+            profileToUpdate.Receipts.Add(generatedTasksParsed);
+
+            await _profileService.UpdateAProfile(profileToUpdate, _globalContext.UserToken);
+        }
+        public async Task GoToReceipt(dynamic receiptToTransfer)
+        {
+            var navigationParameters = new Dictionary<string, dynamic>
+            {
+                { "ReceiptToShow",receiptToTransfer},
+            };
+            await Shell.Current.GoToAsync(nameof(ReceiptItemView), true, navigationParameters);
         }
     }
 }

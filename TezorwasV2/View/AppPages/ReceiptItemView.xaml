@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TezorwasV2.View.AppPages.ReceiptItemView"
+             xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
+             xmlns:sf="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             Title="ReceiptItemView"
+             Background="{StaticResource BACKGROUND}">
+    <Grid>
+        <Grid Grid.Row="0">
+            <Path
+                Data="M -10,200 Q 100,110 220,170 T 500,100 V 0 H 0 Z"
+                Fill="{StaticResource PRIMARY-COLOR}"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start" 
+                Margin="0,-10,0,0"/>
+        </Grid>
+        <VerticalStackLayout>
+            <Label Text="{Binding ReceiptTitle}"
+                    FontFamily="Inter-VariableFont"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource BACKGROUND}"
+                    Margin="20,10,0,10"/>
+            <Grid WidthRequest="320"
+                   HeightRequest="50"
+                   Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <HorizontalStackLayout Grid.Column="0"
+                               Spacing="10"
+                               HorizontalOptions="Start">
+                    <Image x:Name="taskCompletedImg" 
+                           Source="Resources/Images/task_done_background.png"
+                           HeightRequest="30"></Image>
+                    <Label  VerticalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            FontFamily="Inter-VariableFont"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource BACKGROUND}"
+                            FontSize="18">
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}{0} / {1}">
+                                <Binding Path="RecycledReceiptItems" />
+                                <Binding Path="AvailableReceiptItems" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Column="1"
+                                       Spacing="10"
+                                       HorizontalOptions="End">
+                    <Image x:Name="taskCompletedImg2" 
+                           Source="Resources/Images/bolt_background.png"
+                           HeightRequest="30"/>
+                    <Label VerticalTextAlignment="Center"
+                           VerticalOptions="Center"
+                           FontFamily="Inter-VariableFont"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource BACKGROUND}"
+                           FontSize="18" >
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}{0} / {1} xp">
+                                <Binding Path="ActualXpGotFromReceipt" />
+                                <Binding Path="AvailableXpReceipt" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+                </HorizontalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <ImageButton Margin="0,120,10,0"
+                         HorizontalOptions="End"
+                         WidthRequest="50"
+                         HeightRequest="40"
+                         BackgroundColor="{StaticResource PRIMARY-COLOR}"
+                         Clicked="Button_Clicked"
+                         Source="Resources/Images/add_product_to_receipt.png"></ImageButton>
+        </VerticalStackLayout>
+        <ScrollView   Margin="0,170,0,0">
+            <VerticalStackLayout>
+                <CollectionView x:Name="itemsCollectionView"
+                        VerticalOptions="FillAndExpand"
+                        SelectionMode="Single"
+                        Margin="0,0,0,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border  MaximumHeightRequest="220"
+                                     Margin="10,20,10,0"
+                                     Background="{StaticResource BACKGROUND-LIGHT}"
+                                     Stroke="{StaticResource BACKGROUND-DARK}"
+                                     Padding="20,0,0,0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="40,40,40,40" />
+                                </Border.StrokeShape>
+
+                                <Border.Shadow>
+                                    <Shadow Brush="Gray"
+                                            Offset="0,20"
+                                            Radius="40"
+                                            Opacity="0.1"/>
+                                </Border.Shadow>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="100" />
+                                        <RowDefinition Height="10"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="0.5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label  Grid.Row="0"
+                                            Grid.Column="0"
+                                            Text="{Binding Name}"
+                                            VerticalOptions="Center"
+                                            FontFamily="Inter-VariableFont"
+                                            FontSize="18"
+                                            Margin="10,0,0,0"
+                                            />
+                                    <sf:SfCheckBox  Grid.Row="0"
+                                                Grid.Column="1"
+                                                IsChecked="{Binding IsRecycled}"
+                                                CornerRadius="10"
+                                                UncheckedColor="{StaticResource TEXT-COLOR}"
+                                                CheckedColor="{StaticResource PRIMARY-COLOR}"
+                                                StateChanged="SfCheckBox_StateChanged"/>
+                                    <Label  Grid.Row="1"
+                                            Margin="10,-20,0,0"
+                                            WidthRequest="30"
+                                            HorizontalOptions="Start"
+                                            FontFamily="Inter-VariableFont"
+                                            FontAttributes="Italic"
+                                            FontSize="14"
+                                            TextColor="{StaticResource PRIMARY-COLOR}"
+                                            >
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} xp">
+                                                <Binding Path="XpEarned" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                    <!--StateChanged="SfCheckBox_StateChanged"-->
+                                </Grid>
+                            </Border>
+                            <!--<Label Text="{Binding Name}"/>-->
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <CollectionView x:Name="RecycledItems" >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border  MaximumHeightRequest="250"
+                                      Margin="10,20,10,0"
+                                      Background="{StaticResource BACKGROUND-LIGHT-DARKEN}"
+                                      Stroke="{StaticResource BACKGROUND-DARK}"
+                                      Padding="20,0,0,0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="40,40,40,40" />
+                                </Border.StrokeShape>
+
+                                <Border.Shadow>
+                                    <Shadow Brush="Gray"
+                                            Offset="0,20"
+                                            Radius="40"
+                                            Opacity="0.1"/>
+                                </Border.Shadow>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="100" />
+                                        <RowDefinition Height="10"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="0.5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label  Grid.Row="0"
+                                            Grid.Column="0"
+                                            Text="{Binding Name}"
+                                            VerticalOptions="Center"
+                                            FontFamily="Inter-VariableFont"
+                                            FontAttributes="Italic"
+                                            TextColor="{StaticResource TEXT-COLOR-LLIGHTV2}"
+                                            FontSize="18"
+                                            Margin="10,0,0,0"/>
+                                    <sf:SfCheckBox  Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    IsChecked="{Binding IsRecycled}"
+                                                    CornerRadius="10"
+                                                    UncheckedColor="{StaticResource TEXT-COLOR}"
+                                                    CheckedColor="{StaticResource PRIMARY-COLOR}" 
+                                                    IsEnabled="False"/>
+                                    <Label  Grid.Row="1"
+                                            Margin="10,-20,0,0"
+                                            WidthRequest="30"
+                                            HorizontalOptions="Start"
+                                            FontFamily="Inter-VariableFont"
+                                            FontAttributes="Italic"
+                                            FontSize="14"
+                                            TextColor="{StaticResource PRIMARY-COLOR}">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} xp">
+                                                <Binding Path="XpEarned" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

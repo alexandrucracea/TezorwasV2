@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
+using Syncfusion.Maui.Core.Carousel;
 using TezorwasV2.ViewModel;
 
 namespace TezorwasV2.View.AppPages;
@@ -54,5 +55,10 @@ public partial class ProfileView : ContentPage
         await Shell.Current.GoToAsync(nameof(HabbitsView), true);
 
         popup.Close();
+    }
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        
     }
 }

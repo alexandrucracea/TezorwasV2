@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Maui;
+using Microcharts.Maui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 using Syncfusion.Maui.Core.Hosting;
 using System.Reflection;
 using TesseractOcrMaui;
@@ -10,6 +12,7 @@ using TezorwasV2.View.AppPages;
 using TezorwasV2.View.Authentication;
 using TezorwasV2.ViewModel;
 using TezorwasV2.ViewModel.MainPages;
+using TezorwasV2.ViewModel.MainPagest;
 
 namespace TezorwasV2
 {
@@ -26,6 +29,7 @@ namespace TezorwasV2
 
             var builder = MauiApp.CreateBuilder();
             builder.UseMauiApp<App>()
+                   .UseMicrocharts()
                 .ConfigureSyncfusionCore()
                 .ConfigureFonts(fonts =>
                 {
@@ -38,7 +42,7 @@ namespace TezorwasV2
 
             {
 #if ANDROID
-                     handlers.AddHandler(typeof(Shell), typeof(TezorwasV2.Platforms.Android.CustomShellHandler));
+                handlers.AddHandler(typeof(Shell), typeof(TezorwasV2.Platforms.Android.CustomShellHandler));
 #endif
             });
 
@@ -96,6 +100,12 @@ namespace TezorwasV2
             builder.Services.AddSingleton<ReceiptsView>();
             builder.Services.AddSingleton<ScanReceiptViewModel>();
             builder.Services.AddSingleton<ScanReceiptView>();
+            builder.Services.AddSingleton<ReceiptItemViewModel>();
+            builder.Services.AddSingleton<ReceiptItemView>();
+            builder.Services.AddSingleton<SettingsViewModel>();
+            builder.Services.AddSingleton<SettingsMenu>();
+            builder.Services.AddSingleton<EvolutionChartViewModel>();
+            builder.Services.AddSingleton<EvolutionChartView>();
 
 
             builder.Services.AddTesseractOcr(

@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TezorwasV2.DTO;
 using TezorwasV2.Helpers;
 using TezorwasV2.Model;
 using TezorwasV2.Services;
+using TezorwasV2.View.AppPages;
 
 namespace TezorwasV2.ViewModel
 {
@@ -30,7 +32,6 @@ namespace TezorwasV2.ViewModel
         public ObservableCollection<TaskModel> AllTaks { get; } = new ObservableCollection<TaskModel>();
         public ObservableCollection<HabbitModel> AllHabits { get; } = new ObservableCollection<HabbitModel>();
 
-
         public ProfileViewModel(IGlobalContext globalContext, IPersonService personService, IProfileService profileService)
         {
             _globalContext = globalContext;
@@ -39,8 +40,10 @@ namespace TezorwasV2.ViewModel
             PersonFirstName = _globalContext.UserFirstName;
 
         }
+
         public async Task InitializeProfile()
         {
+
             PersonDto personToRead = await _personService.GetPersonInfo(_globalContext.PersonId, _globalContext.UserToken);
             ProfileDto profileToRead = await _profileService.GetProfileInfo(_globalContext.ProfileId,_globalContext.UserToken);
             if(personToRead != null)
@@ -69,6 +72,12 @@ namespace TezorwasV2.ViewModel
                     }
                 }
             }
+        }
+
+        [RelayCommand]
+        public async Task GoToSettingsMenu()
+        {
+            await Shell.Current.GoToAsync(nameof(SettingsMenu), true);
         }
     }
 }

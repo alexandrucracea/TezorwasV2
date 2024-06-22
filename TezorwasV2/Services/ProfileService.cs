@@ -22,6 +22,7 @@ namespace TezorwasV2.Services
                 string tezorwasApiUrl = settings.TezorwasApiUrl + "/" + Enums.Paths.profiles;
                 TezorwasApiHelper = new TezorwasApiHelper(apiUrl: tezorwasApiUrl);
             }
+            
         }
         public async Task<HttpCallResponseData> CreateProfile(ProfileDto profileToCreate, string bearerToken)
         {
@@ -111,6 +112,8 @@ namespace TezorwasV2.Services
                 return responseData;
             }
         }
+
+
         public async Task<List<ProfileDto>> GetAllProfiles(string bearerToken)
         {
             List<ProfileDto> profiles = new List<ProfileDto>();
@@ -225,7 +228,7 @@ namespace TezorwasV2.Services
                                 }
                                 if (receiptItem.Id is not null)
                                 {
-                                    receiptItems.Add("id", receiptItem.Name);
+                                    receiptItems.Add("id", receiptItem.Id);
                                 }
                                 receiptItems.Add("xpEarned", receiptItem.XpEarned);
                                 receiptItems.Add("isRecycled", receiptItem.IsRecycled);

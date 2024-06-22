@@ -71,7 +71,6 @@ public partial class ArticlesView : ContentPage
         //this.ShowBottomSheet(GetMyBottomSheetContent(), true);
     }
 
-
     public class ArticleDto
     {
         public string Title { get; set; }
