@@ -4,13 +4,80 @@
              x:Class="TezorwasV2.View.AppPages.EvolutionChartView"
              Title="EvolutionChartView"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
              Background="{StaticResource BACKGROUND}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <micro:ChartView x:Name="chartView" HeightRequest="500"
-                         />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label Text="Your evolution"
+                   FontFamily="Inter-VariableFont"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TEXT-COLOR}"
+                   Margin="30,10,0,10"/>
+            <Border Stroke="{StaticResource BACKGROUND}" 
+                   StrokeThickness="1" 
+                   Padding="0" 
+                   Margin="20">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20" />
+                </Border.StrokeShape>
+                <micro:ChartView x:Name="chartView" 
+                            HeightRequest="300"
+                            BackgroundColor="Transparent"/>
+            </Border>
+            <Label FontSize="16"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   Margin="30,0,30,70" >
+                <Label.Text>
+                    <MultiBinding StringFormat="{}Since the begginning of your journey you managed to develop a less wasteful lifestyle by trying to resolve {0} tasks and to recycle products from {1} receipts. Good job!">
+                        <Binding Path="NumberOfTasks" />
+                        <Binding Path="NumberOfReceipts" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+
+
+            <Label Text="Number of completed tasks per month"
+                   FontSize="18"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontAttributes="Bold"
+                   Margin="30,0,30,0" />
+            <Border Stroke="{StaticResource BACKGROUND}" 
+                   StrokeThickness="1" 
+                   Padding="0" 
+                   Margin="20">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20" />
+                </Border.StrokeShape>
+                <micro:ChartView x:Name="chartView2" 
+                            HeightRequest="300"
+                            WidthRequest="320"
+                            BackgroundColor="Transparent"
+                            />
+            </Border>
+
+            <Label Text="Number of completed receipts per month"
+                   FontSize="18"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontAttributes="Bold"
+                   Margin="30,0,30,0" />
+            <Border Stroke="{StaticResource BACKGROUND}" 
+                    StrokeThickness="1" 
+                    Padding="0" 
+                    Margin="20">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20" />
+                </Border.StrokeShape>
+                <micro:ChartView x:Name="chartView3" 
+                                 HeightRequest="300"
+                                 BackgroundColor="Transparent"
+                />
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+ 
 </ContentPage>

@@ -106,6 +106,8 @@ namespace TezorwasV2
             builder.Services.AddSingleton<SettingsMenu>();
             builder.Services.AddSingleton<EvolutionChartViewModel>();
             builder.Services.AddSingleton<EvolutionChartView>();
+            builder.Services.AddSingleton<RecentActivityViewModel>();
+            builder.Services.AddSingleton<RecentActivityView>();
 
 
             builder.Services.AddTesseractOcr(
