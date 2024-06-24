@@ -20,6 +20,7 @@ namespace TezorwasV2
             Routing.RegisterRoute(nameof(SettingsMenu),typeof(SettingsMenu));
             Routing.RegisterRoute(nameof(EvolutionChartView),typeof(EvolutionChartView));
             Routing.RegisterRoute(nameof(RecentActivityView),typeof(RecentActivityView));
+            Routing.RegisterRoute(nameof(ForgotPasswordView),typeof(ForgotPasswordView));
             #endregion
         }
     }

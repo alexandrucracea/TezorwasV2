@@ -10,7 +10,8 @@ namespace TezorwasV2.Helpers
             persons,
             profiles,
             completions,
-            articles
+            articles,
+            forgotPassword
         }
 
         public enum StatusCodes
@@ -21,14 +22,12 @@ namespace TezorwasV2.Helpers
             BadRequest = 400
 
         }
-
         public enum WasteCategory
         {
             EcoHero = 1, //lowest level of waste
             GreenGuru = 3, //medium level of waste
             PlanetSaver = 5 //highest level of waste
         }
-
         public enum Level
         {
             [Description("Level 1")]

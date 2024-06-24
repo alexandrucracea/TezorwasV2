@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using TezorwasV2.DTO;
 using TezorwasV2.Helpers;
 using TezorwasV2.Services;
+using TezorwasV2.View.AppPages;
 
 
 namespace TezorwasV2.ViewModel
@@ -96,6 +97,12 @@ namespace TezorwasV2.ViewModel
                 Thread.Sleep(5000);
                 IsBusy = false;
             });
+        }
+
+        [RelayCommand]
+        public async Task GoToForgotPasswordPage()
+        {
+            await Shell.Current.GoToAsync(nameof(ForgotPasswordView), true);
         }
     }
 }

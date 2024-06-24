@@ -46,25 +46,6 @@ namespace TezorwasV2
 #endif
             });
 
-            //            .ConfigureLifecycleEvents(events =>
-            //            {
-            //#if ANDROID
-            //                            events.AddAndroid(android => android
-            //                                .OnCreate((activity, bundle) => MakeStatusBarTranslucent(activity)));
-            //                            static void MakeStatusBarTranslucent(Android.App.Activity activity)
-            //                            {
-            //                                    activity.Window.AddFlags(Android.Views.WindowManagerFlags.LayoutNoLimits);
-            //                                    activity.Window.ClearFlags(Android.Views.WindowManagerFlags.TranslucentStatus);
-            //                                    activity.Window.SetStatusBarColor(Android.Graphics.Color.Transparent);
-
-            //                                    activity.Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
-            //                            }
-
-            //#endif
-            //            });
-
-
-
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
@@ -77,6 +58,7 @@ namespace TezorwasV2
             builder.Services.AddTransient<IProfileService, ProfileService>();
             builder.Services.AddTransient<IArticleService, ArticleService>();
             builder.Services.AddTransient<IGptService, GptService>();
+            builder.Services.AddTransient<IForgotPasswordService, ForgotPasswordService>();
 
             builder.Services.AddSingleton<IGlobalContext, GlobalContext>();
             builder.Services.AddSingleton<LoginViewModel>();
@@ -108,6 +90,8 @@ namespace TezorwasV2
             builder.Services.AddSingleton<EvolutionChartView>();
             builder.Services.AddSingleton<RecentActivityViewModel>();
             builder.Services.AddSingleton<RecentActivityView>();
+            builder.Services.AddSingleton<ForgotPasswordViewModel>();
+            builder.Services.AddSingleton<ForgotPasswordView>();
 
 
             builder.Services.AddTesseractOcr(

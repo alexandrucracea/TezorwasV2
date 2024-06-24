@@ -14,6 +14,8 @@ namespace TezorwasV2.ViewModel.MainPages
         public ObservableCollection<ChartEntry> pieChartTasksEntries = new ObservableCollection<ChartEntry>();
         public ObservableCollection<ChartEntry> pieChartReceiptsEntries = new ObservableCollection<ChartEntry>();
         [ObservableProperty] private int numberOfCompletedTasks;
+        [ObservableProperty] private int totalNumberOfTasks;
+        [ObservableProperty] private int totalNumberOfReceipts;
         [ObservableProperty] private int numberOfCompletedReceipts;
 
         private List<TaskModel> _tasks = new List<TaskModel>();
@@ -96,6 +98,9 @@ namespace TezorwasV2.ViewModel.MainPages
             GetCompletedTasksThisMonth();
             GetCompletedReceiptsThisMonth();
 
+            TotalNumberOfTasks = _tasks.Count;
+            TotalNumberOfReceipts = _receipts.Count;
+
             #region PieCharts
             //Tasks
             pieChartTasksEntries.Add(new ChartEntry(_tasks.Count)
@@ -106,7 +111,7 @@ namespace TezorwasV2.ViewModel.MainPages
             });
             pieChartTasksEntries.Add(new ChartEntry(NumberOfCompletedTasks)
             {
-                Label = "Completed",
+                Label = "Done",
                 ValueLabel = NumberOfCompletedTasks.ToString(),
                 Color = SKColor.Parse("#358d8d")
             });
