@@ -35,6 +35,10 @@ namespace TezorwasV2.ViewModel.MainPages
 
         public void GetAllProfileReceipts(ProfileDto profileToRead)
         {
+            TotalNumberOfReceipts = 0;
+
+            _receipts = new List<ReceiptModel>();
+
             foreach (var receipt in profileToRead.Receipts)
             {
                 _receipts.Add(new ReceiptModel
@@ -48,6 +52,10 @@ namespace TezorwasV2.ViewModel.MainPages
         }
         public void GetAllProfileTasks(ProfileDto profileToRead)
         {
+            TotalNumberOfTasks = 0;
+
+            _tasks = new List<TaskModel>();
+
             foreach (var task in profileToRead.Tasks)
             {
                 _tasks.Add(new TaskModel
@@ -65,6 +73,8 @@ namespace TezorwasV2.ViewModel.MainPages
 
         public void GetCompletedTasksThisMonth()
         {
+            NumberOfCompletedTasks = 0;
+
             foreach (var task in _tasks)
             {
                 if (task.IsCompleted && (task.CompletionDate.Month == DateTime.Now.Month && task.CompletionDate.Year == DateTime.Now.Year))
@@ -76,6 +86,7 @@ namespace TezorwasV2.ViewModel.MainPages
 
         public void GetCompletedReceiptsThisMonth()
         {
+            NumberOfCompletedReceipts = 0;
 
             foreach (var receipt in _receipts)
             {
@@ -101,7 +112,9 @@ namespace TezorwasV2.ViewModel.MainPages
             TotalNumberOfTasks = _tasks.Count;
             TotalNumberOfReceipts = _receipts.Count;
 
+
             #region PieCharts
+            pieChartTasksEntries = new ObservableCollection<ChartEntry>();
             //Tasks
             pieChartTasksEntries.Add(new ChartEntry(_tasks.Count)
             {
@@ -118,6 +131,7 @@ namespace TezorwasV2.ViewModel.MainPages
 
 
             //Receipts
+            pieChartReceiptsEntries = new ObservableCollection<ChartEntry>();
             pieChartReceiptsEntries.Add(new ChartEntry(_receipts.Count)
             {
                 Label = "All",
@@ -126,7 +140,7 @@ namespace TezorwasV2.ViewModel.MainPages
             });
             pieChartReceiptsEntries.Add(new ChartEntry(NumberOfCompletedReceipts)
             {
-                Label = "Completed",
+                Label = "Done",
                 ValueLabel = NumberOfCompletedReceipts.ToString(),
                 Color = SKColor.Parse("#358d8d")
             });

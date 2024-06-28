@@ -1,6 +1,7 @@
 
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using TezorwasV2.ViewModel.MainPages;
 
@@ -23,8 +24,9 @@ public partial class TasksView : ContentPage
         BindingContext = _taskViewModel;
 
     }
-	protected override void  OnAppearing()
+	protected override async void  OnAppearing()
 	{
+        #region StatusBar
 #pragma warning disable CA1416 // Validate platform compatibility
         this.Behaviors.Add(new StatusBarBehavior
         {
@@ -32,6 +34,15 @@ public partial class TasksView : ContentPage
             StatusBarStyle = StatusBarStyle.LightContent
         });
 #pragma warning restore CA1416 // Validate platform compatibility
+        #endregion
+
+        var popup = new LoadingSpinnerPopup();
+        this.ShowPopup(popup);
+
+        await _taskViewModel.PopulateTasks();
+        
+        popup.Close();
+
     }
 
     private void SfCheckBox_StateChanged(object sender, Syncfusion.Maui.Buttons.StateChangedEventArgs e)

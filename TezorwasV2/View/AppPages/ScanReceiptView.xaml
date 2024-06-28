@@ -6,66 +6,72 @@
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Background="{StaticResource BACKGROUND}">
-    <ContentPage.Behaviors>
-    </ContentPage.Behaviors>
-    <VerticalStackLayout>
-        <!--<Label Text="Upload your receipt"
-               Margin="20,10,0,10"
+    <Grid Padding="0,50,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="130"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Row="1" Source="Resources/Images/quest.png" HeightRequest="130" HorizontalOptions="Center"/>
+
+        <Label Grid.Row="2" Text="Let's create a recycling quest"
+               Margin="20,60,30,0"
                FontFamily="Inter-VariableFont"
-               FontSize="30"
+               FontSize="26"
+               TextColor="{StaticResource TEXT-COLOR}"
                FontAttributes="Bold"
-               TextColor="{StaticResource TEXT-COLOR}"/>-->
+               VerticalOptions="Center"
+               HorizontalOptions="Center"/>
 
-            <Image  Source="Resources/Images/quest.png"
-                        HeightRequest="130"
-                        Margin="0,100,0,0"/>
-            <Label  Text="Let's create a recycling quest"
-                        Margin="20,60,30,0"
-                        FontFamily="Inter-VariableFont"
-                        FontSize="26"
-                        TextColor="{StaticResource TEXT-COLOR}"
-                        FontAttributes="Bold"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Center" />
-            <Label      Text="Here you can add a receipt that will transform into a recyclingquest that will give you xp points."
-                        Margin="50,10,50,20"
-                        FontFamily="Inter-VariableFont"
-                        FontSize="18"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Center"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center"/>
+        <Label Grid.Row="3" Text="Here you can add a receipt that will transform into a recycling quest that will give you xp points."
+               Margin="50,10,50,20"
+               FontFamily="Inter-VariableFont"
+               FontSize="18"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"/>
 
-            <buttons:SfButton   x:Name="CameraBtn"
-	                            Text="Capture receipt"
-                                Command="{Binding TakePhotoCommand}"
-                                HorizontalTextAlignment="Center"
-                                Padding="0,0,40,0"
-                                Background="{StaticResource PRIMARY-COLOR}"
-                                HeightRequest="70"
-                                WidthRequest="320"
-                                CornerRadius="40"
-                                FontFamily="Inter-VariableFont"
-                                FontSize="21"
-                                Margin="0,30,0,0"
-                                ImageSource="Resources/Images/take_photo.png"
-                                ShowIcon="True"
-                                ImageSize="35"/>
-        
-        <buttons:SfButton   x:Name="UploadBtn"
-	                        Text="Upload receipt"
-                            HorizontalTextAlignment="Center"
-                            Padding="0,0,40,0"
-                            Background="{StaticResource PRIMARY-COLOR}"
-                            HeightRequest="70"
-                            WidthRequest="320"
-                            CornerRadius="40"
-                            FontFamily="Inter-VariableFont"
-                            FontSize="21"
-                            Margin="0,20,0,0"
-                            ImageSource="Resources/Images/upload_photo.png"
-                            ImageSize="35"
-                            ShowIcon="True"
-                            Command="{Binding UploadPhotoCommand}"/>
-    </VerticalStackLayout>
+        <buttons:SfButton Grid.Row="4" x:Name="CameraBtn"
+                          Text="Capture receipt"
+                          Command="{Binding TakePhotoCommand}"
+                          HorizontalTextAlignment="Center"
+                          Padding="0,0,40,0"
+                          Background="{StaticResource PRIMARY-COLOR}"
+                          HeightRequest="70"
+                          WidthRequest="320"
+                          CornerRadius="40"
+                          FontFamily="Inter-VariableFont"
+                          FontSize="21"
+                          Margin="0,30,0,0"
+                          ImageSource="Resources/Images/take_photo.png"
+                          ShowIcon="True"
+                          ImageSize="35"
+                          HorizontalOptions="Center"/>
+
+        <buttons:SfButton Grid.Row="5" x:Name="UploadBtn"
+                          Text="Upload receipt"
+                          Command="{Binding UploadPhotoCommand}"
+                          HorizontalTextAlignment="Center"
+                          Padding="0,0,40,0"
+                          Background="{StaticResource PRIMARY-COLOR}"
+                          HeightRequest="70"
+                          WidthRequest="320"
+                          CornerRadius="40"
+                          FontFamily="Inter-VariableFont"
+                          FontSize="21"
+                          Margin="0,20,0,0"
+                          ImageSource="Resources/Images/upload_photo.png"
+                          ImageSize="35"
+                          ShowIcon="True"
+                          HorizontalOptions="Center"/>
+    </Grid>
 </ContentPage>

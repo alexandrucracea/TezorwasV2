@@ -33,26 +33,26 @@ namespace TezorwasV2.ViewModel.MainPages
             _profileService = profileService;
             _gptService = gptService;
 
-            Task.Run(OnAppearing);
+            //Task.Run(OnAppearing);
 
             NoCompletedTasksMessage = "You didn't complete any tasks today";
 
         }
-        public async Task OnAppearing()
-        {
-            await PopulateTasks();
-            if (CompletedTasks.Count == 0)
-            {
-                NoAvailableTasksMessage = "You don't have any available tasks";
+        //public void OnAppearing()
+        //{
 
-            }
-            else
-            {
-                NoAvailableTasksMessage = "You completed all the available tasks for today.";
+        //    if (CompletedTasks.Count == 0)
+        //    {
+        //        NoAvailableTasksMessage = "You don't have any available tasks";
 
-            }
+        //    }
+        //    else
+        //    {
+        //        NoAvailableTasksMessage = "You completed all the available tasks for today.";
 
-        }
+        //    }
+
+        //}
         [RelayCommand]
         public async Task CompleteTask()
         {
@@ -82,8 +82,14 @@ namespace TezorwasV2.ViewModel.MainPages
             return;
 
         }
-        private async Task PopulateTasks()
+        public async Task PopulateTasks()
         {
+            AvailableTasks.Clear();
+            CompletedTasks.Clear();
+
+            AvailableXpToday = 0;
+            ActualXpGotToday = 0;
+
             var allProfiles = await _profileService.GetAllProfiles(_globalContext.UserToken);
             var currentUserProfile = allProfiles.FirstOrDefault(profile => profile.PersonId.Equals(_globalContext.PersonId));
             if (currentUserProfile != null)
@@ -110,9 +116,9 @@ namespace TezorwasV2.ViewModel.MainPages
                 //checking the there are any available tasks generated today
                 DateTime todaysDate = DateTime.Now.Date;
 
-                int tasksAvailableToday = AvailableTasks.Where(task => task.CreationDate.Date == todaysDate).Count();
+                int tasksCompletedToday = CompletedTasks.Where(task => task.CompletionDate.Date == todaysDate && task.IsCompleted).Count();
 
-                if (AvailableTasks.Count < 2 && tasksAvailableToday < 2)
+                if (AvailableTasks.Count < 2 && tasksCompletedToday < 3)
                 {
                     var tasksGenerated = await GenerateTasksWithGpt(levelOfWaste);
 

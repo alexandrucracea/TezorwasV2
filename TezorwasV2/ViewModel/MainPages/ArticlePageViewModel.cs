@@ -12,6 +12,7 @@ namespace TezorwasV2.ViewModel.MainPages
         public ObservableCollection<ParagraphDto> paragraphs = new ObservableCollection<ParagraphDto>();
         [ObservableProperty] public string articleTitle;
         [ObservableProperty] public UriImageSource coverUri;
+        //[ObservableProperty] public ImageSource coverUri;
         [ObservableProperty] public DateTime publishDate;
 
 

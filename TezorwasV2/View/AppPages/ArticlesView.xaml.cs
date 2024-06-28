@@ -36,10 +36,13 @@ public partial class ArticlesView : ContentPage
         await LoadArticles();
 
         popup.Close();
+
     }
     protected async Task LoadArticles()
     {
+
         await _viewModel.LoadAllArticles();
+
         var articlesToParse = _viewModel.AllArticles;
 
 
@@ -52,14 +55,26 @@ public partial class ArticlesView : ContentPage
             articleToAdd.UriCover = new UriImageSource
             {
                 Uri = new Uri(article.CoverUrl),
-                CachingEnabled = false,
+                CachingEnabled = true,
                 CacheValidity = TimeSpan.FromDays(1)
             };
 
             allArticles.Add(articleToAdd);
         }
-        itemsCollectionView.ItemsSource = allArticles;
+
+
+        var allArticlesOld = allArticles;
+        bool areDifferent = AreListsDifferent(allArticlesOld, allArticles);
+
+        if (areDifferent || itemsCollectionView.ItemsSource == null)
+        {
+            itemsCollectionView.ItemsSource = allArticles;
+        }
     }
+
+
+
+
     private void itemsCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var currentArticle = e.CurrentSelection.FirstOrDefault() as ArticleDto;
@@ -71,12 +86,22 @@ public partial class ArticlesView : ContentPage
         //this.ShowBottomSheet(GetMyBottomSheetContent(), true);
     }
 
+    public static bool AreListsDifferent<T>(List<T> list1, List<T> list2)
+    {
+        var diff1 = list1.Except(list2).ToList();
+        var diff2 = list2.Except(list1).ToList();
+
+        return diff1.Any() || diff2.Any();
+    }
+
     public class ArticleDto
     {
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime DatePublished { get; set; }
         public UriImageSource UriCover { get; set; }
+        //public ImageSource UriCover { get; set; }
+
     }
 
 

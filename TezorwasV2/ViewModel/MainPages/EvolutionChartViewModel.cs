@@ -38,6 +38,7 @@ namespace TezorwasV2.ViewModel.MainPagest
         }
         public void GetAllProfileReceipts(ProfileDto profileToRead)
         {
+            _receipts = new List<ReceiptModel>();
             foreach (var receipt in profileToRead.Receipts)
             {
                 _receipts.Add(new ReceiptModel
@@ -51,6 +52,7 @@ namespace TezorwasV2.ViewModel.MainPagest
         }
         public void GetAllProfileTasks(ProfileDto profileToRead)
         {
+            _tasks = new List<TaskModel>();
             foreach (var task in profileToRead.Tasks)
             {
                 _tasks.Add(new TaskModel
@@ -163,7 +165,8 @@ namespace TezorwasV2.ViewModel.MainPagest
             SKColor endColor = SKColor.Parse("#1c4643");
 
             GetCompletedTasksPerMonth();
-            
+            lineChartTasksEntries = new ObservableCollection<ChartEntry>();
+
             foreach (var kvp in _completedTasksPerMonth)
             {
                 string month = kvp.Key;
@@ -181,7 +184,7 @@ namespace TezorwasV2.ViewModel.MainPagest
 
 
             GetRecycledReceiptsPerMonth();
-
+            lineChartReceiptsEntries  = new ObservableCollection<ChartEntry>();
             foreach (var kvp in _receiptsPerMonth)
             {
                 string month = kvp.Key;

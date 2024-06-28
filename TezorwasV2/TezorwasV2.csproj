@@ -78,6 +78,7 @@
 		<None Remove="Resources\Images\task_done_primary.svg" />
 		<None Remove="Resources\Images\upload_photo.svg" />
 		<None Remove="Resources\Raw\eng.traineddata" />
+		<None Remove="Resources\Raw\tezorwas-52721f89fdde.json" />
 		<None Remove="Resources\ron.traineddata" />
 	</ItemGroup>
 
@@ -90,6 +91,8 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
 		<PackageReference Include="CommunityToolkit.Maui.Core" Version="6.1.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Google.Cloud.Vision.V1" Version="3.7.0" />
+		<PackageReference Include="Grpc.Core" Version="2.46.6" />
 		<PackageReference Include="Microcharts.Maui" Version="1.0.0" />
 		<PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.ComputerVision" Version="7.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />

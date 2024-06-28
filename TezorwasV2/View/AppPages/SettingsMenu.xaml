@@ -4,7 +4,9 @@
              x:Class="TezorwasV2.View.AppPages.SettingsMenu"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
+             x:DataType="pagesViewModels:SettingsViewModel"
              BackgroundColor="{StaticResource BACKGROUND}">
+
     <ScrollView>
         <VerticalStackLayout>
             <Label Text="Additional settings and features"
@@ -13,6 +15,7 @@
                    FontAttributes="Bold"
                    TextColor="{StaticResource TEXT-COLOR}"
                    Margin="20,10,0,10"/>
+            
             <Border  x:Name="Charts"
                      MaximumHeightRequest="250"
                      Margin="10,40,10,0"
@@ -20,18 +23,15 @@
                      Stroke="{StaticResource BACKGROUND-DARK}"
                      Padding="20,0,0,0">
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="40,40,40,40" />
+                    <RoundRectangle CornerRadius="40" />
                 </Border.StrokeShape>
-
                 <Border.Shadow>
                     <Shadow Brush="Gray"
                             Offset="0,20"
                             Radius="40"
                             Opacity="0.1"/>
                 </Border.Shadow>
-                <VerticalStackLayout x:Name="chartArea"
-                                 Margin="0,15,0,0"
-                                 Spacing="5">
+                <VerticalStackLayout Margin="0,15,0,0" Spacing="5">
                     <Label Text="Analytics"
                            FontFamily="Inter-VariableFont"
                            FontSize="22"
@@ -70,6 +70,7 @@
                                       Command="{Binding GoToRecentActivityChartViewCommand}"/>
                 </VerticalStackLayout>
             </Border>
+            
             <Border  x:Name="Support"
                      MaximumHeightRequest="250"
                      Margin="10,20,10,0"
@@ -77,18 +78,15 @@
                      Stroke="{StaticResource BACKGROUND-DARK}"
                      Padding="20,0,0,0">
                 <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="40,40,40,40" />
+                    <RoundRectangle CornerRadius="40" />
                 </Border.StrokeShape>
-
                 <Border.Shadow>
                     <Shadow Brush="Gray"
                             Offset="0,20"
                             Radius="40"
                             Opacity="0.1"/>
                 </Border.Shadow>
-                <VerticalStackLayout x:Name="supportArea"
-                                     Margin="0,15,0,0"
-                                     Spacing="5">
+                <VerticalStackLayout Margin="0,15,0,0" Spacing="5">
                     <Label Text="Support"
                            FontFamily="Inter-VariableFont"
                            FontSize="22"
@@ -147,6 +145,7 @@
                          Color="{StaticResource BACKGROUND-DARK}"
                          CornerRadius="10"/>
             </VerticalStackLayout>
+            
             <Button Text="Log out"
                     FontFamily="Inter-VariableFont"
                     HorizontalOptions="Center"
@@ -155,10 +154,7 @@
                     FontAttributes="Bold"
                     BackgroundColor ="{StaticResource ERROR-COLOR}"
                     CornerRadius="40"
-                    Margin="0,20,0,0"
-                    />
+                    Margin="0,20,0,0"/>
         </VerticalStackLayout>
     </ScrollView>
-
-    
 </ContentPage>

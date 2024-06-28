@@ -7,7 +7,7 @@ using TezorwasV2.Model;
 using TezorwasV2.Services;
 using TezorwasV2.View.AppPages;
 
-namespace TezorwasV2.ViewModel
+namespace TezorwasV2.ViewModel.MainPages
 {
     public partial class ProfileViewModel : ObservableObject
     {

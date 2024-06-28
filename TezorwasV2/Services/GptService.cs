@@ -1,9 +1,8 @@
-﻿
-
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 using TezorwasV2.Helpers;
 
 namespace TezorwasV2.Services
@@ -37,8 +36,8 @@ namespace TezorwasV2.Services
                 {
 
                     //string prompt = $"User category: {levelOfWaste} pollution level (points out of 5). Generate three recycling tasks. Each task should be concise, intuitive, and include a specific number of products/parts to recycle. Tasks closer to pollution level 1 should be easier and involve fewer items, while tasks closer to pollution level 5 should be more challenging and involve more items. Tasks around level 3 should be of medium difficulty. Each task should be no longer than 7 words and specify the number of items to recycle and the experience points (0-20). Format the response as follows: Recycle: number of items product - numberOfExperiencePoints xp.";
-                    
-                    
+
+
                     //RequestDto requestDto = new RequestDto();
                     //requestDto.Temperature = 1;
                     //requestDto.Messages.Add(new Messages
@@ -90,6 +89,21 @@ namespace TezorwasV2.Services
         }
         public async Task<dynamic> GenerateReceiptTasks(string receiptContent, string bearerToken)
         {
+            var products = new List<string>();
+            var regex = new Regex(@"(?<product>.+?)\s+\d+\s+BUC\s+X\s+\d+,\d{2}");
+
+            var matches = regex.Matches(receiptContent);
+            foreach (Match match in matches)
+            {
+                if (match.Groups["product"].Success)
+                {
+                    products.Add(match.Groups["product"].Value.Trim());
+                }
+            }
+
+            var productsPrompt = string.Join(", ", products);
+
+
             string responseContent = string.Empty;
             using (HttpClient client = new HttpClient())
             {
@@ -103,19 +117,21 @@ namespace TezorwasV2.Services
                     {
                         messages = new[]
                         {
-                            new
-                            {
-                                role = "system",
-                                content = "You are an assistant that extracts products from a text receipt and creates short recycling tasks for each product. Identify products using the term 'buc' and ensure each product is listed only once. For each product, provide a specific recycling task like 'Recycle X', 'Recycle Y', etc. Ignore any references to loyalty cards, discounts, or any other irrelevant information."
-                            },
-                            new
-                            {
-                                role = "user",
-                                content = $"Text: {receiptContent}"
-                            }
-                        },
+                     new
+                     {
+                         role = "system",
+                         content = "You are an assistant that creates short recycling tasks for a list of products. For each product in the list, provide a        specific        recycling task like 'Recycle X', 'Recycle Y', etc. Ensure each product is listed only once. Ignore any  references to    loyalty cards,      discounts, or any other irrelevant information."
+                     },
+                     new
+                     {
+                         role = "user",
+                         content = $"Products: {productsPrompt}"
+                     }
+    },
                         //temperature = 1
                     };
+
+
 
 
                     var jsonBody = JsonConvert.SerializeObject(requestBody);
