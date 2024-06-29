@@ -8,8 +8,9 @@ using TezorwasV2.DTO;
 using TezorwasV2.Helpers;
 using TezorwasV2.Model;
 using TezorwasV2.Services;
+using TezorwasV2.View;
 using TezorwasV2.View.AppPages;
-using static Google.Cloud.Vision.V1.ProductSearchResults.Types;
+
 
 namespace TezorwasV2.ViewModel.MainPages
 {
@@ -17,17 +18,21 @@ namespace TezorwasV2.ViewModel.MainPages
     {
         private readonly IGlobalContext _globalContext;
         private readonly IProfileService _profileService;
+        private readonly ILoadingSpinnerPopupService _popupService;
         private readonly IGptService _gptService;
         private readonly OcrService _ocrService;
-        ITesseract Tesseract { get; }
 
-        public ScanReceiptViewModel(IGlobalContext globalContext, IProfileService profileService, ITesseract tesseract, IGptService gptService)
+        ITesseract Tesseract { get; }
+        private LoadingSpinnerPopup _loadingPopup = new LoadingSpinnerPopup();
+
+        public ScanReceiptViewModel(IGlobalContext globalContext, IProfileService profileService, ITesseract tesseract, IGptService gptService, ILoadingSpinnerPopupService popupService)
         {
             _globalContext = globalContext;
             _profileService = profileService;
             Tesseract = tesseract;
             _gptService = gptService;
             _ocrService = new OcrService();
+            _popupService = popupService;
         }
 
         [RelayCommand]
@@ -56,20 +61,28 @@ namespace TezorwasV2.ViewModel.MainPages
                     }
 
                     #region v1 - Tesseract
-
-                    var result = await Tesseract.RecognizeTextAsync(localFilePath);
-                    string resultLabel;
-                    if (result.NotSuccess())
-                    {
-                        resultLabel = $"Recognition failed: {result.Status}";
-                        return;
-                    }
-                    resultLabel = result.RecognisedText;
+                    _popupService.ShowPopup(_loadingPopup);
+                    //var result = await Tesseract.RecognizeTextAsync(localFilePath);
+                    var result = await _ocrService.ExtractTextFromImageAsync(localFilePath);
+                    //string resultLabel;
+                    //if (result.NotSuccess())
+                    //{
+                    //    resultLabel = $"Recognition failed: {result.Status}";
+                    //    return;
+                    //}
+                    //resultLabel = result.RecognisedText;
                     #endregion
+               
 
-                    var generatedTaskMessage = await _gptService.GenerateReceiptTasks(resultLabel, _globalContext.UserToken);
+
+                    var generatedTaskMessage = await _gptService.GenerateReceiptTasks(result, _globalContext.UserToken);
                     var generatedTasksParsed = GptObjectParser.ParseGptReceiptTasksModel(generatedTaskMessage);
-                    ImageModel model = new ImageModel() { ImagePath = localFilePath, Title = "sample", Description = "Cool" };
+                    //ImageModel model = new ImageModel() { ImagePath = localFilePath, Title = "sample", Description = "Cool" };
+
+                    await UpdateProfileReceipts(generatedTasksParsed);
+                    await GoToReceipt(generatedTasksParsed);
+
+                    _popupService.ClosePopup(_loadingPopup);
                 }
             }
         }
@@ -107,14 +120,20 @@ namespace TezorwasV2.ViewModel.MainPages
 
                         Console.WriteLine("Local file exists, proceeding with OCR.");
 
+
+                        _popupService.ShowPopup(_loadingPopup);
                         // Extract text from image
                         string resultLabel = await _ocrService.ExtractTextFromImageAsync(localFilePath);
 
                         var generatedReceiptMessage = await _gptService.GenerateReceiptTasks(resultLabel, _globalContext.UserToken);
                         var generatedReceiptParsed = GptObjectParser.ParseGptReceiptTasksModel(generatedReceiptMessage);
 
+
                         await UpdateProfileReceipts(generatedReceiptParsed);
                         await GoToReceipt(generatedReceiptParsed);
+
+                        _popupService.ClosePopup(_loadingPopup);
+
                     }
                     catch (Exception ex)
                     {
@@ -124,7 +143,6 @@ namespace TezorwasV2.ViewModel.MainPages
                 }
             }
         }
-
 
 
         public void PreprocessImage(string inputImagePath, string outputImagePath)
@@ -209,9 +227,6 @@ namespace TezorwasV2.ViewModel.MainPages
                 throw;
             }
         }
-
-
-
 
         private async Task UpdateProfileReceipts(dynamic generatedTasksParsed)
         {

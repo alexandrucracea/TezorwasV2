@@ -4,8 +4,26 @@
              x:Class="TezorwasV2.View.AppPages.ReceiptItemView"
              xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
              xmlns:sf="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-             Title="ReceiptItemView"
+
              Background="{StaticResource BACKGROUND}">
+    <ContentPage.Resources>
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                    Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
     <Grid>
         <Grid Grid.Row="0">
             <Path
@@ -29,7 +47,6 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-
                 <HorizontalStackLayout Grid.Column="0"
                                Spacing="10"
                                HorizontalOptions="Start">
@@ -50,7 +67,6 @@
                         </Label.Text>
                     </Label>
                 </HorizontalStackLayout>
-
                 <HorizontalStackLayout Grid.Column="1"
                                        Spacing="10"
                                        HorizontalOptions="End">
@@ -73,7 +89,7 @@
                 </HorizontalStackLayout>
             </Grid>
         </VerticalStackLayout>
-        <VerticalStackLayout>
+        <StackLayout Orientation="Vertical">
             <ImageButton Margin="0,120,10,0"
                          HorizontalOptions="End"
                          WidthRequest="50"
@@ -81,16 +97,18 @@
                          BackgroundColor="{StaticResource PRIMARY-COLOR}"
                          Clicked="Button_Clicked"
                          Source="Resources/Images/add_product_to_receipt.png"></ImageButton>
-        </VerticalStackLayout>
-        <ScrollView   Margin="0,170,0,0">
-            <VerticalStackLayout>
+        </StackLayout>
+
+        <ScrollView   Margin="0,190,0,0">
+            <StackLayout Orientation="Vertical">
                 <CollectionView x:Name="itemsCollectionView"
-                        VerticalOptions="FillAndExpand"
-                        SelectionMode="Single"
-                        Margin="0,0,0,0">
+                                VerticalOptions="FillAndExpand"
+                                SelectionMode="Single"
+                                Margin="0,0,0,0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Border  MaximumHeightRequest="220"
+                            <Border  Style="{StaticResource BorderStyle}"
+                                     MaximumHeightRequest="220"
                                      Margin="10,20,10,0"
                                      Background="{StaticResource BACKGROUND-LIGHT}"
                                      Stroke="{StaticResource BACKGROUND-DARK}"
@@ -154,7 +172,8 @@
                 <CollectionView x:Name="RecycledItems" >
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Border  MaximumHeightRequest="250"
+                            <Border   Style="{StaticResource BorderStyle}"
+                                      MaximumHeightRequest="250"
                                       Margin="10,20,10,0"
                                       Background="{StaticResource BACKGROUND-LIGHT-DARKEN}"
                                       Stroke="{StaticResource BACKGROUND-DARK}"
@@ -213,7 +232,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </VerticalStackLayout>
+            </StackLayout>
         </ScrollView>
     </Grid>
 </ContentPage>

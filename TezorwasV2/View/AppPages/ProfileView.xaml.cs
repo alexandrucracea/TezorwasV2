@@ -1,8 +1,6 @@
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
-using Syncfusion.Maui.Core.Carousel;
-using TezorwasV2.ViewModel;
 using TezorwasV2.ViewModel.MainPages;
 
 namespace TezorwasV2.View.AppPages;

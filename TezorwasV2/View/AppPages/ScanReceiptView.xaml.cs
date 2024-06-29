@@ -13,6 +13,9 @@ using TezorwasV2.Services;
 using TezorwasV2.Helpers;
 using TesseractOcrMaui.Enums;
 using TezorwasV2.ViewModel.MainPages;
+using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Messaging;
+using TezorwasV2.Helpers.Messages;
 
 namespace TezorwasV2.View.AppPages
 {
@@ -21,6 +24,7 @@ namespace TezorwasV2.View.AppPages
         //ITesseract Tesseract { get; }
         //private readonly IGlobalContext _globalContext;
         ScanReceiptViewModel viewModel;
+        LoadingSpinnerPopup popup;
 
         public ScanReceiptView(ScanReceiptViewModel scanReceiptViewModel)
         {
@@ -29,6 +33,19 @@ namespace TezorwasV2.View.AppPages
             BindingContext = viewModel;
         }
 
+
+        private void ShowLoadingPopup()
+        {
+            // Show your custom loading popup
+            popup = new LoadingSpinnerPopup();
+            this.ShowLoadingPopup();
+
+        }
+
+        private void HideLoadingPopup()
+        {
+            popup.Close();
+        }
         protected override void OnAppearing()
         {
 #pragma warning disable CA1416 // Validate platform compatibility
@@ -41,6 +58,8 @@ namespace TezorwasV2.View.AppPages
             base.OnAppearing();
         }
 
+
+        #region test
         //private void OnCameraClicked(object sender, EventArgs e)
         //{
         //    TakePhoto();
@@ -212,5 +231,6 @@ namespace TezorwasV2.View.AppPages
         //        }
         //    }
         //}
+        #endregion
     }
 }
