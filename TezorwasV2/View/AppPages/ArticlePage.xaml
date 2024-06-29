@@ -30,21 +30,25 @@
 
             <VerticalStackLayout>
                 <Label Text="{Binding ArticleTitle}"
-                       FontSize="28"
+                       FontSize="32"
+                       WidthRequest="370"
                        FontFamily="Inter-VariableFont"
                        FontAttributes="Bold"
-                       Margin="30,0,0,15"
-                       TextColor="{StaticResource TEXT-COLOR}"/>
+                       Margin="0,10,10,15"
+                       Padding="40,20,0,20"
+                       TextColor="{StaticResource BACKGROUND}"
+                       BackgroundColor="{StaticResource PRIMARY-COLOR}"/>
+               
                 <CollectionView x:Name="itemsCollectionView"
                                  VerticalOptions="FillAndExpand">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Label Text="{Binding Content}"
                                    FontFamily="Inter-VariableFont"
-                                   FontSize="16"
+                                   FontSize="20"
                                    Margin="30,0,30,20"
                                    HorizontalTextAlignment="Start"
-                                   TextColor="{StaticResource TEXT-COLOR}"></Label>
+                                   TextColor="{StaticResource TEXT-COLOR}"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

@@ -5,8 +5,7 @@
              xmlns:pagesViewModels="clr-namespace:TezorwasV2.ViewModel.MainPages"
              xmlns:calendar="clr-namespace:Syncfusion.Maui.Calendar;assembly=Syncfusion.Maui.Calendar"
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-             Title="ReceiptsView"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons" 
              Background="{StaticResource BACKGROUND}">
 
     <ContentPage.Resources>
@@ -165,18 +164,13 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="70" />
                                 </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.33*" />
-                                    <ColumnDefinition Width="0.33*" />
-                                    <ColumnDefinition Width="0.33*" />
-                                </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0"
-                                       Text="Receipt"
+                                       Text="{Binding Name}"
                                        TextColor="{StaticResource BACKGROUND}"
                                        VerticalOptions="Center"
                                        FontFamily="Inter-VariableFont"
                                        FontAttributes="Bold"
-                                       FontSize="26"
+                                       FontSize="24"
                                        Margin="10,0,0,0"/>
                             </Grid>
                             <Border.Background>

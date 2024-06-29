@@ -37,15 +37,19 @@ namespace TezorwasV2.ViewModel.MainPages
         {
             _profileService = profileService;
             _globalContext = globalContext;
+           
         }
 
         public void PopulateReceiptTaskList()
         {
             ReceiptItemsUnrecycled.Clear();
             ReceiptItemsRecycled.Clear();
+            AvailableXpReceipt = 0;
+            ActualXpGotFromReceipt = 0;
+
             if (ReceiptToShow is not null)
             {
-                ReceiptTitle = "Receipt_" + ReceiptToShow.CreationDate.ToString("dd/MM/yyyy");
+                ReceiptTitle = ReceiptToShow.Name;
                 ReceiptInputDate = ReceiptToShow.CreationDate.Date;
                 ReceiptCompletionDate = ReceiptToShow.CompletionDate.Date;
                 foreach (var receiptItem in ReceiptToShow.ReceiptItems)
@@ -101,7 +105,6 @@ namespace TezorwasV2.ViewModel.MainPages
             }
             return;
         }
-
         private async Task UpdateReceiptUnrecycledItems()
         {
             ProfileDto profileToUpdate = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
@@ -129,7 +132,7 @@ namespace TezorwasV2.ViewModel.MainPages
         public async Task AddProductToReceipt(AddProductToReceiptDto productToAdd)
         {
             Random random = new Random();
-            int xpForProduct = random.Next(1,11);
+            int xpForProduct = random.Next(1, 11);
             ReceiptItemsUnrecycled.Add(new ReceiptItemModel
             {
                 Name = productToAdd.ProductName.ToUpper() + ": recycle: " + productToAdd.WhatToRecycle,
@@ -141,6 +144,41 @@ namespace TezorwasV2.ViewModel.MainPages
             });
 
             await UpdateReceiptUnrecycledItems();
+        }
+        public async Task ChangeReceiptName(string receiptNewName)
+        {
+            ProfileDto profileToUpdate = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
+            if (profileToUpdate is not null)
+            {
+                foreach (var receipt in profileToUpdate.Receipts)
+                {
+                    if (receipt.Id.Equals(ReceiptToShow.Id))
+                    {
+                        receipt.Name = receiptNewName;
+                        break;
+                    }
+                }
+            }
+
+            await _profileService.UpdateAProfile(profileToUpdate, _globalContext.UserToken);
+        }
+        public async Task DeleteProduct(ReceiptItemModel productToDelete)
+        {
+            foreach(var product in ReceiptItemsUnrecycled)
+            {
+                if (product.Id.Equals(productToDelete.Id))
+                {
+                    ReceiptItemsUnrecycled.Remove(product);
+                    break;
+                }
+            }
+            await UpdateReceiptUnrecycledItems();
+
+        }
+        [RelayCommand]
+        public static async Task GoBack()
+        {
+            await Shell.Current.GoToAsync("..", true);
         }
     }
 }

@@ -10,5 +10,15 @@ namespace TezorwasV2.Helpers
         public string PersonId { get; set; } = string.Empty;
         public string ProfileId {get; set;} = string.Empty;
         //todo de adaugat profileId aici in contextul global
+
+        public void ClearUserData()
+        {
+            UserToken = string.Empty;
+            UserFirstName = string.Empty;
+            UserLastName = string.Empty;
+            Email = string.Empty;
+            PersonId = string.Empty;
+            ProfileId = string.Empty;
+        }
     }
 }

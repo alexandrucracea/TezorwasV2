@@ -24,7 +24,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label  Grid.Row="0"
-                    Text="Please provide the following details for the product that you want to add"
+                    Text="Please provide the following details for the product that you want to add/edit"
                     Margin="10,30,10,0"/>
             <core:SfTextInputLayout Grid.Row="1"
                                     Hint="Product name"
@@ -36,8 +36,7 @@
                                     Stroke="{StaticResource TEXT-COLOR-LIGHT}">
                 <Entry   x:Name="ProductNameEntry"
                          Keyboard="Default"
-                         Text="{Binding FirstName}"
-                        >
+                         Text="{Binding ProductName}">
                 </Entry>
                 <core:SfTextInputLayout.HintLabelStyle>
                     <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>
@@ -53,7 +52,7 @@
                                     Stroke="{StaticResource TEXT-COLOR-LIGHT}">
                 <Entry   x:Name="WhatToRecycleEntry"
                          Keyboard="Default"
-                         Text="{Binding FirstName}">
+                         Text="{Binding WhatToRecycle}">
                 </Entry>
                 <core:SfTextInputLayout.HintLabelStyle>
                     <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}" FontFamily="Lobster-Regular"/>

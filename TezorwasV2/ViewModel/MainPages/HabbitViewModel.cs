@@ -23,6 +23,7 @@ namespace TezorwasV2.ViewModel.MainPages
         }
         public async Task GetAllProfileHabbits()
         {
+            ProfileHabbits.Clear();
             var profile = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
 
             foreach(var habbit in profile.Habbits)

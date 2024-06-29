@@ -56,7 +56,51 @@ public partial class ReceiptItemView : ContentPage, IQueryAttributable
     {
         var popup = new AddReceiptItemPopup();
         var productToAdd = await this.ShowPopupAsync(popup);
+        if(productToAdd is not null)
+        {
+            await viewModel.AddProductToReceipt(productToAdd as AddProductToReceiptDto);
 
-        await viewModel.AddProductToReceipt(productToAdd as AddProductToReceiptDto);
+        }
+    }
+
+    private async void ChangingName_Completed(object sender, EventArgs e)
+    {
+        if(ReceiptNameEntry.Text.Length > 0)
+        {
+            ReceiptNameEntry.Unfocus();
+
+            await viewModel.ChangeReceiptName(ReceiptNameEntry.Text);
+        }
+    }
+
+    private async void SwipeItem_Invoked(object sender, EventArgs e)
+    {
+       var item = sender as SwipeItem;
+        if(item is null)
+        {
+            return;
+        }
+
+        var productToDelete = item.BindingContext as ReceiptItemModel;
+        await viewModel.DeleteProduct(productToDelete);
+    }
+
+    private async void SwipeItem_Invoked_1(object sender, EventArgs e)
+    {
+        var item = sender as SwipeItem;
+        if (item is null)
+        {
+            return;
+        }
+
+        var productToUpdate = item.BindingContext as ReceiptItemModel;
+        var popup = new AddReceiptItemPopup(productToUpdate.Name,"");
+
+        var productUpdated = await this.ShowPopupAsync(popup);
+        if(productUpdated is not null)
+        {
+            await viewModel.DeleteProduct(productToUpdate);
+            await viewModel.AddProductToReceipt(productUpdated as AddProductToReceiptDto);
+        }
     }
 }

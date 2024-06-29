@@ -55,12 +55,15 @@
 		<None Remove="Resources\Images\add_product_to_receipt.svg" />
 		<None Remove="Resources\Images\add_receipt.svg" />
 		<None Remove="Resources\Images\article.svg" />
+		<None Remove="Resources\Images\back_background.svg" />
 		<None Remove="Resources\Images\back_button.svg" />
 		<None Remove="Resources\Images\bolt.svg" />
 		<None Remove="Resources\Images\bolt_background.svg" />
 		<None Remove="Resources\Images\calendar_background.svg" />
 		<None Remove="Resources\Images\calendar_text.svg" />
 		<None Remove="Resources\Images\cont_btn.svg" />
+		<None Remove="Resources\Images\delete_red.svg" />
+		<None Remove="Resources\Images\edit_product.svg" />
 		<None Remove="Resources\Images\green_hero.png" />
 		<None Remove="Resources\Images\habbits.svg" />
 		<None Remove="Resources\Images\habbits_primary.svg" />
@@ -76,6 +79,7 @@
 		<None Remove="Resources\Images\task_done.svg" />
 		<None Remove="Resources\Images\task_done_background.svg" />
 		<None Remove="Resources\Images\task_done_primary.svg" />
+		<None Remove="Resources\Images\trash.svg" />
 		<None Remove="Resources\Images\upload_photo.svg" />
 		<None Remove="Resources\Raw\eng.traineddata" />
 		<None Remove="Resources\Raw\tezorwas-52721f89fdde.json" />
@@ -111,6 +115,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="View\AddHabbitPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\AddReceiptItemPopup.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
@@ -164,6 +171,9 @@
 		</MauiXaml>
 		<MauiXaml Update="View\LoadingSpinnerPopup.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\LogoutPopup.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>
 

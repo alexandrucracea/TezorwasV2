@@ -22,7 +22,7 @@ namespace TezorwasV2.Services
                 string tezorwasApiUrl = settings.TezorwasApiUrl + "/" + Enums.Paths.profiles;
                 TezorwasApiHelper = new TezorwasApiHelper(apiUrl: tezorwasApiUrl);
             }
-            
+
         }
         public async Task<HttpCallResponseData> CreateProfile(ProfileDto profileToCreate, string bearerToken)
         {
@@ -212,6 +212,16 @@ namespace TezorwasV2.Services
                         }
                         receiptDictionary.Add("inputDate", receipt.CreationDate);
                         receiptDictionary.Add("completionDate", receipt.CompletionDate);
+                        if(receipt.Name is not null)
+                        {
+                            receiptDictionary.Add("name",receipt.Name);
+                        }
+                        else
+                        {
+                            receiptDictionary.Add("name", "Receipt" + receipt.CreationDate.ToString("dd.MM.yyyy"));
+
+                        }
+
 
                         var receiptItemsList = new List<Dictionary<string, dynamic>>();
                         if (receipt.ReceiptItems is not null)

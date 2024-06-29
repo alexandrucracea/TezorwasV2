@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using Syncfusion.Pdf;
+using System.Text.Json.Nodes;
 using TezorwasV2.DTO;
 using TezorwasV2.Model;
 
@@ -6,122 +7,6 @@ namespace TezorwasV2.Helpers
 {
     public static class FirestoreObjectParser
     {
-        //public static ProfileDto ParseFirestoreProfileData(dynamic profileObject)
-        //{
-        //    ProfileDto profileToParse = new ProfileDto();
-
-        //    JsonDocument jsonDocument = JsonDocument.Parse(profileObject);
-        //    JsonElement root = jsonDocument.RootElement;
-
-
-        //    JsonElement id = root.GetProperty("_fieldsProto").GetProperty("id").GetProperty("stringValue");
-        //    profileToParse.Id = id.ToString();
-
-        //    JsonElement payload = root.GetProperty("_fieldsProto").GetProperty("payload").GetProperty("mapValue").GetProperty("fields");
-
-        //    JsonElement joinDate = payload.GetProperty("joinDate").GetProperty("stringValue");
-        //    profileToParse.JoinDate = joinDate.GetDateTime();
-
-        //    JsonElement level = payload.GetProperty("level").GetProperty("integerValue");
-        //    profileToParse.Level = int.Parse(level.GetString()!);
-
-        //    JsonElement xp = payload.GetProperty("xp").GetProperty("integerValue");
-        //    profileToParse.Xp = int.Parse(xp.GetString()!);
-
-        //    JsonElement personId = payload.GetProperty("personId").GetProperty("stringValue");
-        //    if (personId.GetString() is not null)
-        //    {
-        //        profileToParse.PersonId = personId.GetString()!;
-        //    }
-
-
-        //    profileToParse.Habbits = new List<HabbitModel>();
-        //    JsonElement habbits = payload.GetProperty("habbits").GetProperty("arrayValue").GetProperty("values");
-
-        //    foreach (var item in habbits.EnumerateArray())
-        //    {
-        //        JsonElement mapValue = item.GetProperty("mapValue").GetProperty("fields");
-        //        JsonElement inputDate = mapValue.GetProperty("inputDate").GetProperty("stringValue");
-        //        JsonElement description = mapValue.GetProperty("description").GetProperty("stringValue");
-        //        JsonElement levelOfWaste = mapValue.GetProperty("levelOfWaste").GetProperty("doubleValue");
-
-
-        //        profileToParse.Habbits.Add(new HabbitModel
-        //        {
-        //            InputDate = DateTime.Parse(inputDate.GetString()!),
-        //            Description = description.ToString(),
-        //            LevelOfWaste = levelOfWaste.GetDouble(),
-        //        });
-        //    }
-
-
-        //    profileToParse.Tasks = new List<TaskModel>();
-        //    JsonElement tasks = payload.GetProperty("tasks").GetProperty("arrayValue").GetProperty("values");
-        //    foreach (var item in tasks.EnumerateArray())
-        //    {
-        //        JsonElement mapValue = item.GetProperty("mapValue").GetProperty("fields");
-        //        JsonElement name = mapValue.GetProperty("name").GetProperty("stringValue");
-        //        JsonElement description = mapValue.GetProperty("description").GetProperty("stringValue");
-        //        JsonElement completionDate = mapValue.GetProperty("completionDate").GetProperty("stringValue");
-        //        JsonElement creationDate = mapValue.GetProperty("creationDate").GetProperty("stringValue");
-        //        JsonElement xpEarned = mapValue.GetProperty("xpEarned").GetProperty("integerValue");
-        //        JsonElement isCompleted = mapValue.GetProperty("isCompleted").GetProperty("booleanValue");
-
-
-        //        profileToParse.Tasks.Add(new TaskModel
-        //        {
-        //            Name = name.ToString(),
-        //            Description = description.ToString(),
-        //            CompletionDate = DateTime.Parse(completionDate.GetString()!),
-        //            CreationDate = DateTime.Parse(creationDate.GetString()!),
-        //            XpEarned = int.Parse(xpEarned.GetString()!),
-        //            IsCompleted = isCompleted.GetBoolean(),
-        //        });
-        //    }
-        //    profileToParse.Receipts = new List<ReceiptModel>();
-        //    JsonElement receipts = payload.GetProperty("receipts").GetProperty("arrayValue").GetProperty("values");
-
-        //    foreach(var item in receipts.EnumerateArray())
-        //    {
-        //        JsonElement mapValue = item.GetProperty("mapValue").GetProperty("fields");
-        //        JsonElement idReceipt = mapValue.GetProperty("id").GetProperty("stringValue");
-        //        JsonElement completionDate = mapValue.GetProperty("completionDate").GetProperty("stringValue");
-        //        JsonElement inputDate = mapValue.GetProperty("inputDate").GetProperty("stringValue");
-
-        //        List<ReceiptItemModel> itemsToAdd = new List<ReceiptItemModel>();
-        //        JsonElement itemsToParse = mapValue.GetProperty("items").GetProperty("arrayValue").GetProperty("values");
-        //        foreach(var itm in itemsToParse.EnumerateArray())
-        //        {
-        //            JsonElement itemMapValue = itm.GetProperty("mapValue").GetProperty("fields");
-        //            JsonElement isRecycled = itemMapValue.GetProperty("isRecycled").GetProperty("booleanValue");
-        //            JsonElement idItem = itemMapValue.GetProperty("id").GetProperty("stringValue");
-        //            JsonElement itemName = itemMapValue.GetProperty("name").GetProperty("stringValue");
-        //            JsonElement itemCompletionDate = itemMapValue.GetProperty("completionDate").GetProperty("stringValue");
-        //            JsonElement itemCreationDate = itemMapValue.GetProperty("creationDate").GetProperty("stringValue");
-        //            JsonElement xpEarned = itemMapValue.GetProperty("xpEarned").GetProperty("integerValue");
-
-        //            itemsToAdd.Add(new ReceiptItemModel
-        //            {
-        //                Id = idItem.ToString(),
-        //                CompletionDate = DateTime.Parse(itemCompletionDate.GetString()!),
-        //                CreationDate = DateTime.Parse(itemCreationDate.GetString()!),
-        //                IsRecycled = isRecycled.GetBoolean(),
-        //                Name = itemName.ToString(),
-        //                XpEarned = int.Parse(xpEarned.ToString())
-        //            });
-        //        }
-
-        //        profileToParse.Receipts.Add(new ReceiptModel
-        //        {
-        //            Id = idReceipt.ToString(),
-        //            CompletionDate = DateTime.Parse(completionDate.GetString()!),
-        //            CreationDate = DateTime.Parse(inputDate.GetString()!),
-        //            ReceiptItems = itemsToAdd
-        //        });
-        //    }
-
-        //    return profileToParse;
-        //}
         public static ProfileDto ParseFirestoreProfileData(dynamic profileObject)
         {
             ProfileDto profileToParse = new ProfileDto();
@@ -200,6 +85,8 @@ namespace TezorwasV2.Helpers
                 JsonElement idReceipt = item.GetProperty("id");
                 JsonElement completionDate = item.GetProperty("completionDate");
                 JsonElement inputDate = item.GetProperty("inputDate");
+                JsonElement receiptName = item.GetProperty("name");
+
 
                 List<ReceiptItemModel> itemsToAdd = new List<ReceiptItemModel>();
                 JsonElement itemsToParse = item.GetProperty("items");
@@ -226,6 +113,7 @@ namespace TezorwasV2.Helpers
                 profileToParse.Receipts.Add(new ReceiptModel
                 {
                     Id = idReceipt.ToString(),
+                    Name = (receiptName.GetString() !=null ? receiptName.ToString() : ("Receipt"+completionDate.GetString()!)),
                     CompletionDate = DateTime.Parse(completionDate.GetString()!),
                     CreationDate = DateTime.Parse(inputDate.GetString()!),
                     ReceiptItems = itemsToAdd

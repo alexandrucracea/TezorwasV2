@@ -12,7 +12,6 @@ using TezorwasV2.View.AppPages;
 using TezorwasV2.View.Authentication;
 using TezorwasV2.ViewModel;
 using TezorwasV2.ViewModel.MainPages;
-using TezorwasV2.ViewModel.MainPagest;
 
 namespace TezorwasV2
 {
@@ -60,6 +59,7 @@ namespace TezorwasV2
             builder.Services.AddTransient<IGptService, GptService>();
             builder.Services.AddTransient<IForgotPasswordService, ForgotPasswordService>();
             builder.Services.AddTransient<ILoadingSpinnerPopupService, LoadingSpinnerPopupService>();
+            builder.Services.AddTransient<ILogoutPopupService, LogoutPopupService>();
 
             builder.Services.AddSingleton<IGlobalContext, GlobalContext>();
             builder.Services.AddSingleton<LoginViewModel>();

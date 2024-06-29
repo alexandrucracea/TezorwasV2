@@ -5,6 +5,7 @@ using TezorwasV2.Model;
 using TezorwasV2.Helpers;
 using TezorwasV2.Services;
 using TezorwasV2.View.AppPages;
+using TezorwasV2.View;
 
 namespace TezorwasV2.ViewModel.MainPages
 {
@@ -12,6 +13,8 @@ namespace TezorwasV2.ViewModel.MainPages
     {
         private readonly IGlobalContext _globalContext;
         private readonly IProfileService _profileService;
+        private readonly ILoadingSpinnerPopupService _loadingSpinnerPopupService;
+        private LoadingSpinnerPopup _loadingPopup = new LoadingSpinnerPopup();
 
         [ObservableProperty] private string currentDate = DateTime.Now.ToString("dd.MM.yyyy");
         [ObservableProperty] private bool isCalendarShown;
@@ -21,7 +24,7 @@ namespace TezorwasV2.ViewModel.MainPages
 
         public ObservableCollection<ReceiptModel> Receipts { get; set; } = new ObservableCollection<ReceiptModel>();
 
-        public ReceiptsViewModel(IGlobalContext globalContext, IProfileService profileService)
+        public ReceiptsViewModel(IGlobalContext globalContext, IProfileService profileService, ILoadingSpinnerPopupService loadingSpinnerPopup)
         {
             IsCalendarShown = false;
             ShowCalendarBtnText = "Calendar";
@@ -29,6 +32,7 @@ namespace TezorwasV2.ViewModel.MainPages
             _profileService = profileService;
             ReceiptsAvailable = true;
             ReceiptsCompleted = false;
+            _loadingSpinnerPopupService = loadingSpinnerPopup;
         }
 
         [RelayCommand]
@@ -40,7 +44,10 @@ namespace TezorwasV2.ViewModel.MainPages
         public async Task GetAllProfileReceipts()
         {
             Receipts.Clear();
+            _loadingPopup = new LoadingSpinnerPopup();
+            _loadingSpinnerPopupService.ShowPopup(_loadingPopup);
             var profile = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
+
 
             foreach (var receipt in profile.Receipts)
             {
@@ -48,10 +55,13 @@ namespace TezorwasV2.ViewModel.MainPages
                 {
                     CompletionDate = receipt.CompletionDate,
                     CreationDate = receipt.CreationDate,
+                    Name = receipt.Name,
                     Id = receipt.Id,
                     ReceiptItems = receipt.ReceiptItems,
+                    BackgroundColor = receipt.BackgroundColor,
                 });
             }
+            _loadingSpinnerPopupService.ClosePopup(_loadingPopup);
         }
         [RelayCommand]
         public async Task GoToReceipt(dynamic receiptToTransfer)

@@ -18,6 +18,7 @@ public partial class ReceiptsView : ContentPage
 
     protected override async void OnAppearing()
     {
+        #region StatusBar
         base.OnAppearing();
 #pragma warning disable CA1416 // Validate platform compatibility
         this.Behaviors.Add(new StatusBarBehavior
@@ -26,6 +27,7 @@ public partial class ReceiptsView : ContentPage
             StatusBarStyle = StatusBarStyle.DarkContent
         });
 #pragma warning restore CA1416 // Validate platform compatibility
+        #endregion
         await viewModel.GetAllProfileReceipts();
         viewModel.FilterDataCommand.Execute(DateTime.Now.Date);
         ApplyGradientBackground(viewModel.Receipts);

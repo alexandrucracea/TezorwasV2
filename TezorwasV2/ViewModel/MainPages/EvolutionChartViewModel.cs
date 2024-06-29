@@ -8,7 +8,7 @@ using TezorwasV2.Helpers;
 using TezorwasV2.Model;
 using TezorwasV2.Services;
 
-namespace TezorwasV2.ViewModel.MainPagest
+namespace TezorwasV2.ViewModel.MainPages
 {
     public partial class EvolutionChartViewModel : ObservableObject
     {
@@ -184,7 +184,7 @@ namespace TezorwasV2.ViewModel.MainPagest
 
 
             GetRecycledReceiptsPerMonth();
-            lineChartReceiptsEntries  = new ObservableCollection<ChartEntry>();
+            lineChartReceiptsEntries = new ObservableCollection<ChartEntry>();
             foreach (var kvp in _receiptsPerMonth)
             {
                 string month = kvp.Key;
@@ -212,6 +212,12 @@ namespace TezorwasV2.ViewModel.MainPagest
             byte b = (byte)(startColor.Blue + t * (endColor.Blue - startColor.Blue));
 
             return new SKColor(r, g, b);
+        }
+
+        [RelayCommand]
+        public async Task GoBack()
+        {
+            await Shell.Current.GoToAsync("..", true);
         }
     }
 }

@@ -21,8 +21,7 @@ namespace TezorwasV2.View.AppPages
             {
                 var article = query["ArticleToShow"] as ArticleDto;
                 viewModel.ArticleToShow = article;
-                if (viewModel.ArticleTitle == null)
-                    viewModel.PopulateArticle();
+                viewModel.PopulateArticle();
             }
         }
 

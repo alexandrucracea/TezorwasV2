@@ -18,6 +18,7 @@ namespace TezorwasV2.ViewModel.MainPages
 
         private void PopulateParagraphs()
         {
+            paragraphs.Clear();
             var phrases = ArticleToShow.Content.Split('.');
             foreach (var phrase in phrases)
             {

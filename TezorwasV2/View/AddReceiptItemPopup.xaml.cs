@@ -4,11 +4,20 @@ namespace TezorwasV2.View;
 
 public partial class AddReceiptItemPopup : Popup
 {
+    public readonly string ProductName;
+    public readonly string WhatToRecycle;
     public AddReceiptItemPopup()
     {
         InitializeComponent();
     }
+    public AddReceiptItemPopup(string productName, string whatToRecycle)
+    {
+        InitializeComponent();
+        ProductName = productName;
+        WhatToRecycle = whatToRecycle;
+        BindingContext = this;
 
+    }
     private async void SaveProduct(object sender, EventArgs e)
     {
         await CloseAsync(new AddProductToReceiptDto
@@ -17,7 +26,6 @@ public partial class AddReceiptItemPopup : Popup
             WhatToRecycle = WhatToRecycleEntry.Text
         });
     }
-
 }
 
 public class AddProductToReceiptDto

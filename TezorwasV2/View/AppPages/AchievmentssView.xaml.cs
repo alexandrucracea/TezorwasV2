@@ -71,4 +71,9 @@ public partial class AchievmentssView : ContentPage
 
         base.OnAppearing();
     }
+
+    private async void BackButton_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("..", true);
+    }
 }

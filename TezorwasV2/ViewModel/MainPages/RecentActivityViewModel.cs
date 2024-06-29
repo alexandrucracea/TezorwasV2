@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microcharts;
 using SkiaSharp;
 using System.Collections.ObjectModel;
@@ -146,6 +147,12 @@ namespace TezorwasV2.ViewModel.MainPages
             });
             #endregion
 
+        }
+
+        [RelayCommand]
+        public async Task GoBack()
+        {
+            await Shell.Current.GoToAsync("..", true);
         }
     }
 }

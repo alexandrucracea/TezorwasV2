@@ -63,7 +63,32 @@
                         <ImageButton Source="Rseources/Images/menu_dark.png"
                                      HeightRequest="40"
                                      Margin="150,0,0,100"
-                                     Command="{Binding GoToSettingsMenuCommand}"/>
+                                     Command="{Binding GoToSettingsMenuCommand}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="Scale"
+                                                        Value="1" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Property="Scale"
+                                                        Value="0.6" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="Scale" 
+                                                        Value="1" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                        </ImageButton>
                     </Grid>
                 </Grid>
 

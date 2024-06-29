@@ -10,5 +10,6 @@ namespace TezorwasV2.Helpers
         string PersonId { get; set; }
         string ProfileId { get; set; }
 
+        void ClearUserData();
     }
 }

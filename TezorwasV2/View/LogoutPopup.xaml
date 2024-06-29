@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                x:Class="TezorwasV2.View.LogoutPopup"
+                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+                xmlns:popups="TezorwasV2.View.LoadingSpinnerPopup"
+                CanBeDismissedByTappingOutsideOfPopup="False"
+                Size="250,230"
+                Color="Transparent"
+                >
+    <Border Padding="0" 
+         Stroke="Transparent"
+         BackgroundColor="{StaticResource BACKGROUND}">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="28"/>
+        </Border.StrokeShape>
+        <Grid Margin="10,5,10,0"
+           >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label  
+                    Text="Are you sure you want to log out?"
+                    FontFamily="Inter-VariableFont"
+                    FontSize="16"
+                    Margin="10,20,10,0"/>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Text="Yes"
+                        CornerRadius="40"
+                        HeightRequest="60"
+                        WidthRequest="90"
+                        FontFamily="Inter-VariableFont"
+                        FontSize="24"
+                        FontAttributes="Bold"
+                        Background="{StaticResource PRIMARY-COLOR}"
+                        Clicked="ContinueLogOutProcess"/>
+                <Button Grid.Column="2"
+                        Text="No"
+                        CornerRadius="40"
+                        HeightRequest="60"
+                        WidthRequest="90"
+                        FontFamily="Inter-VariableFont"
+                        FontSize="24"
+                        FontAttributes="Bold"
+                        Background="{StaticResource PRIMARY-COLOR}"
+                        Clicked="CancelLogOutProcess"/>
+            </Grid>
+           
+        </Grid>
+    </Border>
+
+</toolkit:Popup>
