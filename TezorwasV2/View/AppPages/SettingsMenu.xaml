@@ -8,8 +8,17 @@
              BackgroundColor="{StaticResource BACKGROUND}">
 
     <ScrollView>
-        <StackLayout>
-            <ImageButton x:Name="BackButton"
+        <Grid RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+            <ImageButton Grid.Row="0"
                          Source="Resources/Images/back_button.png"
                          HorizontalOptions="Start"
                          VerticalOptions="Start"
@@ -23,175 +32,170 @@
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter Property="Scale"
-                            Value="1" />
+                                    <Setter Property="Scale" Value="1" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Pressed">
                                 <VisualState.Setters>
-                                    <Setter Property="Scale"
-                            Value="0.6" />
+                                    <Setter Property="Scale" Value="0.6" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="PointerOver">
                                 <VisualState.Setters>
-                                    <Setter Property="Scale" 
-                            Value="1" />
+                                    <Setter Property="Scale" Value="1" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
             </ImageButton>
-            <Label Text="Additional settings and features"
+            <Label Grid.Row="1"
+                   Text="Additional settings and features"
                    FontFamily="Inter-VariableFont"
                    FontSize="30"
                    FontAttributes="Bold"
                    TextColor="{StaticResource TEXT-COLOR}"
-                   Margin="20,10,0,10"/>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Border x:Name="Charts"
-                    Grid.Row="0"
+                   Margin="20,5,0,10"/>
+            <Border Grid.Row="2"
                     MaximumHeightRequest="250"
-                    Margin="10,40,10,0"
-                    Background="{StaticResource BACKGROUND-LIGHT}"
+                    Margin="10,0"
+                    BackgroundColor="{StaticResource BACKGROUND-LIGHT}"
                     Stroke="{StaticResource BACKGROUND-DARK}"
-                    Padding="20,0,0,0">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="40" />
-                    </Border.StrokeShape>
-                    <Border.Shadow>
-                        <Shadow Brush="Gray"
-                            Offset="0,20"
-                            Radius="40"
-                            Opacity="0.1"/>
-                    </Border.Shadow>
-                    <StackLayout Margin="0,15,0,0" Spacing="5">
-                        <Label Text="Analytics"
-                           FontFamily="Inter-VariableFont"
-                           FontSize="22"
-                           FontAttributes="Bold"
-                           TextColor="{StaticResource TEXT-COLOR}"
-                           Margin="10,0,0,0"/>
-                        <BoxView WidthRequest="400"
-                             HeightRequest="2"
-                             HorizontalOptions="Center"
-                             Color="{StaticResource BACKGROUND-DARK}"
-                             CornerRadius="10"/>
-                        <buttons:SfButton Text="Your evolution"
-                                      FontFamily="Inter-VariableFont"
-                                      WidthRequest="290"
-                                      FontSize="14"
-                                      FontAttributes="Bold"
-                                      Background="{StaticResource BACKGROUND-LIGHT}"
-                                      CornerRadius="30"
-                                      HorizontalTextAlignment="Start"
-                                      TextColor="{StaticResource TEXT-COLOR}"
-                                      HorizontalOptions="Center"
-                                      Margin="-20,0,0,0"
-                                      Command="{Binding GoToEvolutionChartViewCommand}"/>
-                        <buttons:SfButton Text="Recent activity"
-                                      FontFamily="Inter-VariableFont"
-                                      WidthRequest="290"
-                                      FontSize="14"
-                                      FontAttributes="Bold"
-                                      Background="{StaticResource BACKGROUND-LIGHT}"
-                                      CornerRadius="30"
-                                      HorizontalTextAlignment="Start"
-                                      TextColor="{StaticResource TEXT-COLOR}"
-                                      HorizontalOptions="Center"
-                                      Margin="-20,0,0,0"
-                                      Command="{Binding GoToRecentActivityChartViewCommand}"/>
-                    </StackLayout>
-                </Border>
-                <Border x:Name="Support"
-                    Grid.Row="1"
-                    MaximumHeightRequest="250"
-                    Margin="10,20,10,0"
-                    Background="{StaticResource BACKGROUND-LIGHT}"
-                    Stroke="{StaticResource BACKGROUND-DARK}"
-                    Padding="20,0,0,0">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="40" />
-                    </Border.StrokeShape>
-                    <Border.Shadow>
-                        <Shadow Brush="Gray"
-                            Offset="0,20"
-                            Radius="40"
-                            Opacity="0.1"/>
-                    </Border.Shadow>
-                    <StackLayout Margin="0,15,0,0" Spacing="5">
-                        <Label Text="Support"
-                           FontFamily="Inter-VariableFont"
-                           FontSize="22"
-                           FontAttributes="Bold"
-                           TextColor="{StaticResource TEXT-COLOR}"
-                           Margin="10,0,0,0"/>
-                        <BoxView WidthRequest="400"
-                             HeightRequest="2"
-                             HorizontalOptions="Center"
-                             Color="{StaticResource BACKGROUND-DARK}"
-                             CornerRadius="10"/>
-                        <buttons:SfButton Text="Terms and conditions"
-                                      FontFamily="Inter-VariableFont"
-                                      WidthRequest="290"
-                                      FontSize="14"
-                                      FontAttributes="Bold"
-                                      Background="{StaticResource BACKGROUND-LIGHT}"
-                                      CornerRadius="30"
-                                      HorizontalTextAlignment="Start"
-                                      TextColor="{StaticResource TEXT-COLOR}"
-                                      HorizontalOptions="Center"
-                                      Margin="-20,0,0,0"/>
-                        <buttons:SfButton Text="FAQ"
-                                      FontFamily="Inter-VariableFont"
-                                      WidthRequest="290"
-                                      FontSize="14"
-                                      FontAttributes="Bold"
-                                      Background="{StaticResource BACKGROUND-LIGHT}"
-                                      CornerRadius="30"
-                                      HorizontalTextAlignment="Start"
-                                      TextColor="{StaticResource TEXT-COLOR}"
-                                      HorizontalOptions="Center"
-                                      Margin="-20,0,0,0"/>
-                        <buttons:SfButton Text="About us"
-                                      FontFamily="Inter-VariableFont"
-                                      WidthRequest="290"
-                                      FontSize="14"
-                                      FontAttributes="Bold"
-                                      Background="{StaticResource BACKGROUND-LIGHT}"
-                                      CornerRadius="30"
-                                      HorizontalTextAlignment="Start"
-                                      TextColor="{StaticResource TEXT-COLOR}"
-                                      HorizontalOptions="Center"
-                                      Margin="-20,0,0,0"/>
-                    </StackLayout>
-                </Border>
-            </Grid>
-            <StackLayout VerticalOptions="End"
-                         HorizontalOptions="Center"
-                         Margin="0,50,0,0">
-                <BoxView WidthRequest="350"
-                         HeightRequest="2"
-                         HorizontalOptions="Center"
-                         Color="{StaticResource BACKGROUND-DARK}"
-                         CornerRadius="10"/>
-            </StackLayout>
+                    StrokeThickness="1"
+                    Padding="10,0,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="40" />
+                </Border.StrokeShape>
+                <Grid RowSpacing="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            <Button Text="Log out"
+                    <Label Grid.Row="0"
+                           Text="Analytics"
+                           FontFamily="Inter-VariableFont"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TEXT-COLOR}"
+                           Margin="10,15,0,0"/>
+                    <BoxView Grid.Row="1"
+                             WidthRequest="400"
+                             HeightRequest="2"
+                             HorizontalOptions="Center"
+                             Color="{StaticResource BACKGROUND-DARK}"
+                             CornerRadius="10"/>
+                    <buttons:SfButton Grid.Row="2"
+                                      Text="Your evolution"
+                                      FontFamily="Inter-VariableFont"
+                                      WidthRequest="290"
+                                      FontSize="14"
+                                      FontAttributes="Bold"
+                                      Background="{StaticResource BACKGROUND-LIGHT}"
+                                      CornerRadius="30"
+                                      HorizontalTextAlignment="Start"
+                                      TextColor="{StaticResource TEXT-COLOR}"
+                                      HorizontalOptions="Center"
+                                      Margin="0,5,0,0"
+                                      Command="{Binding GoToEvolutionChartViewCommand}"/>
+                    <buttons:SfButton Grid.Row="3"
+                                      Text="Recent activity"
+                                      FontFamily="Inter-VariableFont"
+                                      WidthRequest="290"
+                                      FontSize="14"
+                                      FontAttributes="Bold"
+                                      Background="{StaticResource BACKGROUND-LIGHT}"
+                                      CornerRadius="30"
+                                      HorizontalTextAlignment="Start"
+                                      TextColor="{StaticResource TEXT-COLOR}"
+                                      HorizontalOptions="Center"
+                                      Margin="0,5,0,0"
+                                      Command="{Binding GoToRecentActivityChartViewCommand}"/>
+                </Grid>
+            </Border>
+            <Border Grid.Row="3"
+                    MaximumHeightRequest="200"
+                    Margin="5,0"
+                    BackgroundColor="{StaticResource BACKGROUND-LIGHT}"
+                    Stroke="{StaticResource BACKGROUND-DARK}"
+                    StrokeThickness="1"
+                    Padding="10,0,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="40" />
+                </Border.StrokeShape>
+                <Grid RowSpacing="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="0.1*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0"
+                           Text="Support"
+                           FontFamily="Inter-VariableFont"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TEXT-COLOR}"
+                           Margin="10,15,0,0"/>
+                    <BoxView Grid.Row="1"
+                             WidthRequest="400"
+                             HeightRequest="2"
+                             HorizontalOptions="Center"
+                             Color="{StaticResource BACKGROUND-DARK}"
+                             CornerRadius="10"/>
+                    <buttons:SfButton Grid.Row="2"
+                                      Text="Terms and conditions"
+                                      FontFamily="Inter-VariableFont"
+                                      WidthRequest="290"
+                                      FontSize="14"
+                                      FontAttributes="Bold"
+                                      Background="{StaticResource BACKGROUND-LIGHT}"
+                                      CornerRadius="30"
+                                      HorizontalTextAlignment="Start"
+                                      TextColor="{StaticResource TEXT-COLOR}"
+                                      HorizontalOptions="Center"
+                                      Margin="0,5,0,0"
+                                      Command="{Binding GoToTermsAndConditionsCommand}"/>
+                    <buttons:SfButton Grid.Row="3"
+                                      Text="FAQ"
+                                      FontFamily="Inter-VariableFont"
+                                      WidthRequest="290"
+                                      FontSize="14"
+                                      FontAttributes="Bold"
+                                      Background="{StaticResource BACKGROUND-LIGHT}"
+                                      CornerRadius="30"
+                                      HorizontalTextAlignment="Start"
+                                      TextColor="{StaticResource TEXT-COLOR}"
+                                      HorizontalOptions="Center"
+                                      Margin="0,5,0,0"/>
+                    <buttons:SfButton Grid.Row="4"
+                                      Text="About us"
+                                      FontFamily="Inter-VariableFont"
+                                      WidthRequest="290"
+                                      FontSize="14"
+                                      FontAttributes="Bold"
+                                      Background="{StaticResource BACKGROUND-LIGHT}"
+                                      CornerRadius="30"
+                                      HorizontalTextAlignment="Start"
+                                      TextColor="{StaticResource TEXT-COLOR}"
+                                      HorizontalOptions="Center"/>
+                </Grid>
+            </Border>
+            <Button Grid.Row="4"
+                    Text="Log out"
                     FontFamily="Inter-VariableFont"
                     HorizontalOptions="Center"
                     WidthRequest="150"
-                    Clicked="Button_Clicked"
                     FontSize="20"
                     FontAttributes="Bold"
-                    BackgroundColor ="{StaticResource ERROR-COLOR}"
+                    BackgroundColor="{StaticResource ERROR-COLOR}"
                     CornerRadius="40"
-                    Margin="0,20,0,0"/>
-        </StackLayout>
+                    Margin="0,50,0,0"
+                    Clicked="Button_Clicked"/>
+        </Grid>
     </ScrollView>
 </ContentPage>

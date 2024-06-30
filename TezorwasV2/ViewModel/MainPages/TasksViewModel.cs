@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Google.Protobuf.WellKnownTypes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using TezorwasV2.DTO;
@@ -90,6 +91,10 @@ namespace TezorwasV2.ViewModel.MainPages
             AvailableXpToday = 0;
             ActualXpGotToday = 0;
 
+            AvailableTasksToday = 0;
+            CompletedTasksToday = 0;
+            
+
             var allProfiles = await _profileService.GetAllProfiles(_globalContext.UserToken);
             var currentUserProfile = allProfiles.FirstOrDefault(profile => profile.PersonId.Equals(_globalContext.PersonId));
             if (currentUserProfile != null)
@@ -97,7 +102,7 @@ namespace TezorwasV2.ViewModel.MainPages
                 _globalContext.ProfileId = currentUserProfile.Id;
                 foreach (TaskModel task in currentUserProfile.Tasks)
                 {
-                    if (!task.IsCompleted)
+                    if (task.CreationDate.Date == DateTime.Now.Date)
                     {
                         AvailableTasks.Add(task);
                         AvailableXpToday += task.XpEarned;
@@ -179,7 +184,7 @@ namespace TezorwasV2.ViewModel.MainPages
             ActualXpGotToday += task.XpEarned;
 
         }
-        static string GetEnumDescription(Enum value)
+        static string GetEnumDescription(System.Enum value)
         {
             var fieldInfo = value.GetType().GetField(value.ToString());
             var attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
@@ -188,19 +193,28 @@ namespace TezorwasV2.ViewModel.MainPages
         }
         static int UpdateLevelIfNecessary(ProfileDto profileToUpdate)
         {
-            //var levelXp = (int)levelsXp.GetValue(0);
-            //var levelDescription = GetEnumDescription((Enums.Level)levelsXp.GetValue(0));
-            Array levelsXp = Enum.GetValues(typeof(Enums.Level));
+            Array levelsXp = System.Enum.GetValues(typeof(Enums.Level));
             for (int i = 0; i < levelsXp.Length - 1; i++)
             {
                 var level = levelsXp.GetValue(i);
-                if (profileToUpdate.Xp > (int)level)
+                if (profileToUpdate.Xp <= (int)level)
                 {
-                    profileToUpdate.Level = profileToUpdate.Level + 1;
+                    var lvlDescription = level.GetType()
+                                   .GetField(level.ToString())
+                                   .GetCustomAttributes(typeof(DescriptionAttribute), false)
+                               .Cast<DescriptionAttribute>()
+                                   .FirstOrDefault()?.Description ?? level.ToString();
+
+                    if (profileToUpdate.Level < int.Parse(lvlDescription))
+                    {
+                        profileToUpdate.Level++;
+                    }
+
                     return profileToUpdate.Level;
                 }
-            }
 
+
+            }
             return profileToUpdate.Level;
         }
         private async Task<dynamic> GenerateTasksWithGpt(double levelOfWaste)
@@ -210,5 +224,6 @@ namespace TezorwasV2.ViewModel.MainPages
 
             return tasksGenerated;
         }
+
     }
 }

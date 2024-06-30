@@ -21,6 +21,8 @@ namespace TezorwasV2
             Routing.RegisterRoute(nameof(EvolutionChartView),typeof(EvolutionChartView));
             Routing.RegisterRoute(nameof(RecentActivityView),typeof(RecentActivityView));
             Routing.RegisterRoute(nameof(ForgotPasswordView),typeof(ForgotPasswordView));
+            Routing.RegisterRoute(nameof(TermsAndConditionsView),typeof(TermsAndConditionsView));
+            
             #endregion
         }
     }

@@ -36,5 +36,17 @@ namespace TezorwasV2.ViewModel.MainPages
                 });
             }
         }
+
+        public async Task AddHabbitToProfile(HabbitModel habbitToAdd)
+        {
+            var profile = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
+            profile.Habbits.Add(habbitToAdd);
+
+            ProfileHabbits.Add(habbitToAdd);
+            
+
+            await _profileService.UpdateAProfile(profile, _globalContext.UserToken);
+        }
+
     }
 }

@@ -67,7 +67,8 @@ namespace TezorwasV2.ViewModel.MainPages
                 {
                     if(Xp < (int)level)
                     {
-                        XpBarValue = (decimal)((Xp * 1.0)/(int)level);
+                        XpBarValue = (decimal)((Xp * 1.0) / (int)level);
+
                         break;
                     }
                 }

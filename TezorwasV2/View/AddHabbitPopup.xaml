@@ -1,12 +1,116 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TezorwasV2.View.AddHabbitPopup"
-             Title="AddHabbitPopup">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
-</ContentPage>
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:inputs="http://schemas.syncfusion.com/maui"
+             xmlns:popups="TezorwasV2.View.AddReceiptItemPopup"
+             CanBeDismissedByTappingOutsideOfPopup="True"
+             Size="300,465"
+             Color="Transparent">
+    <Border Stroke="Transparent"
+            BackgroundColor="{StaticResource BACKGROUND}">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="28"/>
+        </Border.StrokeShape>
+        <Grid Margin="10,5,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label  Grid.Row="0"
+                    Text="Please provide the following details for the habbit that you want to add"
+                    TextColor="{StaticResource TEXT-COLOR}"
+                    FontSize="16"
+                    FontFamily="Inter-VariableFont"
+                    Margin="20,30,10,30"/>
+            <core:SfTextInputLayout x:Name="HabbitInput"
+                                    Grid.Row="1"
+                                    Hint="Habbit"
+                                    ContainerType="Outlined"
+                                    OutlineCornerRadius="30"
+                                    HeightRequest="80"
+                                    WidthRequest="250"
+                                    ContainerBackground="{StaticResource BACKGROUND}"
+                                    Stroke="{StaticResource TEXT-COLOR-LIGHT}">
+                <Editor x:Name="EdtHabbitDescription"
+                        PlaceholderColor="Red"
+                        Placeholder="Habbit"/>
+                <core:SfTextInputLayout.HintLabelStyle>
+                    <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}"                                               
+                                     FontFamily="Lobster-Regular"/>
+                </core:SfTextInputLayout.HintLabelStyle>
+            </core:SfTextInputLayout>
+            <Label  x:Name="lblLvlOfWasteDescription" 
+                    Grid.Row="2"
+                    Text="On a scale from 1 to 5 choose how wasteful do you think these habbits are"
+                    TextColor="{StaticResource TEXT-COLOR}"
+                    FontSize="16"
+                    FontFamily="Inter-VariableFont"
+                    Margin="20,5,30,10"/>
+
+            <VerticalStackLayout Grid.Row="3">
+
+                <inputs:SfRating x:Name="wasteRating" 
+                                 ItemCount="5"
+                                 Value="{Binding HabbitLevelOfWaste}"
+                                 Precision="Half"
+                                 RatingShape="Circle"
+                                 HeightRequest="20"
+                                 ItemSize="25"
+                                 ItemSpacing="25"
+                                 BackgroundColor="{StaticResource BACKGROUND}">
+                    <inputs:SfRating.RatingSettings>
+                        <inputs:RatingSettings RatedFill="{StaticResource PRIMARY-COLOR}"
+                                               RatedStroke="{StaticResource PRIMARY-COLOR}">
+                        </inputs:RatingSettings>
+                    </inputs:SfRating.RatingSettings>
+                </inputs:SfRating>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label  x:Name="lblLvlOfWasteStartDescription" 
+                            Grid.Column="0"
+                            Text="Not wasteful"
+                            TextColor="{StaticResource TEXT-COLOR}"
+                            FontSize="15"
+                            FontFamily="Inter-VariableFont"
+                            Margin="50,10,30,00"
+                            HorizontalTextAlignment="Center"
+                            HorizontalOptions="Start"
+                            WidthRequest="50"/>
+                    <Label  x:Name="lblLvlOfWasteEndDescription" 
+                            Grid.Column="2"
+                            Text="Extremely wasteful"
+                            TextColor="{StaticResource TEXT-COLOR}"
+                            FontSize="15"
+                            FontFamily="Inter-VariableFont"
+                            Margin="20,10,45,0"
+                            HorizontalTextAlignment="Center"
+                            HorizontalOptions="End"
+                            WidthRequest="60"/>
+                </Grid>
+            </VerticalStackLayout>
+
+            <Button Grid.Row="4"
+                    Text="Add habbit"
+                    CornerRadius="40"
+                    HeightRequest="60"
+                    WidthRequest="250"
+                    FontFamily="Inter-VariableFont"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    Clicked="SaveHabbit"
+                    Background="{StaticResource PRIMARY-COLOR}"
+                    />
+        </Grid>
+    </Border>
+</toolkit:Popup>

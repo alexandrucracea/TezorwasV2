@@ -60,6 +60,7 @@ namespace TezorwasV2
             builder.Services.AddTransient<IForgotPasswordService, ForgotPasswordService>();
             builder.Services.AddTransient<ILoadingSpinnerPopupService, LoadingSpinnerPopupService>();
             builder.Services.AddTransient<ILogoutPopupService, LogoutPopupService>();
+            builder.Services.AddTransient<IAddHabbitPopupService,AddHabbitPopupService>();
 
             builder.Services.AddSingleton<IGlobalContext, GlobalContext>();
             builder.Services.AddSingleton<LoginViewModel>();

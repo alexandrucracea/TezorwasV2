@@ -163,6 +163,9 @@
 		<MauiXaml Update="View\AppPages\TasksView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="View\AppPages\TermsAndConditionsView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\Authentication\LoginView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

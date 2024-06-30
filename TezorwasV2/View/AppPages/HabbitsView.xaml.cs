@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
+using TezorwasV2.Model;
 using TezorwasV2.ViewModel.MainPages;
 
 namespace TezorwasV2.View.AppPages;
@@ -37,5 +38,16 @@ public partial class HabbitsView : ContentPage
     private async void BackButton_Clicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync("..", true);
+    }
+
+    private async void AddHabbit(object sender, EventArgs e)
+    {
+        var popup = new AddHabbitPopup();
+        var habbitToAdd = await this.ShowPopupAsync(popup) as HabbitModel;
+
+        if (habbitToAdd is not null)
+        {
+            await viewModel.AddHabbitToProfile(habbitToAdd);
+        }
     }
 }

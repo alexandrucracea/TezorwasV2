@@ -3,15 +3,15 @@ using TezorwasV2.View;
 
 namespace TezorwasV2.Services
 {
-    public class LoadingSpinnerPopupService : ILoadingSpinnerPopupService
+    public class AddHabbitPopupService : IAddHabbitPopupService
     {
-        public void ClosePopup(LoadingSpinnerPopup popup)
+        public void ClosePopup(AddHabbitPopup popup)
         {
-           popup.Close();
+            popup.Close();
 
         }
 
-        public void ShowPopup(LoadingSpinnerPopup popup)
+        public void ShowPopup(AddHabbitPopup popup)
         {
             Page page = Application.Current?.MainPage ?? throw new NullReferenceException();
             page.ShowPopup(popup);
