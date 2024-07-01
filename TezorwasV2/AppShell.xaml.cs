@@ -8,21 +8,22 @@ namespace TezorwasV2
         public AppShell()
         {
             InitializeComponent();
+
             #region Routing
             Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
             Routing.RegisterRoute(nameof(RegisterView), typeof(RegisterView));
             Routing.RegisterRoute(nameof(QuestionsView), typeof(QuestionsView));
             Routing.RegisterRoute(nameof(AchievmentssView), typeof(AchievmentssView));
-            Routing.RegisterRoute(nameof(HabbitsView),typeof(HabbitsView));
-            Routing.RegisterRoute(nameof(ArticlesView),typeof(ArticlesView));
-            Routing.RegisterRoute(nameof(ArticlePage),typeof(ArticlePage));
-            Routing.RegisterRoute(nameof(ReceiptItemView),typeof(ReceiptItemView));
-            Routing.RegisterRoute(nameof(SettingsMenu),typeof(SettingsMenu));
-            Routing.RegisterRoute(nameof(EvolutionChartView),typeof(EvolutionChartView));
-            Routing.RegisterRoute(nameof(RecentActivityView),typeof(RecentActivityView));
-            Routing.RegisterRoute(nameof(ForgotPasswordView),typeof(ForgotPasswordView));
-            Routing.RegisterRoute(nameof(TermsAndConditionsView),typeof(TermsAndConditionsView));
-            
+            Routing.RegisterRoute(nameof(HabbitsView), typeof(HabbitsView));
+            Routing.RegisterRoute(nameof(ArticlesView), typeof(ArticlesView));
+            Routing.RegisterRoute(nameof(ArticlePage), typeof(ArticlePage));
+            Routing.RegisterRoute(nameof(ReceiptItemView), typeof(ReceiptItemView));
+            Routing.RegisterRoute(nameof(SettingsMenu), typeof(SettingsMenu));
+            Routing.RegisterRoute(nameof(EvolutionChartView), typeof(EvolutionChartView));
+            Routing.RegisterRoute(nameof(RecentActivityView), typeof(RecentActivityView));
+            Routing.RegisterRoute(nameof(ForgotPasswordView), typeof(ForgotPasswordView));
+            Routing.RegisterRoute(nameof(TermsAndConditionsView), typeof(TermsAndConditionsView));
+            Routing.RegisterRoute(nameof(FAQView), typeof(FAQView));
             #endregion
         }
     }

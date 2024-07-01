@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TezorwasV2.View.AppPages.FAQView"
+             Title="FAQView"
+             Background="{StaticResource BACKGROUND}">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10">
+            <Label Text="Frequently Asked Questions (FAQ)"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource TEXT-COLOR}"
+                   HorizontalOptions="Center"
+                   FontFamily="Inter-VariableFont"
+                   Margin="10,10,0,10"/>
+
+            <Frame BackgroundColor="{StaticResource BACKGROUND}"
+                   CornerRadius="20"
+                   Padding="15"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <!-- Question 1 -->
+                    <Label Text="Q: What is the purpose of this app?"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           FontFamily="Inter-VariableFont"
+                           TextColor="{StaticResource PRIMARY-COLOR}"/>
+                    <Label Text="A: Our app aims to promote recycling and the eradication of harmful habits through interactive, AI-powered tasks."
+                           FontSize="16"
+                           FontFamily="Inter-VariableFont"
+                           TextColor="{StaticResource TEXT-COLOR}"
+                           Margin="0,0,0,10"/>
+
+                    <!-- Question 2 -->
+                    <Label Text="Q: How does the AI component work?"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           FontFamily="Inter-VariableFont"
+                           TextColor="{StaticResource PRIMARY-COLOR}"/>
+                    <Label Text="A: We use ChatGPT to generate personalized tasks and educational content related to recycling and sustainability."
+                           FontSize="16"
+                           TextColor="{StaticResource TEXT-COLOR}"
+                           FontFamily="Inter-VariableFont"
+                           Margin="0,0,0,10"/>
+
+                    <!-- Question 3 -->
+                    <Label Text="Q: Is my data safe?"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           FontFamily="Inter-VariableFont"
+                           TextColor="{StaticResource PRIMARY-COLOR}"/>
+                    <Label Text="A: Yes, we take your privacy seriously and handle your data in accordance with our Privacy Policy."
+                           FontSize="16"
+                           TextColor="{StaticResource TEXT-COLOR}"
+                           FontFamily="Inter-VariableFont"
+                           Margin="0,0,0,10"/>
+
+                    <!-- Question 4 -->
+                    <Label Text="Q: Can I use the app without an internet connection?"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           FontFamily="Inter-VariableFont"
+                           TextColor="{StaticResource PRIMARY-COLOR}"/>
+                    <Label Text="A: While some features may be available offline, the AI-generated tasks and updates require an internet connection."
+                           FontSize="16"
+                           TextColor="{StaticResource TEXT-COLOR}"
+                           FontFamily="Inter-VariableFont"
+                           Margin="0,0,0,10"/>
+
+                    <!-- Question 5 -->
+                    <Label Text="Q: How can I contact support?"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           FontFamily="Inter-VariableFont"
+                           TextColor="{StaticResource PRIMARY-COLOR}"/>
+                    <Label Text="A: You can reach out to us through the contact form in the app or by emailing us at support@example.com."
+                           FontSize="16"
+                           TextColor="{StaticResource TEXT-COLOR}"
+                           FontFamily="Inter-VariableFont"
+                           Margin="0,0,0,10"/>
+
+                    <!-- Question 6 -->
+                    <Label Text="Q: Are there any costs associated with using the app?"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           FontFamily="Inter-VariableFont"
+                           TextColor="{StaticResource PRIMARY-COLOR}"/>
+                    <Label Text="A: Our app is free to download and use. However, some advanced features may be available through in-app purchases."
+                           FontSize="16"
+                           TextColor="{StaticResource TEXT-COLOR}"
+                           FontFamily="Inter-VariableFont"
+                           Margin="0,0,0,10"/>
+
+                    <!-- Question 7 -->
+                    <Label Text="Q: How can I provide feedback?"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           FontFamily="Inter-VariableFont"
+                           TextColor="{StaticResource PRIMARY-COLOR}"/>
+                    <Label Text="A: We welcome your feedback! You can send us your suggestions and comments through the feedback section in the app."
+                           FontSize="16"
+                           TextColor="{StaticResource TEXT-COLOR}"
+                           FontFamily="Inter-VariableFont"
+                           Margin="0,0,0,10"/>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

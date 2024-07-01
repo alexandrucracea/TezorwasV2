@@ -46,6 +46,7 @@ public partial class ReceiptsView : ContentPage
     {
         var selectedDate = e.Date;
         viewModel.FilterDataCommand.Execute(selectedDate);
+        ApplyGradientBackground(viewModel.Receipts);
     }
     #endregion
 
@@ -75,4 +76,16 @@ public partial class ReceiptsView : ContentPage
         return colors;
     }
     #endregion
+
+    private void SfRadioButton_StateChanged(object sender, Syncfusion.Maui.Buttons.StateChangedEventArgs e)
+    {
+
+        if (viewModel.initialProfileDataReceived)
+        {
+            var selectedDate = viewModel.DateToFilter;
+            viewModel.FilterDataCommand.Execute(selectedDate);
+            ApplyGradientBackground(viewModel.Receipts);
+        }
+
+    }
 }

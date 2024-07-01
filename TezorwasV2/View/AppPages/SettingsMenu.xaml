@@ -17,7 +17,6 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-
             <ImageButton Grid.Row="0"
                          Source="Resources/Images/back_button.png"
                          HorizontalOptions="Start"
@@ -171,8 +170,9 @@
                                       HorizontalTextAlignment="Start"
                                       TextColor="{StaticResource TEXT-COLOR}"
                                       HorizontalOptions="Center"
+                                      Command="{Binding GoToFAQSectionCommand}"
                                       Margin="0,5,0,0"/>
-                    <buttons:SfButton Grid.Row="4"
+                    <!--<buttons:SfButton Grid.Row="4"
                                       Text="About us"
                                       FontFamily="Inter-VariableFont"
                                       WidthRequest="290"
@@ -182,7 +182,7 @@
                                       CornerRadius="30"
                                       HorizontalTextAlignment="Start"
                                       TextColor="{StaticResource TEXT-COLOR}"
-                                      HorizontalOptions="Center"/>
+                                      HorizontalOptions="Center"/>-->
                 </Grid>
             </Border>
             <Button Grid.Row="4"

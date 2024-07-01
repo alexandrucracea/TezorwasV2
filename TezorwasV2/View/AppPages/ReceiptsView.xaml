@@ -129,6 +129,8 @@
                                           FontAttributes="Bold"
                                           TextColor="{StaticResource TEXT-COLOR}"
                                           CheckedColor="{StaticResource PRIMARY-COLOR}"
+                                          StateChanged="SfRadioButton_StateChanged"
+                                          
                                           />
                 <syncfusion:SfRadioButton Grid.Column="2"
                                           Text="Completed" 

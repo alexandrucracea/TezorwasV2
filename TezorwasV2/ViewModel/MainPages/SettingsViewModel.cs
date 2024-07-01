@@ -36,6 +36,11 @@ namespace TezorwasV2.ViewModel.MainPages
             await Shell.Current.GoToAsync(nameof(TermsAndConditionsView), true);
         }
         [RelayCommand]
+        public async Task GoToFAQSection()
+        {
+            await Shell.Current.GoToAsync(nameof(FAQView), true);
+        }
+        [RelayCommand]
         public async Task GoBack()
         {
             await Shell.Current.GoToAsync("..", true);

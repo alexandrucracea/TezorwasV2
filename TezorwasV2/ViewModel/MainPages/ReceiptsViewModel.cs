@@ -6,6 +6,8 @@ using TezorwasV2.Helpers;
 using TezorwasV2.Services;
 using TezorwasV2.View.AppPages;
 using TezorwasV2.View;
+using TezorwasV2.DTO;
+using Google.Type;
 
 namespace TezorwasV2.ViewModel.MainPages
 {
@@ -16,23 +18,28 @@ namespace TezorwasV2.ViewModel.MainPages
         private readonly ILoadingSpinnerPopupService _loadingSpinnerPopupService;
         private LoadingSpinnerPopup _loadingPopup = new LoadingSpinnerPopup();
 
-        [ObservableProperty] private string currentDate = DateTime.Now.ToString("dd.MM.yyyy");
+        [ObservableProperty] private string currentDate = System.DateTime.Now.ToString("dd.MM.yyyy");
         [ObservableProperty] private bool isCalendarShown;
         [ObservableProperty] private string showCalendarBtnText;
         [ObservableProperty] private bool receiptsCompleted;
         [ObservableProperty] private bool receiptsAvailable;
 
+        private ProfileDto profile;
+        public System.DateTime DateToFilter { get; set;}
         public ObservableCollection<ReceiptModel> Receipts { get; set; } = new ObservableCollection<ReceiptModel>();
+        public bool initialProfileDataReceived = false;
 
         public ReceiptsViewModel(IGlobalContext globalContext, IProfileService profileService, ILoadingSpinnerPopupService loadingSpinnerPopup)
         {
-            IsCalendarShown = false;
+            IsCalendarShown = true;
             ShowCalendarBtnText = "Calendar";
             _globalContext = globalContext;
             _profileService = profileService;
             ReceiptsAvailable = true;
             ReceiptsCompleted = false;
             _loadingSpinnerPopupService = loadingSpinnerPopup;
+            DateToFilter = System.DateTime.Now;
+            
         }
 
         [RelayCommand]
@@ -46,8 +53,11 @@ namespace TezorwasV2.ViewModel.MainPages
             Receipts.Clear();
             _loadingPopup = new LoadingSpinnerPopup();
             _loadingSpinnerPopupService.ShowPopup(_loadingPopup);
-            var profile = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
-
+             profile = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
+            if(initialProfileDataReceived is false)
+            {
+                initialProfileDataReceived = true;
+            }
 
             foreach (var receipt in profile.Receipts)
             {
@@ -76,10 +86,25 @@ namespace TezorwasV2.ViewModel.MainPages
         [RelayCommand]
         public void FilterData(dynamic selectedDate)
         {
+            DateToFilter = selectedDate;
+            Receipts.Clear();
+            foreach (var receipt in profile.Receipts)
+            {
+                Receipts.Add(new ReceiptModel
+                {
+                    CompletionDate = receipt.CompletionDate,
+                    CreationDate = receipt.CreationDate,
+                    Name = receipt.Name,
+                    Id = receipt.Id,
+                    ReceiptItems = receipt.ReceiptItems,
+                    BackgroundColor = receipt.BackgroundColor,
+                });
+            }
+
+
             List<ReceiptModel> filteredReceipts = new List<ReceiptModel>();
             if (Receipts is not null)
             {
-                //bool recycleValueToCheck = ReceiptsAvailable ? ReceiptsAvailable : ReceiptsCompleted;
                 foreach (var receipt in Receipts)
                 {
                     if (ReceiptsCompleted)
@@ -89,7 +114,7 @@ namespace TezorwasV2.ViewModel.MainPages
                             filteredReceipts.Add(receipt);
                         }
                     }
-                    if (!ReceiptsCompleted)
+                    if (ReceiptsAvailable)
                     {
                         if (receipt.CreationDate.Date == selectedDate && CheckIfReceiptIsCompleted(receipt) == false)
                         {
