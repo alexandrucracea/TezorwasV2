@@ -1,4 +1,6 @@
 ﻿
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace TezorwasV2.Model
 {
     public class TaskModel

@@ -25,10 +25,7 @@ namespace TezorwasV2.ViewModel.MainPages
         [ObservableProperty] public int availableXpReceipt;
         [ObservableProperty] public int actualXpGotFromReceipt;
 
-
-
         private bool pageIsInitializing = true;
-
 
         private readonly IProfileService _profileService;
         private readonly IGlobalContext _globalContext;
@@ -37,7 +34,6 @@ namespace TezorwasV2.ViewModel.MainPages
         {
             _profileService = profileService;
             _globalContext = globalContext;
-           
         }
 
         public void PopulateReceiptTaskList()
@@ -46,6 +42,7 @@ namespace TezorwasV2.ViewModel.MainPages
             ReceiptItemsRecycled.Clear();
             AvailableXpReceipt = 0;
             ActualXpGotFromReceipt = 0;
+            AvailableReceiptItems = 0;
 
             if (ReceiptToShow is not null)
             {
@@ -54,10 +51,11 @@ namespace TezorwasV2.ViewModel.MainPages
                 ReceiptCompletionDate = ReceiptToShow.CompletionDate.Date;
                 foreach (var receiptItem in ReceiptToShow.ReceiptItems)
                 {
+                    AvailableReceiptItems++;
+                    AvailableXpReceipt += receiptItem.XpEarned;
                     if (!receiptItem.IsRecycled)
                     {
                         ReceiptItemsUnrecycled.Add(receiptItem);
-                        AvailableXpReceipt += receiptItem.XpEarned;
                     }
                     else
                     {
@@ -65,46 +63,34 @@ namespace TezorwasV2.ViewModel.MainPages
                         ActualXpGotFromReceipt += receiptItem.XpEarned;
                     }
                 }
-
-                AvailableReceiptItems = ReceiptItemsUnrecycled.Count + ReceiptItemsRecycled.Count;
                 RecycledReceiptItems = ReceiptItemsRecycled.Count;
-                AvailableXpReceipt = AvailableXpReceipt + ActualXpGotFromReceipt;
             }
             pageIsInitializing = false;
         }
 
         [RelayCommand]
-        public async Task RecycleReceiptItem()
+        public async Task RecycleReceiptItem(ReceiptItemModel itemToRecycle)
         {
             int recycledItemsCounter = 0;
-            if (!pageIsInitializing)
+
+
+
+            recycledItemsCounter++;
+            ItemsAreRecycled = true;
+
+            if (recycledItemsCounter == AvailableReceiptItems)
             {
-                foreach (var receiptItem in ReceiptItemsUnrecycled)
-                {
-                    if (!receiptItem.IsRecycled)
-                    {
-                        receiptItem.IsRecycled = true;
-                        recycledItemsCounter++;
-                        ItemsAreRecycled = true;
-
-                        if (recycledItemsCounter == AvailableReceiptItems)
-                        {
-                            AllReceiptItemsUnRecycled = false;
-                        }
-
-                        ReceiptItemsRecycled.Add(receiptItem);
-                        ReceiptItemsUnrecycled.Remove(receiptItem);
-
-                        await UpdateReceiptUnrecycledItems();
-                        return;
-                    }
-                }
-
-
-
+                AllReceiptItemsUnRecycled = false;
             }
-            return;
+
+            ReceiptItemsUnrecycled.Remove(itemToRecycle);
+            ReceiptItemsRecycled.Add(itemToRecycle);
+
+            await UpdateReceiptUnrecycledItems();
+
+
         }
+
         private async Task UpdateReceiptUnrecycledItems()
         {
             ProfileDto profileToUpdate = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
@@ -129,11 +115,13 @@ namespace TezorwasV2.ViewModel.MainPages
 
             await _profileService.UpdateAProfile(profileToUpdate, _globalContext.UserToken);
         }
+
+
         public async Task AddProductToReceipt(AddProductToReceiptDto productToAdd)
         {
             Random random = new Random();
             int xpForProduct = random.Next(1, 11);
-            ReceiptItemsUnrecycled.Add(new ReceiptItemModel
+            var newReceiptItem = new ReceiptItemModel
             {
                 Name = productToAdd.ProductName.ToUpper() + ": recycle: " + productToAdd.WhatToRecycle,
                 CreationDate = DateTime.Now,
@@ -141,10 +129,15 @@ namespace TezorwasV2.ViewModel.MainPages
                 Id = Guid.NewGuid().ToString(),
                 IsRecycled = false,
                 XpEarned = xpForProduct
-            });
+            };
+
+
+            ReceiptItemsUnrecycled.Add(newReceiptItem);
+
 
             await UpdateReceiptUnrecycledItems();
         }
+
         public async Task ChangeReceiptName(string receiptNewName)
         {
             ProfileDto profileToUpdate = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
@@ -162,19 +155,20 @@ namespace TezorwasV2.ViewModel.MainPages
 
             await _profileService.UpdateAProfile(profileToUpdate, _globalContext.UserToken);
         }
+
+
         public async Task DeleteProduct(ReceiptItemModel productToDelete)
         {
-            foreach(var product in ReceiptItemsUnrecycled)
-            {
-                if (product.Id.Equals(productToDelete.Id))
-                {
-                    ReceiptItemsUnrecycled.Remove(product);
-                    break;
-                }
-            }
-            await UpdateReceiptUnrecycledItems();
 
+            var itemToRemove = ReceiptItemsUnrecycled.FirstOrDefault(p => p.Id == productToDelete.Id);
+            if (itemToRemove != null)
+            {
+                ReceiptItemsUnrecycled.Remove(itemToRemove);
+            }
+
+            await UpdateReceiptUnrecycledItems();
         }
+
         [RelayCommand]
         public static async Task GoBack()
         {

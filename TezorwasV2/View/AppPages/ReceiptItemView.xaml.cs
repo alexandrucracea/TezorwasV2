@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
+using Syncfusion.Maui.Buttons;
 using TezorwasV2.Model;
 using TezorwasV2.ViewModel.MainPages;
 
@@ -48,7 +49,9 @@ public partial class ReceiptItemView : ContentPage, IQueryAttributable
     {
         if (viewModel.RecycleReceiptItemCommand.CanExecute(default))
         {
-            viewModel.RecycleReceiptItemCommand.Execute(default);
+            var checkBox = sender as SfCheckBox;
+            var receiptItemToRecycle = checkBox.BindingContext as ReceiptItemModel;
+            viewModel.RecycleReceiptItemCommand.Execute(receiptItemToRecycle);
         }
     }
 

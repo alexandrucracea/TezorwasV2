@@ -199,12 +199,12 @@
                                                     FontSize="18"
                                                     Margin="10,0,0,0"/>
                                         <sf:SfCheckBox  Grid.Row="0"
-                                                            Grid.Column="1"
-                                                            IsChecked="{Binding IsRecycled}"
-                                                            CornerRadius="10"
-                                                            UncheckedColor="{StaticResource TEXT-COLOR}"
-                                                            CheckedColor="{StaticResource PRIMARY-COLOR}"
-                                                            StateChanged="SfCheckBox_StateChanged"/>
+                                                        Grid.Column="1"
+                                                        IsChecked="{Binding IsRecycled,Mode=TwoWay}"
+                                                        CornerRadius="10"
+                                                        UncheckedColor="{StaticResource TEXT-COLOR}"
+                                                        CheckedColor="{StaticResource PRIMARY-COLOR}"
+                                                        StateChanged="SfCheckBox_StateChanged"/>
                                         <Label  Grid.Row="1"
                                                     Margin="10,-20,0,0"
                                                     WidthRequest="30"

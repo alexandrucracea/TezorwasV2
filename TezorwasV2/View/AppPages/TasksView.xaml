@@ -126,7 +126,7 @@
                                             />
                                     <sf:SfCheckBox  Grid.Row="0"
                                                     Grid.Column="1"
-                                                    IsChecked="{Binding IsDone}"
+                                                    IsChecked="{Binding IsCompleted}"
                                                     CornerRadius="10"
                                                     UncheckedColor="{StaticResource TEXT-COLOR}"
                                                     CheckedColor="{StaticResource PRIMARY-COLOR}"

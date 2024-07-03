@@ -3,6 +3,8 @@ using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Syncfusion.Maui.Buttons;
+using TezorwasV2.Model;
 using TezorwasV2.ViewModel.MainPages;
 
 namespace TezorwasV2.View.AppPages;
@@ -24,7 +26,9 @@ public partial class TasksView : ContentPage
         BindingContext = _taskViewModel;
 
     }
-	protected override async void  OnAppearing()
+
+    [Obsolete]
+    protected override async void  OnAppearing()
 	{
         #region StatusBar
 #pragma warning disable CA1416 // Validate platform compatibility
@@ -49,7 +53,9 @@ public partial class TasksView : ContentPage
     {
 		if (_taskViewModel.CompleteTaskCommand.CanExecute(default))
 		{
-			_taskViewModel.CompleteTaskCommand.Execute(default);
+            var checkBox = sender as SfCheckBox;
+            var taskToComplete = checkBox.BindingContext as TaskModel;
+			_taskViewModel.CompleteTaskCommand.Execute(taskToComplete);
 		}
     }
 }
