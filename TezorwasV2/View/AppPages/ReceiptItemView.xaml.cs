@@ -2,7 +2,9 @@ using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
 using Syncfusion.Maui.Buttons;
+using System.Runtime.InteropServices.ComTypes;
 using TezorwasV2.Model;
+using TezorwasV2.ViewModel;
 using TezorwasV2.ViewModel.MainPages;
 
 namespace TezorwasV2.View.AppPages;
@@ -97,13 +99,30 @@ public partial class ReceiptItemView : ContentPage, IQueryAttributable
         }
 
         var productToUpdate = item.BindingContext as ReceiptItemModel;
-        var popup = new AddReceiptItemPopup(productToUpdate.Name,"");
+
+        var itemToTransfer = new ItemDataDto
+        {
+            ProductName = productToUpdate.Name,
+            WhatToRecycle = "",
+        };
+
+        var viewModelPopup = new AddReceiptsItemPopupViewModel();
+        viewModelPopup.SetData(itemToTransfer);
+
+        var popup = new AddReceiptItemPopup(viewModelPopup);
 
         var productUpdated = await this.ShowPopupAsync(popup);
-        if(productUpdated is not null)
+
+        if (productUpdated is not null)
         {
             await viewModel.DeleteProduct(productToUpdate);
             await viewModel.AddProductToReceipt(productUpdated as AddProductToReceiptDto);
         }
+    }
+
+    public class ItemDataDto
+    {
+        public string ProductName { get; set; }
+        public string WhatToRecycle { get; set; }
     }
 }

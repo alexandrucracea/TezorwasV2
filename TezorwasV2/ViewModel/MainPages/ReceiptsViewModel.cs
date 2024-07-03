@@ -128,6 +128,7 @@ namespace TezorwasV2.ViewModel.MainPages
                 {
                     Receipts.Add(receipt);
                 }
+                ApplyGradientBackground(Receipts);
             }
         }
         [RelayCommand]
@@ -155,7 +156,37 @@ namespace TezorwasV2.ViewModel.MainPages
             }
             return receiptIsRecycled;
         }
+
+
+        #region Styling
+        private void ApplyGradientBackground(dynamic receipts)
+        {
+            var gradientColors = GenerateGradientColors(receipts.Count, Microsoft.Maui.Graphics.Color.FromArgb("#037171"), Microsoft.Maui.Graphics.Color.FromArgb("#03312e"));
+
+            for (int i = 0; i < receipts.Count; i++)
+            {
+                receipts[i].BackgroundColor = gradientColors[i];
+            }
+        }
+        private List<Microsoft.Maui.Graphics.Color> GenerateGradientColors(int steps, Microsoft.Maui.Graphics.Color startColor, Microsoft.Maui.Graphics.Color endColor)
+        {
+            var colors = new List<Microsoft.Maui.Graphics.Color>();
+
+            for (int i = 0; i < steps; i++)
+            {
+                var r = startColor.Red + (endColor.Red - startColor.Red) * i / (steps - 1);
+                var g = startColor.Green + (endColor.Green - startColor.Green) * i / (steps - 1);
+                var b = startColor.Blue + (endColor.Blue - startColor.Blue) * i / (steps - 1);
+
+                colors.Add(new Microsoft.Maui.Graphics.Color(r, g, b));
+            }
+
+            return colors;
+        }
+        #endregion
     }
+
+
 
 
 }

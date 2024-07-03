@@ -1,23 +1,31 @@
 using CommunityToolkit.Maui.Views;
+using TezorwasV2.ViewModel;
 
 namespace TezorwasV2.View;
 
 public partial class AddReceiptItemPopup : Popup
 {
-    public readonly string ProductName;
-    public readonly string WhatToRecycle;
+    public readonly AddReceiptsItemPopupViewModel _viewModel;
     public AddReceiptItemPopup()
     {
         InitializeComponent();
     }
-    public AddReceiptItemPopup(string productName, string whatToRecycle)
+    public AddReceiptItemPopup(AddReceiptsItemPopupViewModel viewModel)
     {
         InitializeComponent();
-        ProductName = productName;
-        WhatToRecycle = whatToRecycle;
-        BindingContext = this;
-
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
     }
+    //public AddReceiptItemPopup(string productName, string whatToRecycle)
+    //{
+    //    InitializeComponent();
+
+    //    //viewModel.ProductName = productName;
+    //    //viewModel.WhatToRecycle = whatToRecycle;
+    //    BindingContext = this;
+    //    var x = 3;
+
+    //}
     private async void SaveProduct(object sender, EventArgs e)
     {
         await CloseAsync(new AddProductToReceiptDto

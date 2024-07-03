@@ -30,7 +30,7 @@ public partial class ReceiptsView : ContentPage
         #endregion
         await viewModel.GetAllProfileReceipts();
         viewModel.FilterDataCommand.Execute(DateTime.Now.Date);
-        ApplyGradientBackground(viewModel.Receipts);
+        //ApplyGradientBackground(viewModel.Receipts);
     }
 
     #region Events
@@ -83,8 +83,8 @@ public partial class ReceiptsView : ContentPage
         if (viewModel.initialProfileDataReceived)
         {
             var selectedDate = viewModel.DateToFilter;
-            viewModel.FilterDataCommand.Execute(selectedDate);
-            ApplyGradientBackground(viewModel.Receipts);
+             viewModel.FilterDataCommand.Execute(selectedDate);
+            //ApplyGradientBackground(viewModel.Receipts);
         }
 
     }

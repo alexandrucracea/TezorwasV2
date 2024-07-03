@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TezorwasV2.DTO;
@@ -29,11 +30,13 @@ namespace TezorwasV2.ViewModel.MainPages
 
         private readonly IProfileService _profileService;
         private readonly IGlobalContext _globalContext;
+        private readonly IPopupService _popupService;
 
-        public ReceiptItemViewModel(IProfileService profileService, IGlobalContext globalContext)
+        public ReceiptItemViewModel(IProfileService profileService, IGlobalContext globalContext, IPopupService popupService)
         {
             _profileService = profileService;
             _globalContext = globalContext;
+            _popupService = popupService;
         }
 
         public void PopulateReceiptTaskList()
