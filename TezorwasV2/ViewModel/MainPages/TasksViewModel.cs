@@ -27,6 +27,8 @@ namespace TezorwasV2.ViewModel.MainPages
         private readonly IGlobalContext _globalContext;
         private readonly IGptService _gptService;
 
+        private bool generatedTasksToday = false;
+
         public TasksViewModel(IGlobalContext globalContext, IProfileService profileService, IGptService gptService)
         {
             _globalContext = globalContext;
@@ -88,8 +90,13 @@ namespace TezorwasV2.ViewModel.MainPages
                 DateTime todaysDate = DateTime.Now.Date;
 
                 int tasksCompletedToday = CompletedTasks.Count(task => task.CompletionDate.Date == todaysDate && task.IsCompleted);
+                int taskCreatedToday = AvailableTasks.Count(task => task.CreationDate.Date == todaysDate && !task.IsCompleted);
 
-                if (AvailableTasks.Count < 2 && tasksCompletedToday < 3)
+                if(taskCreatedToday > 0)
+                {
+                    generatedTasksToday = true;
+                }
+                if (AvailableTasks.Count < 2 && tasksCompletedToday < 3 && !generatedTasksToday)
                 {
                     var tasksGenerated = await GenerateTasksWithGpt(levelOfWaste);
 
@@ -140,7 +147,7 @@ namespace TezorwasV2.ViewModel.MainPages
 
 
                 CompletedTasksToday = CompletedTasks.Count;
-                AvailableTasksToday += CompletedTasksToday;
+                //AvailableTasksToday += CompletedTasksToday;
                 ActualXpGotToday += task.XpEarned;
         }
 

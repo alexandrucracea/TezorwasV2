@@ -16,16 +16,7 @@ public partial class AddReceiptItemPopup : Popup
         _viewModel = viewModel;
         BindingContext = _viewModel;
     }
-    //public AddReceiptItemPopup(string productName, string whatToRecycle)
-    //{
-    //    InitializeComponent();
 
-    //    //viewModel.ProductName = productName;
-    //    //viewModel.WhatToRecycle = whatToRecycle;
-    //    BindingContext = this;
-    //    var x = 3;
-
-    //}
     private async void SaveProduct(object sender, EventArgs e)
     {
         await CloseAsync(new AddProductToReceiptDto

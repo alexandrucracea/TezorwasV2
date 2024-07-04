@@ -27,6 +27,7 @@ namespace TezorwasV2.ViewModel.MainPages
         [ObservableProperty] public int actualXpGotFromReceipt;
 
         private bool pageIsInitializing = true;
+        private int XpGotFromReceiptProfile;
 
         private readonly IProfileService _profileService;
         private readonly IGlobalContext _globalContext;
@@ -46,6 +47,8 @@ namespace TezorwasV2.ViewModel.MainPages
             AvailableXpReceipt = 0;
             ActualXpGotFromReceipt = 0;
             AvailableReceiptItems = 0;
+            XpGotFromReceiptProfile = 0;
+
 
             if (ReceiptToShow is not null)
             {
@@ -68,6 +71,7 @@ namespace TezorwasV2.ViewModel.MainPages
                 }
                 RecycledReceiptItems = ReceiptItemsRecycled.Count;
             }
+            XpGotFromReceiptProfile = ActualXpGotFromReceipt;
             pageIsInitializing = false;
         }
 
@@ -75,8 +79,6 @@ namespace TezorwasV2.ViewModel.MainPages
         public async Task RecycleReceiptItem(ReceiptItemModel itemToRecycle)
         {
             int recycledItemsCounter = 0;
-
-
 
             recycledItemsCounter++;
             ItemsAreRecycled = true;
@@ -89,6 +91,9 @@ namespace TezorwasV2.ViewModel.MainPages
             ReceiptItemsUnrecycled.Remove(itemToRecycle);
             ReceiptItemsRecycled.Add(itemToRecycle);
 
+            ActualXpGotFromReceipt += itemToRecycle.XpEarned;
+            RecycledReceiptItems++;
+
             await UpdateReceiptUnrecycledItems();
 
 
@@ -96,6 +101,7 @@ namespace TezorwasV2.ViewModel.MainPages
 
         private async Task UpdateReceiptUnrecycledItems()
         {
+
             ProfileDto profileToUpdate = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
             if (profileToUpdate is not null)
             {
@@ -114,8 +120,12 @@ namespace TezorwasV2.ViewModel.MainPages
                         }
                     }
                 }
+                if(ActualXpGotFromReceipt > XpGotFromReceiptProfile)
+                {
+                    profileToUpdate.Xp+= ActualXpGotFromReceipt - XpGotFromReceiptProfile;
+                    XpGotFromReceiptProfile = ActualXpGotFromReceipt;
+                }
             }
-
             await _profileService.UpdateAProfile(profileToUpdate, _globalContext.UserToken);
         }
 
