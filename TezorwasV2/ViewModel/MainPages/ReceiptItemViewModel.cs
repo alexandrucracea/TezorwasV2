@@ -120,9 +120,9 @@ namespace TezorwasV2.ViewModel.MainPages
                         }
                     }
                 }
-                if(ActualXpGotFromReceipt > XpGotFromReceiptProfile)
+                if (ActualXpGotFromReceipt > XpGotFromReceiptProfile)
                 {
-                    profileToUpdate.Xp+= ActualXpGotFromReceipt - XpGotFromReceiptProfile;
+                    profileToUpdate.Xp += ActualXpGotFromReceipt - XpGotFromReceiptProfile;
                     XpGotFromReceiptProfile = ActualXpGotFromReceipt;
                 }
             }
@@ -146,6 +146,8 @@ namespace TezorwasV2.ViewModel.MainPages
 
 
             ReceiptItemsUnrecycled.Add(newReceiptItem);
+            AvailableReceiptItems++;
+            AvailableXpReceipt += newReceiptItem.XpEarned;
 
 
             await UpdateReceiptUnrecycledItems();
@@ -177,6 +179,8 @@ namespace TezorwasV2.ViewModel.MainPages
             if (itemToRemove != null)
             {
                 ReceiptItemsUnrecycled.Remove(itemToRemove);
+                AvailableReceiptItems--;
+                AvailableXpReceipt -= itemToRemove.XpEarned;
             }
 
             await UpdateReceiptUnrecycledItems();

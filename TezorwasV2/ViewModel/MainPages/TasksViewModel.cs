@@ -110,7 +110,7 @@ namespace TezorwasV2.ViewModel.MainPages
                             CreationDate = DateTime.Now,
                             IsCompleted = false,
                             XpEarned = task.XpEarned,
-                            CompletionDate = DateTime.Now // trebuie suprascris când se completează taskul
+                            CompletionDate = DateTime.Now 
                         };
 
                         AvailableTasks.Add(newTask);
@@ -143,10 +143,16 @@ namespace TezorwasV2.ViewModel.MainPages
             task.CompletionDate = DateTime.Now;
 
             ProfileDto profileToUpdate = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
-            profileToUpdate.Tasks = AvailableTasks.Concat(CompletedTasks).ToList();
             profileToUpdate.Xp += task.XpEarned;
             profileToUpdate.Level = UpdateLevelIfNecessary(profileToUpdate);
-
+            foreach(TaskModel taskToCheck in profileToUpdate.Tasks)
+            {
+                if (taskToCheck.Description.Equals(task.Description))
+                {
+                    taskToCheck.IsCompleted = true;
+                    break;
+                }
+            }
             await _profileService.UpdateAProfile(profileToUpdate, _globalContext.UserToken);
 
 
