@@ -1,5 +1,6 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using static TezorwasV2.View.AppPages.ArticlesView;
 
@@ -34,6 +35,11 @@ namespace TezorwasV2.ViewModel.MainPages
                 PublishDate = ArticleToShow.DatePublished;
                 PopulateParagraphs();
             }
+        }
+        [RelayCommand]
+        public async Task GoBack()
+        {
+            await Shell.Current.GoToAsync("..", true);
         }
     }
     public class ParagraphDto
