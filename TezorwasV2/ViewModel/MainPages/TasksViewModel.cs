@@ -114,6 +114,7 @@ namespace TezorwasV2.ViewModel.MainPages
                         };
 
                         AvailableTasks.Add(newTask);
+                        AvailableXpToday+= task.XpEarned;
                         gptGeneratedTasks.Add(newTask);
                     }
                     await UpdateProfilesAvailableTasks(gptGeneratedTasks);
@@ -134,6 +135,7 @@ namespace TezorwasV2.ViewModel.MainPages
                 profileToUpdate.Tasks.Add(task);
             }
             await _profileService.UpdateAProfile(profileToUpdate, _globalContext.UserToken);
+           
         }
 
         private async Task UpdateProfilesCompletedTasks(TaskModel task)

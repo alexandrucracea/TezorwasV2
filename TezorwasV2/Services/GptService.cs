@@ -53,7 +53,7 @@ namespace TezorwasV2.Services
                             new
                             {
                                 role = "system",
-                                content = "User category: {pollution level} pollution level (points out of 5). Generate three recycling tasks. Each task should be concise, intuitive, and include a specific     number    of products/parts to recycle. Tasks closer to pollution level 1 should be easier and involve fewer items, while tasks closer to pollution level 5 should be more      challenging and   involve more items. Tasks around level 3 should be of medium difficulty. Each task should be no longer than 7 words and specify the number of items to   recycle    and the experience     points (0-20). Format the response as follows: Recycle: number of items product - numberOfExperiencePoints xp."
+                                content = "User category: {pollution level} pollution level (points out of 5). Generate three recycling tasks. Each task should be concise, intuitive, and include a specific     number    of products/parts to recycle. Tasks closer to pollution level 1 should be easier and involve fewer items, while tasks closer to pollution level 5 should be more      challenging and   involve more items. Tasks around level 3 should be of medium difficulty. Each task should be no longer than 7 words and specify the number of items to   recycle    and the experience     points (1-20). Format the response as follows: Recycle: number of items product - numberOfExperiencePoints xp."
                             }
                         },
                         temperature = 1

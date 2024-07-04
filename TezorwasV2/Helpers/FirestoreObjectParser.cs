@@ -113,7 +113,7 @@ namespace TezorwasV2.Helpers
                 profileToParse.Receipts.Add(new ReceiptModel
                 {
                     Id = idReceipt.ToString(),
-                    Name = (receiptName.GetString() !=null ? receiptName.ToString() : ("Receipt"+completionDate.GetString()!)),
+                    Name = (receiptName.GetString() !=null ? receiptName.ToString() : ("Receipt"+inputDate.GetString()!)),
                     CompletionDate = DateTime.Parse(completionDate.GetString()!),
                     CreationDate = DateTime.Parse(inputDate.GetString()!),
                     ReceiptItems = itemsToAdd

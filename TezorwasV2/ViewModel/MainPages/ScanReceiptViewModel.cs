@@ -40,6 +40,7 @@ namespace TezorwasV2.ViewModel.MainPages
         [RelayCommand]
         public async Task TakePhoto()
         {
+            _loadingPopup = new LoadingSpinnerPopup();
             if (MediaPicker.Default.IsCaptureSupported)
             {
                 FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
@@ -74,8 +75,8 @@ namespace TezorwasV2.ViewModel.MainPages
                     //}
                     //resultLabel = result.RecognisedText;
                     #endregion
-               
-                    if(result.Length > 0)
+
+                    if (result.Length > 0)
                     {
                         var generatedTaskMessage = await _gptService.GenerateReceiptTasks(result, _globalContext.UserToken);
                         var generatedTasksParsed = GptObjectParser.ParseGptReceiptTasksModel(generatedTaskMessage);
@@ -84,69 +85,13 @@ namespace TezorwasV2.ViewModel.MainPages
                         await UpdateProfileReceipts(generatedTasksParsed);
                         await GoToReceipt(generatedTasksParsed);
 
+                        _popupService.ClosePopup(_loadingPopup);
+
+
                     }
-                    _popupService.ClosePopup(_loadingPopup);
-
-                    var snackbarOptions = new SnackbarOptions
+                    else
                     {
-                        BackgroundColor = Color.FromRgb(244, 214, 210),
-                        TextColor = Color.FromRgb(150, 25, 17),
-                        CornerRadius = new CornerRadius(40),
-                        Font = Microsoft.Maui.Font.SystemFontOfSize(14)
 
-                    };
-                    var snackbar = Snackbar.Make("Photo does not contain text", null, actionButtonText: "", duration: new TimeSpan(0, 0, 3), snackbarOptions);
-
-                    await snackbar.Show(default);
-                }
-            }
-        }
-
-        [RelayCommand]
-        public async Task UploadPhoto()
-        {
-            if (MediaPicker.Default.IsCaptureSupported)
-            {
-                FileResult photo = await MediaPicker.Default.PickPhotoAsync();
-
-                if (photo != null)
-                {
-                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
-
-                    try
-                    {
-                        // Copy the photo to local storage
-                        using (Stream sourceStream = await photo.OpenReadAsync())
-                        {
-                            using (FileStream localFileStream = File.Create(localFilePath))
-                            {
-                                await sourceStream.CopyToAsync(localFileStream);
-                            }
-                        }
-
-                        Console.WriteLine($"Local file path: {localFilePath}");
-
-                        // Ensure the file exists
-                        if (!File.Exists(localFilePath))
-                        {
-                            Console.WriteLine($"Local file not found: {localFilePath}");
-                            throw new FileNotFoundException($"Local file not found: {localFilePath}");
-                        }
-
-                        Console.WriteLine("Local file exists, proceeding with OCR.");
-
-
-                        _popupService.ShowPopup(_loadingPopup);
-                        // Extract text from image
-                        string resultLabel = await _ocrService.ExtractTextFromImageAsync(localFilePath);
-                        if (resultLabel.Length > 0) { 
-                            var generatedReceiptMessage = await _gptService.GenerateReceiptTasks(resultLabel, _globalContext.UserToken);
-                        var generatedReceiptParsed = GptObjectParser.ParseGptReceiptTasksModel(generatedReceiptMessage);
-
-
-                        await UpdateProfileReceipts(generatedReceiptParsed);
-                        await GoToReceipt(generatedReceiptParsed);
-                        }
                         _popupService.ClosePopup(_loadingPopup);
 
                         var snackbarOptions = new SnackbarOptions
@@ -160,6 +105,76 @@ namespace TezorwasV2.ViewModel.MainPages
                         var snackbar = Snackbar.Make("Photo does not contain text", null, actionButtonText: "", duration: new TimeSpan(0, 0, 3), snackbarOptions);
 
                         await snackbar.Show(default);
+                    }
+                }
+            }
+        }
+
+        [RelayCommand]
+        public async Task UploadPhoto()
+        {
+            _loadingPopup = new LoadingSpinnerPopup();
+
+            if (MediaPicker.Default.IsCaptureSupported)
+            {
+                FileResult photo = await MediaPicker.Default.PickPhotoAsync();
+
+                if (photo != null)
+                {
+                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+
+                    try
+                    {
+
+                        using (Stream sourceStream = await photo.OpenReadAsync())
+                        {
+                            using (FileStream localFileStream = File.Create(localFilePath))
+                            {
+                                await sourceStream.CopyToAsync(localFileStream);
+                            }
+                        }
+
+                        Console.WriteLine($"Local file path: {localFilePath}");
+
+
+                        if (!File.Exists(localFilePath))
+                        {
+                            Console.WriteLine($"Local file not found: {localFilePath}");
+                            throw new FileNotFoundException($"Local file not found: {localFilePath}");
+                        }
+
+                        Console.WriteLine("Local file exists, proceeding with OCR.");
+
+
+                        _popupService.ShowPopup(_loadingPopup);
+                        string resultLabel = await _ocrService.ExtractTextFromImageAsync(localFilePath);
+                        if (resultLabel.Length > 0)
+                        {
+                            var generatedReceiptMessage = await _gptService.GenerateReceiptTasks(resultLabel, _globalContext.UserToken);
+                            var generatedReceiptParsed = GptObjectParser.ParseGptReceiptTasksModel(generatedReceiptMessage);
+
+
+                            await UpdateProfileReceipts(generatedReceiptParsed);
+                            await GoToReceipt(generatedReceiptParsed);
+
+                            _popupService.ClosePopup(_loadingPopup);
+
+                        }
+                        else
+                        {
+                            _popupService.ClosePopup(_loadingPopup);
+                            var snackbarOptions = new SnackbarOptions
+                            {
+                                BackgroundColor = Color.FromRgb(244, 214, 210),
+                                TextColor = Color.FromRgb(150, 25, 17),
+                                CornerRadius = new CornerRadius(40),
+                                Font = Microsoft.Maui.Font.SystemFontOfSize(14)
+
+                            };
+                            var snackbar = Snackbar.Make("Photo does not contain text", null, actionButtonText: "", duration: new TimeSpan(0, 0, 3), snackbarOptions);
+
+                            await snackbar.Show(default);
+                        }
 
                     }
                     catch (Exception ex)

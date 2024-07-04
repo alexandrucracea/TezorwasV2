@@ -60,13 +60,13 @@ namespace TezorwasV2.Helpers
                 receiptToParse += message.GetProperty("content").GetString();
             }
 
-            // Separate each line and create ReceiptItemModel objects
+            
             string[] responsedSplitted = receiptToParse.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             List<ReceiptItemModel> receiptItems = new List<ReceiptItemModel>();
 
             foreach (string itemTask in responsedSplitted)
             {
-                // Remove the number and period from the beginning
+               
                 string cleanedTask = itemTask.Substring(itemTask.IndexOf('.') + 1).Trim();
 
                 ReceiptItemModel itemToRecycle = new ReceiptItemModel
@@ -84,8 +84,10 @@ namespace TezorwasV2.Helpers
 
             receipt.Id = Guid.NewGuid().ToString();
             receipt.CreationDate = DateTime.Now;
+            receipt.Name = "Receipt " + DateTime.Now.Date.ToString("dd.MM.yyyy");
             receipt.CompletionDate = DateTime.Now;
             receipt.ReceiptItems = receiptItems;
+            
 
             return receipt;
         }
