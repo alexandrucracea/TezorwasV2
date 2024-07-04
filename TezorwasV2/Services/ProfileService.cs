@@ -35,7 +35,9 @@ namespace TezorwasV2.Services
                     { "joinDate", profileToCreate.JoinDate},
                     { "personId", profileToCreate.PersonId},
                     { "level", profileToCreate.Level},
-                    {"xp",profileToCreate.Xp}
+                    {"xp",profileToCreate.Xp},
+                    {"tasks",new List<object>() },
+                    {"receipts", new List<object>()}
                 };
                 if (profileToCreate.Achievments is not null)
                 {
