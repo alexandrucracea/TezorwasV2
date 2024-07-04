@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
+using TezorwasV2.DTO;
 using TezorwasV2.Helpers;
 using TezorwasV2.Model;
 using TezorwasV2.Services;
@@ -46,6 +47,24 @@ namespace TezorwasV2.ViewModel.MainPages
             
 
             await _profileService.UpdateAProfile(profile, _globalContext.UserToken);
+        }
+
+        public async Task DeleteHabbit(HabbitModel habbitToDelete)
+        {
+
+            var itemToRemove = ProfileHabbits.FirstOrDefault(h => h.Description.Equals(habbitToDelete.Description));
+            if (itemToRemove != null)
+            {
+                ProfileHabbits.Remove(itemToRemove);
+            }
+            ProfileDto profile = await _profileService.GetProfileInfo(_globalContext.ProfileId, _globalContext.UserToken);
+            var habbitToDel = profile.Habbits.FirstOrDefault(h => h.Description.Equals(habbitToDelete.Description));
+            if (habbitToDelete != null)
+            {
+                profile.Habbits.Remove(habbitToDel);
+            }
+
+            await _profileService.UpdateAProfile(profile as dynamic, _globalContext.UserToken);
         }
 
     }

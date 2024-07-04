@@ -48,7 +48,7 @@ namespace TezorwasV2.ViewModel.MainPages
                 CompletedTasks.Add(task);
 
                 await UpdateProfilesCompletedTasks(task);
-                    
+
 
 
             }
@@ -57,13 +57,13 @@ namespace TezorwasV2.ViewModel.MainPages
         public async Task PopulateTasks()
         {
 
-                AvailableTasks.Clear();
-                CompletedTasks.Clear();
+            AvailableTasks.Clear();
+            CompletedTasks.Clear();
 
-                AvailableXpToday = 0;
-                ActualXpGotToday = 0;
-                AvailableTasksToday = 0;
-                CompletedTasksToday = 0;
+            AvailableXpToday = 0;
+            ActualXpGotToday = 0;
+            AvailableTasksToday = 0;
+            CompletedTasksToday = 0;
 
             var allProfiles = await _profileService.GetAllProfiles(_globalContext.UserToken);
             var currentUserProfile = allProfiles.FirstOrDefault(profile => profile.PersonId.Equals(_globalContext.PersonId));
@@ -71,28 +71,29 @@ namespace TezorwasV2.ViewModel.MainPages
             {
                 _globalContext.ProfileId = currentUserProfile.Id;
 
-                    foreach (var task in currentUserProfile.Tasks)
+                foreach (var task in currentUserProfile.Tasks)
+                {
+                    if (task.CreationDate.Date == DateTime.Now.Date && !task.IsCompleted)
                     {
+                        AvailableTasks.Add(task);
                         AvailableXpToday += task.XpEarned;
-                        if (task.CreationDate.Date == DateTime.Now.Date && !task.IsCompleted)
-                        {
-                            AvailableTasks.Add(task);
-                        }
-                        else if (task.CompletionDate.Date == DateTime.Now.Date && task.IsCompleted)
-                        {
-                            CompletedTasks.Add(task);
-                            ActualXpGotToday += task.XpEarned;
-                        }
+
                     }
+                    else if (task.CompletionDate.Date == DateTime.Now.Date && task.IsCompleted)
+                    {
+                        CompletedTasks.Add(task);
+                        ActualXpGotToday += task.XpEarned;
+                    }
+                }
 
 
-                double levelOfWaste = currentUserProfile.Habbits.FirstOrDefault().LevelOfWaste;
+                double levelOfWaste = currentUserProfile.Habbits.Average(habbit => habbit.LevelOfWaste);
                 DateTime todaysDate = DateTime.Now.Date;
 
                 int tasksCompletedToday = CompletedTasks.Count(task => task.CompletionDate.Date == todaysDate && task.IsCompleted);
                 int taskCreatedToday = AvailableTasks.Count(task => task.CreationDate.Date == todaysDate && !task.IsCompleted);
 
-                if(taskCreatedToday > 0)
+                if (taskCreatedToday > 0)
                 {
                     generatedTasksToday = true;
                 }
@@ -112,16 +113,17 @@ namespace TezorwasV2.ViewModel.MainPages
                             CompletionDate = DateTime.Now // trebuie suprascris când se completează taskul
                         };
 
-                         AvailableTasks.Add(newTask);
+                        AvailableTasks.Add(newTask);
                         gptGeneratedTasks.Add(newTask);
                     }
                     await UpdateProfilesAvailableTasks(gptGeneratedTasks);
                 }
             }
 
-                AvailableTasksToday = AvailableTasks.Count + CompletedTasks.Count;
-                CompletedTasksToday = CompletedTasks.Count;
-            
+            AvailableTasksToday = AvailableTasks.Count + CompletedTasks.Count;
+            CompletedTasksToday = CompletedTasks.Count;
+            AvailableXpToday += ActualXpGotToday;
+
         }
 
         private async Task UpdateProfilesAvailableTasks(List<TaskModel> generatedTasksByGpt)
@@ -146,9 +148,9 @@ namespace TezorwasV2.ViewModel.MainPages
             await _profileService.UpdateAProfile(profileToUpdate, _globalContext.UserToken);
 
 
-                CompletedTasksToday = CompletedTasks.Count;
-                //AvailableTasksToday += CompletedTasksToday;
-                ActualXpGotToday += task.XpEarned;
+            CompletedTasksToday = CompletedTasks.Count;
+            //AvailableTasksToday += CompletedTasksToday;
+            ActualXpGotToday += task.XpEarned;
         }
 
         private int UpdateLevelIfNecessary(ProfileDto profileToUpdate)

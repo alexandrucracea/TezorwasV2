@@ -58,7 +58,7 @@
                                FontSize="38"
                                FontFamily="Inter-VariableFont"
                                FontAttributes="Bold"
-                               Margin="30,10,0,15"
+                               Margin="10,10,0,15"
                                TextColor="{StaticResource BACKGROUND}"/>
                         <ImageButton Source="Rseources/Images/menu_dark.png"
                                      HeightRequest="40"

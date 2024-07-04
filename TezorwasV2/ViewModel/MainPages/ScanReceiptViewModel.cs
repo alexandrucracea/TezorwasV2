@@ -1,4 +1,6 @@
 ﻿
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SkiaSharp;
@@ -73,16 +75,29 @@ namespace TezorwasV2.ViewModel.MainPages
                     //resultLabel = result.RecognisedText;
                     #endregion
                
+                    if(result.Length > 0)
+                    {
+                        var generatedTaskMessage = await _gptService.GenerateReceiptTasks(result, _globalContext.UserToken);
+                        var generatedTasksParsed = GptObjectParser.ParseGptReceiptTasksModel(generatedTaskMessage);
+                        //ImageModel model = new ImageModel() { ImagePath = localFilePath, Title = "sample", Description = "Cool" };
 
+                        await UpdateProfileReceipts(generatedTasksParsed);
+                        await GoToReceipt(generatedTasksParsed);
 
-                    var generatedTaskMessage = await _gptService.GenerateReceiptTasks(result, _globalContext.UserToken);
-                    var generatedTasksParsed = GptObjectParser.ParseGptReceiptTasksModel(generatedTaskMessage);
-                    //ImageModel model = new ImageModel() { ImagePath = localFilePath, Title = "sample", Description = "Cool" };
-
-                    await UpdateProfileReceipts(generatedTasksParsed);
-                    await GoToReceipt(generatedTasksParsed);
-
+                    }
                     _popupService.ClosePopup(_loadingPopup);
+
+                    var snackbarOptions = new SnackbarOptions
+                    {
+                        BackgroundColor = Color.FromRgb(244, 214, 210),
+                        TextColor = Color.FromRgb(150, 25, 17),
+                        CornerRadius = new CornerRadius(40),
+                        Font = Microsoft.Maui.Font.SystemFontOfSize(14)
+
+                    };
+                    var snackbar = Snackbar.Make("Photo does not contain text", null, actionButtonText: "", duration: new TimeSpan(0, 0, 3), snackbarOptions);
+
+                    await snackbar.Show(default);
                 }
             }
         }
@@ -124,15 +139,27 @@ namespace TezorwasV2.ViewModel.MainPages
                         _popupService.ShowPopup(_loadingPopup);
                         // Extract text from image
                         string resultLabel = await _ocrService.ExtractTextFromImageAsync(localFilePath);
-
-                        var generatedReceiptMessage = await _gptService.GenerateReceiptTasks(resultLabel, _globalContext.UserToken);
+                        if (resultLabel.Length > 0) { 
+                            var generatedReceiptMessage = await _gptService.GenerateReceiptTasks(resultLabel, _globalContext.UserToken);
                         var generatedReceiptParsed = GptObjectParser.ParseGptReceiptTasksModel(generatedReceiptMessage);
 
 
                         await UpdateProfileReceipts(generatedReceiptParsed);
                         await GoToReceipt(generatedReceiptParsed);
-
+                        }
                         _popupService.ClosePopup(_loadingPopup);
+
+                        var snackbarOptions = new SnackbarOptions
+                        {
+                            BackgroundColor = Color.FromRgb(244, 214, 210),
+                            TextColor = Color.FromRgb(150, 25, 17),
+                            CornerRadius = new CornerRadius(40),
+                            Font = Microsoft.Maui.Font.SystemFontOfSize(14)
+
+                        };
+                        var snackbar = Snackbar.Make("Photo does not contain text", null, actionButtonText: "", duration: new TimeSpan(0, 0, 3), snackbarOptions);
+
+                        await snackbar.Show(default);
 
                     }
                     catch (Exception ex)

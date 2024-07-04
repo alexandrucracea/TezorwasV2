@@ -39,7 +39,8 @@
                                     Stroke="{StaticResource TEXT-COLOR-LIGHT}">
                 <Editor x:Name="EdtHabbitDescription"
                         PlaceholderColor="Red"
-                        Placeholder="Habbit"/>
+                        Placeholder="Habbit"
+                        Text="{Binding Description}"/>
                 <core:SfTextInputLayout.HintLabelStyle>
                     <core:LabelStyle TextColor ="{StaticResource TEXT-COLOR}"                                               
                                      FontFamily="Lobster-Regular"/>
@@ -57,7 +58,7 @@
 
                 <inputs:SfRating x:Name="wasteRating" 
                                  ItemCount="5"
-                                 Value="{Binding HabbitLevelOfWaste}"
+                                 Value="{Binding LevelOfWaste}"
                                  Precision="Half"
                                  RatingShape="Circle"
                                  HeightRequest="20"

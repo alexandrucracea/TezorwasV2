@@ -34,7 +34,7 @@
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\greenhero.svg" Color="#eff1f3" />
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\greenhero3.png" />
+		<MauiSplashScreen Include="Resources\Splash\greenhero3.png"/>
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
